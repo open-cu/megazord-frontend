@@ -1,0 +1,9 @@
+.border-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border: 1px solid var(--stroke-color);
+    border-radius: 4px;
+    padding: 12px; 
+    cursor: pointer;
+}

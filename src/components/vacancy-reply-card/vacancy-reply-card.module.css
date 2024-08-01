@@ -1,0 +1,22 @@
+.card {
+    padding: 16px;
+    border: 1px solid var(--stroke-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.member-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.member-info {
+    display: flex;
+    flex-direction: column;
+}

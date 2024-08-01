@@ -1,0 +1,28 @@
+.border-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--stroke-color);
+    border-radius: 4px;
+    padding: 12px; 
+}
+
+.member-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+
+}
+
+.member-bio {  
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.member-info {
+    display: flex;
+    flex-direction: column;
+}

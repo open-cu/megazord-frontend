@@ -1,0 +1,17 @@
+.titleContainer {
+}
+
+.titleContainer span {
+    font-weight: 500;
+}
+
+.card {
+    border-radius: 8px;
+    border: 1px solid var(--stroke-color);
+    cursor: pointer;
+    transition: background-color 300ms;
+}   
+
+.card:hover {
+    background-color: #f4f5f8;
+}

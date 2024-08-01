@@ -1,0 +1,14 @@
+.member-container {
+    border: 1px solid var(--stroke-color);
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.member-info {
+    display: flex;
+    flex-direction: column;
+}

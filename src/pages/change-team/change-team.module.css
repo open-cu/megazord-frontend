@@ -1,0 +1,7 @@
+.delete_btn {
+  color: var(--mantine-color-red-6) !important;
+}
+
+.add_btn {
+  color: var(--mantine-color-blue-6) !important;
+}

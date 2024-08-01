@@ -1,0 +1,15 @@
+.teamCard {
+    border: 1px solid var(--stroke-color);
+    border-radius: 8px;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.link {
+    color: var(--mantine-primary-color-filled) !important;
+    cursor: pointer;
+}
+
+.link:hover {
+    text-decoration: underline;
+}

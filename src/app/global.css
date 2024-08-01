@@ -1,0 +1,18 @@
+:root {
+    --stroke-color: #CED4DA;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 400;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: 400;
+}

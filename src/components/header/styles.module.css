@@ -1,0 +1,16 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--mantine-color-white);
+}
+
+.link {
+  padding: 4px 12px;
+  border-radius: 5px;
+}
+
+a[data-active] {
+  background-color: var(--mantine-color-blue-filled);
+  color: var(--mantine-color-white) !important;
+}

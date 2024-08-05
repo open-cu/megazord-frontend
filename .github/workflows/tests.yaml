@@ -25,3 +25,9 @@ jobs:
 
       # - name: Lint
       #   run: npm run lint
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          verbose: true
+          token: ${{ secrets.CODECOV_TOKEN }}

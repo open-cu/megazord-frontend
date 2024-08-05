@@ -1,3 +1,6 @@
+[![codebeat badge](https://codebeat.co/badges/78a733e1-4586-4231-ba48-76de3984ebac)](https://codebeat.co/projects/github-com-open-cu-megazord-frontend-main)
+[![codecov](https://codecov.io/github/open-cu/megazord-frontend/graph/badge.svg?token=4YNWOE664K)](https://codecov.io/github/open-cu/megazord-frontend)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

@@ -112,7 +112,6 @@ export const CreateHackathonForm = () => {
                             w={ "100%" }
                             value={ file }
                             onChange={ (e) => {
-                                console.log("breakpoint")
                                 if (e) {
                                     setPreviewError('')
                                     setFile(e)

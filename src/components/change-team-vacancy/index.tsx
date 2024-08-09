@@ -2,6 +2,8 @@ import { Flex, Text, Textarea, TextInput, UnstyledButton } from "@mantine/core";
 import styles from "@/pages/change-team/change-team.module.css";
 import { EditableVacancy } from "@/pages/change-team";
 import { FC } from "react";
+import {MultiSelectInput} from "@/components/multi-select-input";
+import {skills} from "@/utils/skills";
 
 type ChangeTeamVacancyProps = {
     vacancy: EditableVacancy
@@ -23,16 +25,16 @@ export const ChangeTeamVacancy: FC<ChangeTeamVacancyProps> = (props) => {
                 } }
                 value={ props.vacancy.name }
             />
-            <Textarea
-                label="Ключевые слова"
-                placeholder="Ключевые слова (Например: Go, Postgres, Docker)"
-                onChange={ e => {
+
+            <MultiSelectInput
+                state={props.vacancy.keywords}
+                setState={(keywords) => {
                     props.onChange({
                         ...props.vacancy,
-                        keywords: e.target.value,
+                        keywords: keywords,
                     })
-                } }
-                value={ props.vacancy.keywords }
+                }}
+                data={skills}
             />
             <UnstyledButton onClick={ () => props.onDelete(props.vacancy) }>
                 <Text

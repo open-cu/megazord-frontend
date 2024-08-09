@@ -24,6 +24,7 @@ import { TeamsOrg } from "@/pages/teams/org";
 import { TeamDetailPage } from "@/pages/team-detail";
 import { CreateTeam } from "@/pages/create-team";
 import { JoinTeam } from "@/pages/join-team";
+import AdminPanel from "@/pages/admin-panel";
 
 export const router = createBrowserRouter([
   {
@@ -123,4 +124,8 @@ export const router = createBrowserRouter([
     path: '/join-team',
     element: <JoinTeam />
   },
+  {
+    path: 'admin-panel/:hackathon_id',
+    element: <AdminPanel />
+  }
 ]);

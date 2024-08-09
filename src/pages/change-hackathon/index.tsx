@@ -1,11 +1,13 @@
 import {Header} from "@/components/header";
 import {Container, Space} from "@mantine/core";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {ChangeHackathonForm} from "@/components/change-hackathon-form";
 import {IHackathon} from "@/models/IHackathon";
 import fetchHackathon from "@/api/fetch-hackathon";
-import {Center, Loader} from "@mantine/core";
+import {Center, Loader, Flex} from "@mantine/core";
+import styles from './change-hackathon.module.css'
+import {AuthGuard} from "@/components/auth-guard";
 
 export const ChangeHackathon = () => {
     const params = useParams();
@@ -41,13 +43,18 @@ export const ChangeHackathon = () => {
     }
 
     return (
-        <>
+        <AuthGuard role={"organizer"}>
             <Header variant="organizer" />
             <Container size="md" pb={"100px"}>
-                <h1>Изменение хакатона</h1>
+                <Flex justify={"space-between"} align={"center"}>
+                    <h1>Изменение хакатона</h1>
+                    <Link className={styles.link} to={`/admin-panel/${hackathon.id}`}>
+                        Перейти в админ панель
+                    </Link>
+                </Flex>
                 <Space h="md" />
                 <ChangeHackathonForm hackathon={hackathon} updateHackathonFunc={updateHackathonFunc} />
             </Container>
-        </>
+        </AuthGuard>
     )
 }

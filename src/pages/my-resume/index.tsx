@@ -202,7 +202,7 @@ const Content: FC<ContentProps> = (props) => {
 
                 <Container mt="xl" px={ 0 }>
                     <h3>Tech Skills</h3>
-                    <Flex direction="column" gap="sm" mt="md">
+                    <Flex direction="column" gap="sm" mt="xs">
                         { techSkillsItems }
                     </Flex>
                     <Button variant="subtle" mt="xs" onClick={ addTechSkill }>
@@ -212,7 +212,7 @@ const Content: FC<ContentProps> = (props) => {
 
                 <Container mt="xl" px={ 0 }>
                     <h3>Soft Skills</h3>
-                    <Flex direction="column" gap="sm" mt="md">
+                    <Flex direction="column" gap="sm" mt="xs">
                         { softSkillsItems }
                     </Flex>
                     <Button variant="subtle" mt="xs" onClick={ addSoftSkill }>

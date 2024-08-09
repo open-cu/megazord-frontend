@@ -7,7 +7,6 @@ import { AuthGuard } from "@/components/auth-guard";
 import { useEffect, useState } from "react";
 import { IHackathon } from "@/models/IHackathon.ts";
 import fetchMyHackathons from "@/api/fetch-my-hackathons.ts";
-import {MultiSelectInput} from "@/components/multi-select-input";
 
 export const HackathonsOrg = () => {
     const [hackathons, setHackathons] = useState<IHackathon[]>([])

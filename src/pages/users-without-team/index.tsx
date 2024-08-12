@@ -6,15 +6,13 @@ import {AuthGuard} from "@/components/auth-guard";
 import {Header} from "@/components/header";
 import {Center, Container, Space} from "@mantine/core";
 import {MembersList} from "@/components/members-list";
+import getParticipantsWithoutTeam from "@/api/get-participants-without-team";
 
 export const UsersWithoutTeam = memo(() => {
     const {hackathon_id} = useParams()
     const [users, setUsers] = useState<IUser[] | null>()
     useEffect(() => {
-        fetchHackathon(parseInt(hackathon_id as string)).then(data => {
-            if (!data) return null;
-            setUsers(data.participants)
-        });
+        getParticipantsWithoutTeam(hackathon_id).then(data => setUsers(data))
     }, [])
     return (
         <AuthGuard role={"organizer"}>

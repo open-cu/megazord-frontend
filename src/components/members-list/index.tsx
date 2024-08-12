@@ -12,9 +12,9 @@ export const MembersList = ({ hackathon_id, members}: Props) => {
 
     const navigate = useNavigate()
 
-    const items = members.map((member, index) => (
-        <MemberCard key={index} { ...member } onClick={() => navigate(`/hackathon/${hackathon_id}/resume/${member.id}`) } />
-    ))
+    const items = members && members.length ? members.map((member, index) => (
+        <MemberCard key={member.id} { ...member } onClick={() => navigate(`/hackathon/${hackathon_id}/resume/${member.id}`) } />
+    )) : <></>
 
     return (
         <SimpleGrid cols={ {base: 1, xs: 2, sm: 3} } spacing="md">

@@ -39,13 +39,13 @@ export const HackathonStats = memo(() => {
                 title={"Участников без команды"}
                 stat={stats.people_without_teams.length}
                 linkTitle={"Список участников без команды"}
-                link={`/hackathon/${hackathon_id}/org/teams`}
+                link={`/admin-panel/${hackathon_id}/without-team`}
             />
             <HackathonStatsCard
                 title={"Приглашение в хакатон приняли"}
                 stat={`${stats.accepted_invite} / ${stats.invited_people}`}
-                linkTitle={"Почты участников не принявших пригашение"}
-                link={`/hackathon/${hackathon_id}/org/teams`}
+                linkTitle={"Почты участников не принявших приглашение"}
+                link={`/admin-panel/${hackathon_id}/not-accept-invite`}
             />
         </SimpleGrid>
     );

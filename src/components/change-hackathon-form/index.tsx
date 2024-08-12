@@ -31,7 +31,6 @@ export const ChangeHackathonForm = (
     const participants = hackathon.participants.map(item => item.email)
     const [participantInputError, setParticipantInputError] = useState<string>('')
     const [participantInputValue, setParticipantInputValue] = useState<string>('')
-    const [percentWithTeam, setPercentWithTeam] = useState(0)
     const [loading, setLoading] = useState(false)
 
     const addParticipant = (email: string) => {
@@ -71,12 +70,6 @@ export const ChangeHackathonForm = (
             })
         }
     })
-
-    useEffect(() => {
-        getPercentWithTeam(hackathon.id).then(data => {
-            setPercentWithTeam(data)
-        })
-    }, [])
 
     return (
         <Formik { ...formik }>
@@ -152,18 +145,7 @@ export const ChangeHackathonForm = (
                     {
                         successMessage && <Text size='sm' c='green'>{ successMessage }</Text>
                     }
-                    {
-                        participants.length !== 0 && <Text size="sm" mt={ 10 }>
-                            Уже <strong>{ percentWithTeam }%</strong> участиков находится в команде
-                        </Text>
-                    }
                     <Button w={ "fit-content" } type={ "submit" }>Сохранить</Button>
-                    <Link
-                        to={ `/hackathon/${ hackathon.id }/org/teams` }
-                        className={ styles.link }
-                    >
-                        Смотреть команды
-                    </Link>
                 </Flex>
             </Form>
         </Formik>

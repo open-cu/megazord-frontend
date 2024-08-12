@@ -20,12 +20,12 @@ export const Login = () => {
             const response = await login(values)
 
             if (response == 'invalid-credentials') {
-                formikHelpers.setFieldError('email', 'Неверный email или пароль')
+                formikHelpers.setFieldError('email', 'Не найден аккаунт с таким email и/или паролем')
                 return
             }
 
             if (!response) {
-                formikHelpers.setFieldError('email', 'Произошла непредвиденная ошибка')
+                formikHelpers.setFieldError('email', 'Не найден аккаунт с таким email и/или паролем')
                 return
             }
 

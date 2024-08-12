@@ -7,9 +7,10 @@ import { useEffect, useState } from "react";
 import { IUser } from "@/models/IUser";
 import fetchHackathon from "@/api/fetch-hackathon";
 import { SearchInput } from "@/components/search-input";
+import useUserStore from "@/stores/user-store";
 
 export const HackathonInfo = () => {
-
+  const {user} = useUserStore()
   const { hackathon_id } = useParams();
   const [members, setMembers] = useState<IUser[]>([]);
   const [filteredMembers, setFilteredMembers] = useState<IUser[]>([])
@@ -29,8 +30,8 @@ export const HackathonInfo = () => {
   }, [])
 
   return (
-    <AuthGuard role='user'>
-       <Header variant='user' />
+    <AuthGuard role='any'>
+       <Header variant={user?.role} />
        <Container pb={"100px"}>
             <h1>Хакатон PROD</h1>
             <Image src={preview} mah={350} radius="sm" mt="xs" />

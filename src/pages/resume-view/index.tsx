@@ -7,8 +7,10 @@ import { IResume } from "@/models/IResume";
 import { useParams } from "react-router-dom";
 import { IUser } from "@/models/IUser";
 import fetchProfileById from "@/api/fetch-profile-by-id";
+import useUserStore from "@/stores/user-store";
 
 export const ResumeView = () => {
+    const {user} = useUserStore()
     const [resume, setResume] = useState<IResume | null>(null)
     const [profile, setProfile] = useState<IUser | null>(null)
     const [contacts, setContacts] = useState<string[]>([])
@@ -45,7 +47,7 @@ export const ResumeView = () => {
 
   return (
     <AuthGuard role='any'>
-       <Header variant="user" />
+       <Header variant={user?.role} />
        <Container>
        <Flex align="center" gap="md">
             <Avatar w={100} h={100} />

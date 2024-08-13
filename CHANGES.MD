@@ -6,6 +6,7 @@
 - *(admin-panel)* Make not-accept-invite and users-without-team pages - ([586ef2a](https://github.com/open-cu/megazord-frontend/commit/586ef2a02875ecc2dbd081a9e278d43a832061cd))
 - *(admin-panel)* Make layout, route and started integrating with backend - ([1b00f12](https://github.com/open-cu/megazord-frontend/commit/1b00f12d83a2a1e0def7964c7b8e55bf8f7bab98))
 - *(change-team-vacancy)* Make the input of stack more user friendly - ([3fefc3e](https://github.com/open-cu/megazord-frontend/commit/3fefc3ee6885c8f706f0f10bd857c1fe95896de1))
+- Make leaving team - ([a23d71a](https://github.com/open-cu/megazord-frontend/commit/a23d71a5b82064660f42f1e442a9cd3a770ea019))
 - Make multi-celect-input for skill selecting - ([a3fdc21](https://github.com/open-cu/megazord-frontend/commit/a3fdc21e6eb4a587f0ffcac0ffb36abe361384dd))
 
 ### Refactor

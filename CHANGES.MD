@@ -1,10 +1,16 @@
 # Changelog
-## Unreleased - 09.08.2024
+## Unreleased - 13.08.2024
 
 ### Features
 
+- *(admin-panel)* Make not-accept-invite and users-without-team pages - ([586ef2a](https://github.com/open-cu/megazord-frontend/commit/586ef2a02875ecc2dbd081a9e278d43a832061cd))
+- *(admin-panel)* Make layout, route and started integrating with backend - ([1b00f12](https://github.com/open-cu/megazord-frontend/commit/1b00f12d83a2a1e0def7964c7b8e55bf8f7bab98))
 - *(change-team-vacancy)* Make the input of stack more user friendly - ([3fefc3e](https://github.com/open-cu/megazord-frontend/commit/3fefc3ee6885c8f706f0f10bd857c1fe95896de1))
 - Make multi-celect-input for skill selecting - ([a3fdc21](https://github.com/open-cu/megazord-frontend/commit/a3fdc21e6eb4a587f0ffcac0ffb36abe361384dd))
+
+### Refactor
+
+- Add 404 route to consts and refactor api requests - ([b1ee38b](https://github.com/open-cu/megazord-frontend/commit/b1ee38be1a4de46c4fb480e6ae7e43abefd47a51))
 
 ### Miscellaneous Tasks
 

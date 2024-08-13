@@ -15,6 +15,7 @@ import { ITeamVacancy } from "@/models/ITeamVacancy";
 import { IVacancyResponse } from "@/models/IVacancyResponse";
 import getTeamVacanciesResponses from "@/api/get-team-vacancies-responses";
 import {route404} from "@/utils/constants";
+import leaveTeam from "@/api/leave-team";
 
 export const TeamDetailPage = memo(() => {
     const {user} = useUser()
@@ -52,64 +53,74 @@ export const TeamDetailPage = memo(() => {
         </Center>
     }
     return <AuthGuard role='any'>
-        <>
-            <Header variant={ user?.role ? user?.role : 'default' }/>
+        <Header variant={ user?.role ? user?.role : 'default' }/>
 
-            <Container size='md'>
-                {/* Head */ }
-                <Flex
-                    justify='space-between'
-                    align={ {base: 'flex-start', sm: 'center'} }
-                    mb='50'
-                    direction={ {base: 'column', sm: 'row'} }>
-                    <h1>{ teamDetail.name }</h1>
+        <Container size='md'>
+            {/* Head */ }
+            <Flex
+                justify='space-between'
+                align={ {base: 'flex-start', sm: 'center'} }
+                mb='50'
+                direction={ {base: 'column', sm: 'row'} }>
+                <h1>{ teamDetail.name }</h1>
 
-                    {
-                        user && user.id == teamDetail.creator
-                            ? <Button
-                                onClick={ () => navigate(`/hackathon/${ params.hackathon_id }/teams/${ teamDetail!.id }/change`) }
+                {user.id == teamDetail.creator
+                    ? <Flex align={"center"} gap={"md"}>
+                        <Button
+                            onClick={ () => navigate(`/hackathon/${ params.hackathon_id }/teams/${ teamDetail!.id }/change`) }
+                            variant='transparent'
+                            px={ 0 }>
+                            Редактировать
+                        </Button>
+                        {myTeam && teamDetail.id == myTeam.id ?
+                            <Button
+                                onClick={ () => {
+                                    leaveTeam(myTeam?.id).then(() => navigate(`/hackathon/${ params.hackathon_id }/teams`))
+                                } }
                                 variant='transparent'
+                                c={"red"}
                                 px={ 0 }>
-                                Редактировать
-                            </Button>
-                            : <div/>
-                    }
-                </Flex>
+                                Выйти из команды
+                            </Button> :
+                            <></>
+                        }
+                      </Flex>
+                    : <></>}
+            </Flex>
 
-                {/*  Участники + Popup   */ }
-                <h3>Участники команды</h3>
-                <TeamDetailParticipants
-                    team_id={ teamDetail.id }
-                    creator={ teamDetail.creator }
-                    members={ teamDetail.members }
-                    hackathon_id={ hackathonId }/>
+            {/*  Участники + Popup   */ }
+            <h3>Участники команды</h3>
+            <TeamDetailParticipants
+                team_id={ teamDetail.id }
+                creator={ teamDetail.creator }
+                members={ teamDetail.members }
+                hackathon_id={ hackathonId }/>
 
-                {/* Вакансии */ }
-                <h3>Вакансии</h3>
-                <TeamDetailVacancies
-                    currentTeam={ teamDetail }
-                    vacancy_responses={ vacancyResponses }
-                    listVacancies={ listVacancies }
-                    myTeam={ myTeam }/>
+            {/* Вакансии */ }
+            <h3>Вакансии</h3>
+            <TeamDetailVacancies
+                currentTeam={ teamDetail }
+                vacancy_responses={ vacancyResponses }
+                listVacancies={ listVacancies }
+                myTeam={ myTeam }/>
 
-                {/* Отклики */ }
-                {
-                    myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && <>
-                        <h3>Отклики на вакансии </h3>
-                        <TeamDetailVacanciesResponses
-                            variant={ teamVacanciesResponsesVariant }
-                            vacancy_responses={ vacancyResponses }
-                            hackathon_id={ hackathonId }
-                            callbackOnDelete={ (res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id)) }
-                            callbackOnAccept={ (res_id: number) => {
-                                setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))
-                                if (myTeam?.id) getTeam(myTeam.id).then(setTeamDetail)
-                                fetchTeamVacancies(parseInt(params.team_id ?? '')).then(setListVacancies)
-                            } }
-                        />
-                    </>
-                }
-            </Container>
-        </>
+            {/* Отклики */ }
+            {
+                myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && <>
+                    <h3>Отклики на вакансии </h3>
+                    <TeamDetailVacanciesResponses
+                        variant={ teamVacanciesResponsesVariant }
+                        vacancy_responses={ vacancyResponses }
+                        hackathon_id={ hackathonId }
+                        callbackOnDelete={ (res_id: number) => setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id)) }
+                        callbackOnAccept={ (res_id: number) => {
+                            setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))
+                            if (myTeam?.id) getTeam(myTeam.id).then(setTeamDetail)
+                            fetchTeamVacancies(parseInt(params.team_id ?? '')).then(setListVacancies)
+                        } }
+                    />
+                </>
+            }
+        </Container>
     </AuthGuard>
 })

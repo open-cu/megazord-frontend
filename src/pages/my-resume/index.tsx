@@ -1,6 +1,6 @@
 import { AuthGuard } from "@/components/auth-guard";
 import { Header } from "@/components/header";
-import { ActionIcon, Button, Container, Flex, TextInput, Center, Loader } from "@mantine/core";
+import {ActionIcon, Button, Container, Flex, TextInput, Center, Loader, Autocomplete} from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import { FC, useEffect, useState } from "react";
 import { IResume } from "@/models/IResume";
@@ -13,6 +13,7 @@ import { Form, Formik } from "formik";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input.tsx";
 import { FormInput } from "@/components/form-input/form-input.tsx";
 import { editResume } from "@/api/edit-resume.ts";
+import {skills} from "@/utils/skills";
 
 export const MyResume = () => {
     const [resume, setResume] = useState<IResume | null>(null)
@@ -92,11 +93,13 @@ const Content: FC<ContentProps> = (props) => {
 
         return (
             <Flex gap="xs" w="100%" align="center" key={ skill.id }>
-                <TextInput
+                <Autocomplete
                     w="100%"
                     value={ skill.value }
-                    onChange={ e => change(e.target.value) }
-                    placeholder="Введите tech skill"/>
+                    onChange={change}
+                    placeholder="Введите tech skill"
+                    data={skills}
+                />
                 <ActionIcon variant="transparent" aria-label="Удалить tech skill" onClick={ remove }>
                     <IconTrash color="pink"/>
                 </ActionIcon>

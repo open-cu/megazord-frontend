@@ -12,6 +12,7 @@ import useUserStore from "@/stores/user-store";
 export const HackathonInfo = () => {
   const {user} = useUserStore()
   const { hackathon_id } = useParams();
+  const [title, setTitle] = useState<string>("");
   const [members, setMembers] = useState<IUser[]>([]);
   const [filteredMembers, setFilteredMembers] = useState<IUser[]>([])
   const [preview, setPreview] = useState<string>("img-placeholder.jpg");
@@ -28,6 +29,7 @@ export const HackathonInfo = () => {
       setMinMembersAmount(data.min_participants)
       setMaxMembersAmount(data.max_participants)
       setDescription(data.description)
+      setTitle(data.name)
     });
   }, [])
 
@@ -35,7 +37,7 @@ export const HackathonInfo = () => {
     <AuthGuard role='any'>
        <Header variant={user?.role} />
        <Container pb={"100px"}>
-            <h1>Хакатон PROD</h1>
+            <h1>{title}</h1>
             <Image src={preview} mah={350} radius="sm" mt="xs" />
             <Text mt="md">{description}</Text>
             <Text mt="xs" mb="md">Количество участников в команде: от {minMembersAmount} до {maxMembersAmount}</Text>

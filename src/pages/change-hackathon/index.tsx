@@ -1,6 +1,6 @@
 import {Header} from "@/components/header";
 import {Container, Space} from "@mantine/core";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {ChangeHackathonForm} from "@/components/change-hackathon-form";
 import {IHackathon} from "@/models/IHackathon";
@@ -8,12 +8,13 @@ import fetchHackathon from "@/api/fetch-hackathon";
 import {Center, Loader, Flex} from "@mantine/core";
 import styles from './change-hackathon.module.css'
 import {AuthGuard} from "@/components/auth-guard";
+import {route404} from "@/utils/constants";
 
 export const ChangeHackathon = () => {
     const params = useParams();
     const [hackathon, setHackathon] = useState<IHackathon | null>(null)
     const navigate = useNavigate()
-    
+
     const updateHackathonFunc = () => {
         try {
             const id = parseInt(params.hackathon_id ?? '')
@@ -22,13 +23,13 @@ export const ChangeHackathon = () => {
                     if (hackathon) {
                         setHackathon(hackathon)
                     } else {
-                        navigate('/404')
+                        navigate(route404)
                     }
                 })
             }
-            else navigate('/404')
+            else navigate(route404)
         } catch {
-            navigate('/404')
+            navigate(route404)
         }
     }
     

@@ -14,6 +14,7 @@ import fetchMyTeam from "@/api/fetch-my-team";
 import { ITeamVacancy } from "@/models/ITeamVacancy";
 import { IVacancyResponse } from "@/models/IVacancyResponse";
 import getTeamVacanciesResponses from "@/api/get-team-vacancies-responses";
+import {route404} from "@/utils/constants";
 
 export const TeamDetailPage = memo(() => {
     const {user} = useUser()
@@ -41,7 +42,7 @@ export const TeamDetailPage = memo(() => {
                 setVacanciesResponses(res)
             })
         } else {
-            navigate('/404')
+            navigate(route404)
         }
     }, [user])
 

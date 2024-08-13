@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom"
 import classes from './not-found.module.css'
 
 export const NotFound = () => {
-
   const navigate = useNavigate()
-
   const back = () => {
     navigate("/")
   }

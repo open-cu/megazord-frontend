@@ -1,0 +1,1 @@
+export const route404 = "/404"

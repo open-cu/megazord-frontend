@@ -1,16 +1,14 @@
 import {Link, useParams, useNavigate} from "react-router-dom";
 import {Header} from "@/components/header";
 import {AuthGuard} from "@/components/auth-guard";
-import {Center, Container, Flex, Loader} from "@mantine/core";
+import {Center, Container, Flex, Loader, Button} from "@mantine/core";
 import styles from './admin-panel.module.css'
 import {useEffect, useState} from "react";
 import {IHackathon} from "@/models/IHackathon";
 import fetchHackathon from "@/api/fetch-hackathon";
-import {HackathonStats} from "@/components/hackathon-stats";
 import useUserStore from "@/stores/user-store";
 import {route404} from "@/utils/constants";
-
-const hackathonStatus: "not-started" | "active" | "finished"  = "active" // TODO
+import {AdminContent} from "@/pages/admin-panel/admin-content";
 
 const AdminPanel = () => {
     const { hackathon_id } = useParams()
@@ -21,9 +19,9 @@ const AdminPanel = () => {
         try {
             const id = parseInt(hackathon_id ?? '')
             if(id) {
-                fetchHackathon(id).then((hackathon) => {
-                    if (hackathon) {
-                        setHackathon(hackathon)
+                fetchHackathon(id).then((data) => {
+                    if (data) {
+                        setHackathon(data)
                     } else {
                         navigate(route404)
                     }
@@ -51,7 +49,7 @@ const AdminPanel = () => {
                         Вернуться к изменению
                     </Link>
                 </Flex>
-                <HackathonStats hackathon={hackathon} />
+                <AdminContent hackathon={hackathon}  />
             </Container>
         </AuthGuard>
     );

@@ -68,7 +68,7 @@ export const ChangeHackathonForm = (
             try {
                 await uploadEmailsCsv(hackathon.id, csvFile);
                 await changeHackathon(hackathon.id, file, values);
-                navigate('/');
+                navigate(`/admin-panel/${hackathon.id}`);
             } catch (error) {
                 setParticipantInputError(error.message);
             }

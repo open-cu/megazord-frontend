@@ -9,4 +9,7 @@ export interface IHackathon {
     imageCover: string;
     participants: IUser[];
     teamsIds: number[];
+    status: HackathonStatus;
 }
+
+export type HackathonStatus = "NOT_STARTED" | "STARTED" | "ENDED"

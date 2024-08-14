@@ -3,7 +3,7 @@ import { Autocomplete, Button, Container, FileInput, Flex, Image, Text, FileButt
 import { FormInput } from "@/components/form-input/form-input";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
 import { FormNumberInput } from "@/components/form-input/form-number-input";
-import {IconDownload, IconPlus} from "@tabler/icons-react";
+import { IconPlus, IconUpload} from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createFormik } from "@/utils/create-formik";
@@ -150,7 +150,7 @@ export const ChangeHackathonForm = (
                             />
                             <FileButton onChange={setCsvFile} accept="csv">
                                 {(props) => <Button {...props}>
-                                    <IconDownload stroke={ 2 } size={ 20 } />
+                                    <IconUpload stroke={ 2 } size={ 20 } />
                                 </Button>}
                             </FileButton>
                             <Button

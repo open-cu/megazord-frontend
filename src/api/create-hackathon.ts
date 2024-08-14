@@ -1,4 +1,4 @@
-import apiClient from "@/api-client.ts";
+import apiClient, {client} from "@/api-client.ts";
 
 export interface CreateHackathonPayload {
     name: string,
@@ -8,19 +8,16 @@ export interface CreateHackathonPayload {
     participants: string[],
 }
 
-export default async function createHackathon(file: File, data: CreateHackathonPayload): Promise<boolean> {
-    const form = new FormData()
-    form.append('image_cover', file)
+
+export default async function createHackathon(file: File, csvFile: File, data: CreateHackathonPayload): Promise<boolean> {
+    const form = new FormData();
+
+    form.append('image_cover', file);
+    if (csvFile) form.append('csv_emails', csvFile);
     form.append('body', JSON.stringify({
         ...data,
         min_participants: 1,
-    }))
+    }));
 
-    const response = await apiClient({
-        method: "post",
-        url: `/hackathons/`,
-        data: form
-    })
-
-    return response.status == 201
+    return await client.post(`/hackathons/`, form).then((res) => true).catch(() => false);
 }

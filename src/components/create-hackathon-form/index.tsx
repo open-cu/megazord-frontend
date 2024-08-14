@@ -13,13 +13,12 @@ import {
 import { FormInput } from "@/components/form-input/form-input";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
 import { FormNumberInput } from "@/components/form-input/form-number-input";
-import {IconDownload, IconPlus, IconTrash} from "@tabler/icons-react";
+import {IconPlus, IconTrash, IconUpload} from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createFormik } from "@/utils/create-formik";
 import createHackathon, { CreateHackathonPayload } from "@/api/create-hackathon";
 import * as yup from 'yup'
-import uploadEmailsCsv from "@/api/upload-emails-csv";
 
 const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -80,7 +79,7 @@ export const CreateHackathonForm = () => {
                 participants: participants,
             } as CreateHackathonPayload
             setLoading(true)
-            await createHackathon(file, data).then(res => {
+            await createHackathon(file, csvFile, data).then(res => {
                 if (!res) setParticipantInputError("Непредвиденная ошибка")
                 else navigate('/')
             })
@@ -151,9 +150,9 @@ export const CreateHackathonForm = () => {
                                 } }
                                 w={ "100%" }
                             />
-                            <FileButton onChange={setCsvFile} accept="image/png,image/jpeg">
+                            <FileButton onChange={setCsvFile} accept="csv">
                                 {(props) => <Button {...props}>
-                                    <IconDownload stroke={ 2 } size={ 20 } />
+                                    <IconUpload stroke={ 2 } size={ 20 } />
                                 </Button>}
                             </FileButton>
                             <Button size={ "sm" } onClick={ () => addParticipant(participantInputValue) }>

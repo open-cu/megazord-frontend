@@ -67,17 +67,11 @@ export const ChangeHackathonForm = (
         onSubmit: async (values) => {
             try {
                 await uploadEmailsCsv(hackathon.id, csvFile);
-            } catch (error) {
-                throw new Error('Ошибка при импорте файла');
-            }
-
-            try {
                 await changeHackathon(hackathon.id, file, values);
+                navigate('/');
             } catch (error) {
-                throw new Error('Непредвиденная ошибка');
+                setParticipantInputError(error.message);
             }
-
-            navigate('/');
         }
     })
 

@@ -41,7 +41,7 @@ export const HackathonStats = memo(() => {
                             onClick={() => navigate(`/hackathon/${hackathon_id}`)}
                         >Список всех участников</Button>
                         <ActionIcon size={"bg"} variant="light" aria-label="Download" onClick={() => getParticipantsCsv(hackathon_id)}>
-                            <IconDownload style={{ height: "60%", aspectRatio: "1"}} stroke={2}/>
+                            <IconDownload style={{ height: "60%" }} stroke={2}/>
                         </ActionIcon>
                     </Flex>
                 </Flex>

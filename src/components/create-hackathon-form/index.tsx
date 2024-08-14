@@ -19,6 +19,7 @@ import { useState } from "react";
 import { createFormik } from "@/utils/create-formik";
 import createHackathon, { CreateHackathonPayload } from "@/api/create-hackathon";
 import * as yup from 'yup'
+import uploadEmailsCsv from "@/api/upload-emails-csv";
 
 const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -78,7 +79,6 @@ export const CreateHackathonForm = () => {
                 ...values,
                 participants: participants,
             } as CreateHackathonPayload
-
             setLoading(true)
             await createHackathon(file, data).then(res => {
                 if (!res) setParticipantInputError("Непредвиденная ошибка")

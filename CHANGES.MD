@@ -1,16 +1,21 @@
 # Changelog
-## Unreleased - 13.08.2024
+## Unreleased - 14.08.2024
 
 ### Features
 
 - *(admin-panel)* Make not-accept-invite and users-without-team pages - ([586ef2a](https://github.com/open-cu/megazord-frontend/commit/586ef2a02875ecc2dbd081a9e278d43a832061cd))
 - *(admin-panel)* Make layout, route and started integrating with backend - ([1b00f12](https://github.com/open-cu/megazord-frontend/commit/1b00f12d83a2a1e0def7964c7b8e55bf8f7bab98))
+- *(change-hackathon)* Make uploading emails with csv - ([966faba](https://github.com/open-cu/megazord-frontend/commit/966faba6c5885ded6457313afe5d831cdacb36d5))
 - *(change-team-vacancy)* Make the input of stack more user friendly - ([3fefc3e](https://github.com/open-cu/megazord-frontend/commit/3fefc3ee6885c8f706f0f10bd857c1fe95896de1))
+- Finished uploading files part - ([b4b7615](https://github.com/open-cu/megazord-frontend/commit/b4b761541b0556be68dbfe6d34acb8827c96e855))
+- Make download and unload layout - ([f2c6a39](https://github.com/open-cu/megazord-frontend/commit/f2c6a39fd24deee2d756056e55a92bfc8c6cf525))
 - Make leaving team - ([a23d71a](https://github.com/open-cu/megazord-frontend/commit/a23d71a5b82064660f42f1e442a9cd3a770ea019))
 - Make multi-celect-input for skill selecting - ([a3fdc21](https://github.com/open-cu/megazord-frontend/commit/a3fdc21e6eb4a587f0ffcac0ffb36abe361384dd))
 
 ### Refactor
 
+- *(change-hackathon)* Api requests - ([8c4e150](https://github.com/open-cu/megazord-frontend/commit/8c4e1504623225120cfed87b8fa1ff8cd17c0339))
+- *(change-hackathon)* Api requests - ([4bf53bf](https://github.com/open-cu/megazord-frontend/commit/4bf53bf92a7541bb3b590d4683c43510fce732b5))
 - Add 404 route to consts and refactor api requests - ([b1ee38b](https://github.com/open-cu/megazord-frontend/commit/b1ee38be1a4de46c4fb480e6ae7e43abefd47a51))
 
 ### Miscellaneous Tasks

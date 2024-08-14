@@ -1,18 +1,17 @@
 import { Form, Formik } from "formik";
-import { Autocomplete, Button, Container, FileInput, Flex, Image, Text } from "@mantine/core";
+import { Autocomplete, Button, Container, FileInput, Flex, Image, Text, FileButton } from "@mantine/core";
 import { FormInput } from "@/components/form-input/form-input";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
 import { FormNumberInput } from "@/components/form-input/form-number-input";
-import { IconPlus } from "@tabler/icons-react";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "@/pages/change-hackathon/change-hackathon.module.css";
-import { useEffect, useState } from "react";
+import { IconPlus, IconUpload} from "@tabler/icons-react";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { createFormik } from "@/utils/create-formik";
 import { IHackathon } from "@/models/IHackathon";
 import addParticipantToHackathon from "@/api/add-participant-to-hackathon";
 import changeHackathon from "@/api/change-hackathon";
-import { getPercentWithTeam } from "@/api/get-percent-with-team";
 import * as yup from "yup";
+import uploadEmailsCsv from "@/api/upload-emails-csv";
 
 export const ChangeHackathonForm = (
     {hackathon, updateHackathonFunc}: { hackathon: IHackathon, updateHackathonFunc: () => void }
@@ -20,6 +19,8 @@ export const ChangeHackathonForm = (
     const navigate = useNavigate()
 
     const [file, setFile] = useState<File | null>(null)
+    const [csvFile, setCsvFile] = useState<File | null>(null);
+
     const [previewLink, setPreviewLink] = useState<string>(
         hackathon.imageCover ?
             `${ import.meta.env.VITE_BACKEND_URL }${ hackathon.imageCover }` :
@@ -64,10 +65,13 @@ export const ChangeHackathonForm = (
                 .max(7, 'Не более семи участника в одной команде'),
         }),
         onSubmit: async (values) => {
-            changeHackathon(hackathon.id, file, values).then(res => {
-                if (!res) setParticipantInputError("Непредвиденная ошибка")
-                else navigate('/')
-            })
+            try {
+                await uploadEmailsCsv(hackathon.id, csvFile);
+                await changeHackathon(hackathon.id, file, values);
+                navigate('/');
+            } catch (error) {
+                setParticipantInputError(error.message);
+            }
         }
     })
 
@@ -118,33 +122,44 @@ export const ChangeHackathonForm = (
                             radius="sm"
                         />
                     </Container>
-                    <Flex justify={ "space-between" } gap={ "xs" }
-                          align={ participantInputError ? "center" : "flex-end" }>
-                        <Autocomplete
-                            error={ participantInputError }
-                            label={ `Участники (Всего: ${ hackathon.participants.length })` }
-                            placeholder={ "Введите email участника" }
-                            value={ participantInputValue }
-                            onChange={ (e) => {
-                                setParticipantInputValue(e)
-                                setParticipantInputError('')
-                                setSuccessMessage('')
-                            } }
-                            w={ "100%" }
-                            data={ participants }
-                            limit={ 5 }
-                        />
-                        
-                        <Button
-                            loading={ loading }
-                            size={ "sm" }
-                            onClick={ () => addParticipant(participantInputValue) }>
-                            <IconPlus stroke={ 2 } size={ 20 }/>
-                        </Button>
-                    </Flex>
-                    {
-                        successMessage && <Text size='sm' c='green'>{ successMessage }</Text>
-                    }
+                    <Container p={ "0" } w={ "100%" }>
+                        <Flex justify={ "space-between" } gap={ "xs" }
+                              align={ participantInputError ? "center" : "flex-end" }>
+                            <Autocomplete
+                                error={ participantInputError }
+                                label={ `Участники (Всего: ${ hackathon.participants.length })` }
+                                placeholder={ "Введите email участника" }
+                                value={ participantInputValue }
+                                onChange={ (e) => {
+                                    setParticipantInputValue(e)
+                                    setParticipantInputError('')
+                                    setSuccessMessage('')
+                                } }
+                                w={ "100%" }
+                                data={ participants }
+                                limit={ 5 }
+                            />
+                            <FileButton onChange={setCsvFile} accept="csv">
+                                {(props) => <Button {...props}>
+                                    <IconUpload stroke={ 2 } size={ 20 } />
+                                </Button>}
+                            </FileButton>
+                            <Button
+                                loading={ loading }
+                                size={ "sm" }
+                                onClick={ () => addParticipant(participantInputValue) }>
+                                <IconPlus stroke={ 2 } size={ 20 }/>
+                            </Button>
+                        </Flex>
+                        { csvFile && (
+                            <Text size="xs" ta="center">
+                                Выбранный файл: {csvFile.name}
+                            </Text>
+                        )}
+                        {
+                            successMessage && <Text size='sm' c='green'>{ successMessage }</Text>
+                        }
+                    </Container>
                     <Button w={ "fit-content" } type={ "submit" }>Сохранить</Button>
                 </Flex>
             </Form>

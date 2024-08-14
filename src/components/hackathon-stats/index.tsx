@@ -1,10 +1,12 @@
 import {FC, memo, ReactNode, useEffect, useState} from 'react';
 import {IHackathonStats} from "@/models/IHackathonStats";
-import {Center, Loader, Space, Text, Flex, Container, Card, Button, Group, Grid, SimpleGrid} from '@mantine/core'
+import {Center, Loader, Space, Text, Flex, Container, Card, Button, Group, Grid, SimpleGrid, ActionIcon} from '@mantine/core'
 import {Link, useNavigate} from "react-router-dom";
 import {fetchHackathonStats} from "@/api/fetch-hackathon-stats";
 import { useParams } from "react-router-dom";
 import {HackathonStatsCard} from "@/components/hackathon-stats-card";
+import {IconDownload} from "@tabler/icons-react";
+import {getParticipantsCsv} from "@/api/get-participants-csv";
 
 export const HackathonStats = memo(() => {
     const navigate = useNavigate()
@@ -23,12 +25,27 @@ export const HackathonStats = memo(() => {
             cols={{ base: 1, sm: 2 }}
             mt={"md"}
         >
-            <HackathonStatsCard
-                title={"Всего участников хакатона"}
-                stat={stats.accepted_invite}
-                linkTitle={"Список всех участников"}
-                link={`/hackathon/${hackathon_id}`}
-            />
+            <Card padding="md" radius="sm" withBorder>
+                <Flex
+                    gap="sm"
+                    justify="center"
+                    align="center"
+                    direction="column"
+                >
+                    <Text size={"md"} fw={500}>Всего участников хакатона</Text>
+                    <Text size={"2rem"} c={"blue"} fw={600}>{stats.accepted_invite}</Text>
+                    <Flex gap={"xs"} p={0} m={0}>
+                        <Button
+                            size={"xs"}
+                            variant={"light"}
+                            onClick={() => navigate(`/hackathon/${hackathon_id}`)}
+                        >Список всех участников</Button>
+                        <ActionIcon size={"bg"} variant="light" aria-label="Download" onClick={() => getParticipantsCsv(hackathon_id)}>
+                            <IconDownload style={{ height: "60%" }} stroke={2}/>
+                        </ActionIcon>
+                    </Flex>
+                </Flex>
+            </Card>
             <HackathonStatsCard
                 title={"Всего команд в хакатоне"}
                 stat={stats.total_teams}

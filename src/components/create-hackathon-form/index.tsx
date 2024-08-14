@@ -3,7 +3,7 @@ import {
     Accordion, AccordionControl,
     AccordionItem, AccordionPanel,
     Button,
-    Container,
+    Container, FileButton,
     FileInput,
     Flex,
     Image,
@@ -13,7 +13,7 @@ import {
 import { FormInput } from "@/components/form-input/form-input";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
 import { FormNumberInput } from "@/components/form-input/form-number-input";
-import { IconPlus, IconTrash } from "@tabler/icons-react";
+import {IconPlus, IconTrash, IconUpload} from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { createFormik } from "@/utils/create-formik";
@@ -26,6 +26,7 @@ export const CreateHackathonForm = () => {
     const navigate = useNavigate()
 
     const [file, setFile] = useState<File | null>(null)
+    const [csvFile, setCsvFile] = useState<File | null>(null);
     const [previewLink, setPreviewLink] = useState<string>('/img-placeholder.jpg')
     const [previewError, setPreviewError] = useState<string>('')
     const [loading, setLoading] = useState(false)
@@ -77,9 +78,8 @@ export const CreateHackathonForm = () => {
                 ...values,
                 participants: participants,
             } as CreateHackathonPayload
-
             setLoading(true)
-            await createHackathon(file, data).then(res => {
+            await createHackathon(file, csvFile, data).then(res => {
                 if (!res) setParticipantInputError("Непредвиденная ошибка")
                 else navigate('/')
             })
@@ -133,48 +133,58 @@ export const CreateHackathonForm = () => {
                             radius="sm"
                         />
                     </Container>
+                    <Container p={ "0" } w={ "100%" }>
+                        <Flex
+                            justify={ "space-between" }
+                            gap={ "xs" }
+                            align={ participantInputError ? "center" : "flex-end" }>
 
-                    <Flex
-                        justify={ "space-between" }
-                        gap={ "xs" }
-                        align={ participantInputError ? "center" : "flex-end" }>
-
-                        <TextInput
-                            error={ participantInputError }
-                            label={ `Участники (Всего: ${ participants.length })` }
-                            placeholder={ "Введите email участника" }
-                            value={ participantInputValue }
-                            onChange={ (e) => {
-                                setParticipantInputValue(e.target.value)
-                                setParticipantInputError('')
-                            } }
-                            w={ "100%" }
-                        />
-                        <Button size={ "sm" } onClick={ () => addParticipant(participantInputValue) }>
-                            <IconPlus stroke={ 2 } size={ 20 }/>
-                        </Button>
-                    </Flex>
-
-                    <Accordion defaultValue='email'>
-                        <AccordionItem value='email' style={ {borderBottom: 'none'} }>
-                            <AccordionControl p={ 0 }>Список участников хакатона</AccordionControl>
-                            {
-                                participants.map(email => {
-                                    return <AccordionPanel key={ email } p={ 0 }>
-                                        <Flex
-                                            justify='space-between' p={ 12 }
-                                            style={ {borderRadius: 8, border: '1px solid var(--stroke-color)'} }>
-                                            <Text fw={ 500 }>{ email }</Text>
-                                            <IconTrash
-                                                color='pink'
-                                                style={ {cursor: 'pointer'} }
-                                                onClick={ () => deleteParticipant(email) }/>
-                                        </Flex>
-                                    </AccordionPanel>
-                                })
-                            }
-                        </AccordionItem>
-                    </Accordion>
+                            <TextInput
+                                error={ participantInputError }
+                                label={ `Участники (Всего: ${ participants.length })` }
+                                placeholder={ "Введите email участника" }
+                                value={ participantInputValue }
+                                onChange={ (e) => {
+                                    setParticipantInputValue(e.target.value)
+                                    setParticipantInputError('')
+                                } }
+                                w={ "100%" }
+                            />
+                            <FileButton onChange={setCsvFile} accept="csv">
+                                {(props) => <Button {...props}>
+                                    <IconUpload stroke={ 2 } size={ 20 } />
+                                </Button>}
+                            </FileButton>
+                            <Button size={ "sm" } onClick={ () => addParticipant(participantInputValue) }>
+                                <IconPlus stroke={ 2 } size={ 20 }/>
+                            </Button>
+                        </Flex>
+                        { csvFile && (
+                            <Text size="xs" ta="center">
+                                Выбранный файл: {csvFile.name}
+                            </Text>
+                        )}
+                        <Accordion defaultValue='email'>
+                            <AccordionItem value='email' style={ {borderBottom: 'none'} }>
+                                <AccordionControl p={ 0 }>Список участников хакатона</AccordionControl>
+                                {
+                                    participants.map(email => {
+                                        return <AccordionPanel key={ email } p={ 0 }>
+                                            <Flex
+                                                justify='space-between' p={ 12 }
+                                                style={ {borderRadius: 8, border: '1px solid var(--stroke-color)'} }>
+                                                <Text fw={ 500 }>{ email }</Text>
+                                                <IconTrash
+                                                    color='pink'
+                                                    style={ {cursor: 'pointer'} }
+                                                    onClick={ () => deleteParticipant(email) }/>
+                                            </Flex>
+                                        </AccordionPanel>
+                                    })
+                                }
+                            </AccordionItem>
+                        </Accordion>
+                    </Container>
 
                     <Button loading={loading} w={ "fit-content" } type={ "submit" }>Создать</Button>
                 </Flex>

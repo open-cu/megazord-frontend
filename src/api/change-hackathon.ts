@@ -1,4 +1,4 @@
-import apiClient from "@/api-client.ts";
+import apiClient, {client} from "@/api-client.ts";
 
 interface ChangeHackathonPayload {
     name: string,
@@ -6,20 +6,26 @@ interface ChangeHackathonPayload {
     max_participants: number,
 }
 
-export default async function changeHackathon(hackathon_id: number, file: File | null, data: ChangeHackathonPayload): Promise<boolean>  {
+export default async function changeHackathon(
+    hackathon_id: number,
+    file: File | null,
+    data: ChangeHackathonPayload
+): Promise<boolean> {
     if (file) {
-        const form = new FormData()
-        form.append('image_cover', file)
-        await apiClient.post(`/hackathons/${hackathon_id}/change_photo`, form)
+        const form = new FormData();
+        form.append('image_cover', file);
+        await apiClient.post(`/hackathons/${hackathon_id}/change_photo`, form);
     }
-    const response = await apiClient({
-        method: "patch",
-        url: `/hackathons/${hackathon_id}`,
-        data: {
+
+    try {
+        const response = await apiClient.patch(`/hackathons/${hackathon_id}`, {
             ...data,
             min_participants: 1,
+        });
+        if (!response.status || response.status < 200 || response.status >= 300) {
+            throw new Error('Ошибка при импорте файла');
         }
-    })
-
-    return response.status == 200
+    } catch (error) {
+        throw new Error(error.message);
+    }
 }

@@ -65,22 +65,19 @@ export const ChangeHackathonForm = (
                 .max(7, 'Не более семи участника в одной команде'),
         }),
         onSubmit: async (values) => {
-            if (csvFile)
-                await uploadEmailsCsv(hackathon.id, csvFile).then(res => {
-                    if (!res)
-                        setParticipantInputError("Ошибка при иммпорте файла")
-                    else
-                        changeHackathon(hackathon.id, file, values).then(res => {
-                            if (!res) setParticipantInputError("Непредвиденная ошибка")
-                            else navigate('/')
-                        })
-                })
-            else {
-                changeHackathon(hackathon.id, file, values).then(res => {
-                    if (!res) setParticipantInputError("Непредвиденная ошибка")
-                    else navigate('/')
-                })
+            try {
+                await uploadEmailsCsv(hackathon.id, csvFile);
+            } catch (error) {
+                throw new Error('Ошибка при импорте файла');
             }
+
+            try {
+                await changeHackathon(hackathon.id, file, values);
+            } catch (error) {
+                throw new Error('Непредвиденная ошибка');
+            }
+
+            navigate('/');
         }
     })
 

@@ -1,4 +1,4 @@
-import apiClient, {client} from "@/api-client.ts";
+import {client} from "@/api-client.ts";
 
 export interface CreateHackathonPayload {
     name: string,

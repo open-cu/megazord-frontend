@@ -7,7 +7,6 @@ import {route404} from "@/utils/constants";
 export const useFetchHackathon = (hackathon_id: string) => {
     const [hackathon, setHackathon] = useState<IHackathon | null>(null);
     const navigate = useNavigate();
-
     useEffect(() => {
         const loadHackathon = async () => {
             try {
@@ -30,5 +29,5 @@ export const useFetchHackathon = (hackathon_id: string) => {
         loadHackathon();
     }, [hackathon_id, navigate, route404]);
 
-    return hackathon;
+    return [hackathon, setHackathon] as const;
 };

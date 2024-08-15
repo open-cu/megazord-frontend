@@ -6,11 +6,16 @@ import {useEffect, useState} from "react";
 import {IconMailForward} from "@tabler/icons-react";
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
 import {IUser} from "@/models/IUser";
+import getNotAcceptedInvite from "@/api/get-not-accepted-invite";
 
 export const InvitedUsers = () => {
     const {hackathon_id} = useParams()
-    const hackathon = useFetchHackathon(hackathon_id)
+    const [hackathon] = useFetchHackathon(hackathon_id)
+    const [emails, setEmails] = useState<string[]>([])
     const navigate = useNavigate()
+    useEffect(() => {
+        getNotAcceptedInvite(hackathon_id).then(data => setEmails(data))
+    }, []);
 
     if(!hackathon) return <Center w={"100vw"} h={"calc(100vh-65px)"}>
         <Loader size={"md"} />
@@ -19,11 +24,11 @@ export const InvitedUsers = () => {
         <Header variant={"organizer"}/>
         <Container size={"md"}>
             <h1>Приглашенные участники</h1>
-            {hackathon.participants.length ?<Flex direction={"column"} gap={"md"} mt={"md"}>
-                { hackathon.participants.map((participant: IUser, index: number) => {
+            {emails.length ?<Flex direction={"column"} gap={"md"} mt={"md"}>
+                { emails.map((email: string, index: number) => {
                     return <Card padding={"sm"} radius={"md"} withBorder key={index}>
                         <Flex direction={"row"} justify={"space-between"} align={"center"}>
-                            <Text fw={500}>{participant.email}</Text>
+                            <Text fw={500}>{email}</Text>
                             <Button size={"xs"} variant={"light"}>
                                 <IconMailForward stroke={1} />
                             </Button>

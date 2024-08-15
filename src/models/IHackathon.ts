@@ -12,4 +12,8 @@ export interface IHackathon {
     status: HackathonStatus;
 }
 
-export type HackathonStatus = "NOT_STARTED" | "STARTED" | "ENDED"
+export enum HackathonStatus {
+    NotStarted = "NOT_STARTED",
+    Started = "STARTED",
+    Ended = "ENDED",
+}

@@ -49,7 +49,7 @@ const AdminPanel = () => {
                         Вернуться к изменению
                     </Link>
                 </Flex>
-                <AdminContent hackathon={hackathon}  />
+                <AdminContent hackathon_id={hackathon.id}  />
             </Container>
         </AuthGuard>
     );

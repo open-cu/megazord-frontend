@@ -1,25 +1,28 @@
-import { memo, useEffect, useState } from "react";
-import { AuthGuard } from "@/components/auth-guard";
-import { Header } from "@/components/header";
-import { Button, Center, Container, Flex, Loader } from "@mantine/core";
-import { TeamDetailParticipants } from "@/components/team-detail-participants";
-import { TeamDetailVacancies } from "@/components/team-detail-vacancies";
-import { TeamDetailVacanciesResponses } from "@/components/team-detali-vacancies-responses";
+import {memo, useEffect, useState} from "react";
+import {AuthGuard} from "@/components/auth-guard";
+import {Header} from "@/components/header";
+import {Button, Center, Container, Flex, Loader} from "@mantine/core";
+import {TeamDetailParticipants} from "@/components/team-detail-participants";
+import {TeamDetailVacancies} from "@/components/team-detail-vacancies";
+import {TeamDetailVacanciesResponses} from "@/components/team-detali-vacancies-responses";
 import useUser from "@/hooks/use-user";
-import { useNavigate, useParams } from "react-router-dom";
-import { ITeam } from "@/models/ITeam";
+import {useNavigate, useParams} from "react-router-dom";
+import {ITeam} from "@/models/ITeam";
 import getTeam from "@/api/get-team";
 import fetchTeamVacancies from "@/api/fetch-team-vacancies";
 import fetchMyTeam from "@/api/fetch-my-team";
-import { ITeamVacancy } from "@/models/ITeamVacancy";
-import { IVacancyResponse } from "@/models/IVacancyResponse";
+import {ITeamVacancy} from "@/models/ITeamVacancy";
+import {IVacancyResponse} from "@/models/IVacancyResponse";
 import getTeamVacanciesResponses from "@/api/get-team-vacancies-responses";
 import {route404} from "@/utils/constants";
 import leaveTeam from "@/api/leave-team";
+import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
+import {HackathonStatus} from "@/models/IHackathon";
 
 export const TeamDetailPage = memo(() => {
     const {user} = useUser()
     const params = useParams()
+    const [hackathon] = useFetchHackathon(params.hackathon_id)
     const [teamDetail, setTeamDetail] = useState<ITeam | null>(null)
     const [hackathonId, setHackathonId] = useState<number>(0)
     const [listVacancies, setListVacancies] = useState<ITeamVacancy[]>([])
@@ -47,7 +50,7 @@ export const TeamDetailPage = memo(() => {
         }
     }, [user])
 
-    if (!teamDetail || !user || !user.id) {
+    if (!teamDetail || !user || !user.id || !hackathon) {
         return <Center w='100vw' h='100vh'>
             <Loader size="md"/>
         </Center>
@@ -64,7 +67,7 @@ export const TeamDetailPage = memo(() => {
                 direction={ {base: 'column', sm: 'row'} }>
                 <h1>{ teamDetail.name }</h1>
 
-                {user.id == teamDetail.creator
+                {user.id == teamDetail.creator && hackathon.status != HackathonStatus.Ended
                     ? <Flex align={"center"} gap={"md"}>
                         <Button
                             onClick={ () => navigate(`/hackathon/${ params.hackathon_id }/teams/${ teamDetail!.id }/change`) }
@@ -91,6 +94,7 @@ export const TeamDetailPage = memo(() => {
             {/*  Участники + Popup   */ }
             <h3>Участники команды</h3>
             <TeamDetailParticipants
+                hackathon={hackathon}
                 team_id={ teamDetail.id }
                 creator={ teamDetail.creator }
                 members={ teamDetail.members }

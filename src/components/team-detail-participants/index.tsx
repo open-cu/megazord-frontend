@@ -4,9 +4,10 @@ import {TeamInvitePopup} from "@/components/team-invite-popup";
 import {useDisclosure} from "@mantine/hooks";
 import {IUser} from "@/models/IUser";
 import useUser from "@/hooks/use-user";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {HackathonStatus, IHackathon} from "@/models/IHackathon";
 
-export const TeamDetailParticipants = ({ team_id, members, creator, hackathon_id }: { team_id: number, members: IUser[], creator: number, hackathon_id: number }) => {
+export const TeamDetailParticipants = ({ team_id, members, creator, hackathon_id, hackathon }: { team_id: number, members: IUser[], creator: number, hackathon_id: number, hackathon: IHackathon }) => {
     const [opened, {close, open}] = useDisclosure(false)
     const { user } = useUser()
     const navigate = useNavigate()
@@ -20,7 +21,7 @@ export const TeamDetailParticipants = ({ team_id, members, creator, hackathon_id
                                        onClick={() => navigate(`/hackathon/${hackathon_id}/resume/${user?.id}`)} />
                 }) }
                 {
-                    user && user.id == creator 
+                    user && user.id == creator && hackathon.status != HackathonStatus.Ended
                         ? <Button variant='outline' h="100%" mih='50px' onClick={ open }>Добавить</Button>
                         : <div/>
                 }

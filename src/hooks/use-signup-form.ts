@@ -6,7 +6,7 @@ import login from "@/api/login.ts";
 import parseJwt from "@/utils/parse-jwt.ts";
 
 const validationSchema = yup.object({
-    name: yup.string().required('Введите имя').max(60, 'Имя слишком длинное'),
+    name: yup.string().required('Введите имя').max(60, 'Имя слишком длинное').matches(/^[^,]*$/, 'Поле не должно содержать запятые'),
     email: yup
         .string()
         .required('Введите email')

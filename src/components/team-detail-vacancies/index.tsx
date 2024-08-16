@@ -4,6 +4,7 @@ import { ITeamVacancy } from "@/models/ITeamVacancy";
 import { ITeam } from "@/models/ITeam";
 import { useNavigate, useParams } from "react-router-dom";
 import {IVacancyResponse} from "@/models/IVacancyResponse";
+import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
 
 export const TeamDetailVacancies = ({vacancy_responses, listVacancies, myTeam, currentTeam}: {
     vacancy_responses: IVacancyResponse[],
@@ -22,7 +23,7 @@ export const TeamDetailVacancies = ({vacancy_responses, listVacancies, myTeam, c
                         navigate(`/hackathon/${hackathon_id}/teams/${team_id}/vacancy/${vacancy.id}/candidates`)
                     }
                 }
-                
+
                 return <VacancyCard
                     onClick={ onClick}
                     key={ vacancy.id }

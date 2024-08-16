@@ -1,25 +1,28 @@
-import { memo, useEffect, useState } from "react";
-import { AuthGuard } from "@/components/auth-guard";
-import { Header } from "@/components/header";
-import { Button, Center, Container, Flex, Loader } from "@mantine/core";
-import { TeamDetailParticipants } from "@/components/team-detail-participants";
-import { TeamDetailVacancies } from "@/components/team-detail-vacancies";
-import { TeamDetailVacanciesResponses } from "@/components/team-detali-vacancies-responses";
+import {memo, useEffect, useState} from "react";
+import {AuthGuard} from "@/components/auth-guard";
+import {Header} from "@/components/header";
+import {Button, Center, Container, Flex, Loader} from "@mantine/core";
+import {TeamDetailParticipants} from "@/components/team-detail-participants";
+import {TeamDetailVacancies} from "@/components/team-detail-vacancies";
+import {TeamDetailVacanciesResponses} from "@/components/team-detali-vacancies-responses";
 import useUser from "@/hooks/use-user";
-import { useNavigate, useParams } from "react-router-dom";
-import { ITeam } from "@/models/ITeam";
+import {useNavigate, useParams} from "react-router-dom";
+import {ITeam} from "@/models/ITeam";
 import getTeam from "@/api/get-team";
 import fetchTeamVacancies from "@/api/fetch-team-vacancies";
 import fetchMyTeam from "@/api/fetch-my-team";
-import { ITeamVacancy } from "@/models/ITeamVacancy";
-import { IVacancyResponse } from "@/models/IVacancyResponse";
+import {ITeamVacancy} from "@/models/ITeamVacancy";
+import {IVacancyResponse} from "@/models/IVacancyResponse";
 import getTeamVacanciesResponses from "@/api/get-team-vacancies-responses";
 import {route404} from "@/utils/constants";
 import leaveTeam from "@/api/leave-team";
+import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
+import {HackathonStatus} from "@/models/IHackathon";
 
 export const TeamDetailPage = memo(() => {
     const {user} = useUser()
     const params = useParams()
+    const [hackathon] = useFetchHackathon(params.hackathon_id)
     const [teamDetail, setTeamDetail] = useState<ITeam | null>(null)
     const [hackathonId, setHackathonId] = useState<number>(0)
     const [listVacancies, setListVacancies] = useState<ITeamVacancy[]>([])
@@ -47,7 +50,7 @@ export const TeamDetailPage = memo(() => {
         }
     }, [user])
 
-    if (!teamDetail || !user || !user.id) {
+    if (!teamDetail || !user || !user.id || !hackathon) {
         return <Center w='100vw' h='100vh'>
             <Loader size="md"/>
         </Center>
@@ -64,49 +67,55 @@ export const TeamDetailPage = memo(() => {
                 direction={ {base: 'column', sm: 'row'} }>
                 <h1>{ teamDetail.name }</h1>
 
-                {user.id == teamDetail.creator
-                    ? <Flex align={"center"} gap={"md"}>
+                <Flex align={"center"} gap={"md"}>
+                    {user.id == teamDetail.creator && hackathon.status != HackathonStatus.Ended ?
                         <Button
-                            onClick={ () => navigate(`/hackathon/${ params.hackathon_id }/teams/${ teamDetail!.id }/change`) }
+                            onClick={() => navigate(`/hackathon/${params.hackathon_id}/teams/${teamDetail!.id}/change`)}
                             variant='transparent'
-                            px={ 0 }>
+                            px={0}>
                             Редактировать
-                        </Button>
-                        {myTeam && teamDetail.id == myTeam.id ?
-                            <Button
-                                onClick={ () => {
-                                    leaveTeam(myTeam?.id).then(() => navigate(`/hackathon/${ params.hackathon_id }/teams`))
-                                } }
-                                variant='transparent'
-                                c={"red"}
-                                px={ 0 }>
-                                Выйти из команды
-                            </Button> :
-                            <></>
-                        }
-                      </Flex>
-                    : <></>}
+                        </Button> : <></>
+                    }
+                    {myTeam && teamDetail.id == myTeam.id && hackathon.status != HackathonStatus.Ended ?
+                        <Button
+                            onClick={ () => {
+                                leaveTeam(myTeam?.id).then(() => navigate(`/hackathon/${ params.hackathon_id }/teams`))
+                            } }
+                            variant='transparent'
+                            c={"red"}
+                            px={ 0 }>
+                            Выйти из команды
+                        </Button> :
+                        <></>
+                    }
+                </Flex>
             </Flex>
 
             {/*  Участники + Popup   */ }
             <h3>Участники команды</h3>
             <TeamDetailParticipants
+                hackathon={hackathon}
                 team_id={ teamDetail.id }
                 creator={ teamDetail.creator }
                 members={ teamDetail.members }
                 hackathon_id={ hackathonId }/>
 
             {/* Вакансии */ }
-            <h3>Вакансии</h3>
-            <TeamDetailVacancies
-                currentTeam={ teamDetail }
-                vacancy_responses={ vacancyResponses }
-                listVacancies={ listVacancies }
-                myTeam={ myTeam }/>
+            { hackathon.status != HackathonStatus.Ended ?
+                <>
+                    <h3>Вакансии</h3>
+                    <TeamDetailVacancies
+                        currentTeam={ teamDetail }
+                        vacancy_responses={ vacancyResponses }
+                        listVacancies={ listVacancies }
+                        myTeam={ myTeam }/>
+                </> :
+                <></>
+            }
 
             {/* Отклики */ }
             {
-                myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && <>
+                hackathon.status != HackathonStatus.Ended && myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && <>
                     <h3>Отклики на вакансии </h3>
                     <TeamDetailVacanciesResponses
                         variant={ teamVacanciesResponsesVariant }

@@ -5,9 +5,12 @@ import {Card, Container, Flex, Button, Text} from "@mantine/core";
 import {useEffect, useState} from "react";
 import {IconMailForward} from "@tabler/icons-react";
 import getNotAcceptedInvite from "@/api/get-not-accepted-invite";
+import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
+import {HackathonStatus} from "@/models/IHackathon";
 
 export const NotAcceptedInvite = () => {
     const {hackathon_id} = useParams()
+    const [hackathon] = useFetchHackathon(hackathon_id)
     const [emails, setEmails] = useState<string[]>([]);
     useEffect(() => {
         getNotAcceptedInvite(hackathon_id).then(data => setEmails(data))
@@ -18,19 +21,27 @@ export const NotAcceptedInvite = () => {
         <Container size={"md"}>
             <Flex justify={"space-between"} align={"center"}>
                 <h2>Участники не принявшие приглашение в хакатон</h2>
-                <Button size={"xs"}>Повторно пригласить всех</Button>
+                {
+                    (hackathon && hackathon?.status != HackathonStatus.Ended && emails.length) ?
+                        <Button size={"xs"}>Повторно пригласить всех</Button> :
+                        <></>
+                }
             </Flex>
             <Flex direction={"column"} gap={"md"} mt={"md"}>
-                { emails.map((email: string, index: number) => {
+                { emails.length ? emails.map((email: string, index: number) => {
                     return <Card padding={"sm"} radius={"md"} withBorder key={index}>
                         <Flex direction={"row"} justify={"space-between"} align={"center"}>
                             <Text fw={500}>{email}</Text>
-                            <Button size={"xs"} variant={"light"}>
-                                <IconMailForward stroke={1} />
-                            </Button>
+                            {
+                                (hackathon && hackathon?.status != HackathonStatus.Ended) ?
+                                <Button size={"xs"} variant={"light"}>
+                                    <IconMailForward stroke={1} />
+                                </Button> :
+                                <></>
+                            }
                         </Flex>
                     </Card>
-                }) }
+                }) : <Text size={"md"}>Все приглашенные участники зарегестрировались</Text> }
             </Flex>
         </Container>
     </AuthGuard>

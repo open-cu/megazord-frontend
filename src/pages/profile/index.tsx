@@ -36,7 +36,7 @@ const Content = () => {
             workExp: user!.workExp ? user!.workExp!.toString() : '',
         },
         validationSchema: yup.object({
-            name: yup.string().required('Введите имя').max(30, 'Имя слишком длинное'),
+            name: yup.string().required('Введите имя').max(30, 'Имя слишком длинное').matches(/^[^,]*$/, 'Поле не должно содержать запятые'),
             age: yup.number().min(0, 'Возраст не может быть отрицательным').integer('Введите целое число лет'),
             workExp: yup.number().min(0, 'Опыт не может быть отрицательным').integer('Опыт целое число лет'),
         }),

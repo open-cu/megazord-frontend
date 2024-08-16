@@ -1,19 +1,21 @@
-import { AuthGuard } from "@/components/auth-guard";
-import { Header } from "@/components/header";
-import {ActionIcon, Button, Container, Flex, TextInput, Center, Loader, Autocomplete} from "@mantine/core";
-import { IconTrash } from "@tabler/icons-react";
-import { FC, useEffect, useState } from "react";
-import { IResume } from "@/models/IResume";
-import { fetchResume } from "@/api/fetch-resume.ts";
-import { useNavigate, useParams } from "react-router-dom";
-import { v4 as uuid } from 'uuid'
-import { createFormik } from "@/utils/create-formik";
+import {AuthGuard} from "@/components/auth-guard";
+import {Header} from "@/components/header";
+import {ActionIcon, Autocomplete, Button, Center, Container, Flex, Loader, TextInput} from "@mantine/core";
+import {IconTrash} from "@tabler/icons-react";
+import {FC, useEffect, useState} from "react";
+import {IResume} from "@/models/IResume";
+import {fetchResume} from "@/api/fetch-resume.ts";
+import {useNavigate, useParams} from "react-router-dom";
+import {v4 as uuid} from 'uuid'
+import {createFormik} from "@/utils/create-formik";
 import * as yup from 'yup';
-import { Form, Formik } from "formik";
-import { FormTextareaInput } from "@/components/form-input/form-textarea-input.tsx";
-import { FormInput } from "@/components/form-input/form-input.tsx";
-import { editResume } from "@/api/edit-resume.ts";
+import {Form, Formik} from "formik";
+import {FormTextareaInput} from "@/components/form-input/form-textarea-input.tsx";
+import {FormInput} from "@/components/form-input/form-input.tsx";
+import {editResume} from "@/api/edit-resume.ts";
 import {skills} from "@/utils/skills";
+import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
+import {HackathonStatus} from "@/models/IHackathon";
 
 export const MyResume = () => {
     const [resume, setResume] = useState<IResume | null>(null)
@@ -42,7 +44,7 @@ export const MyResume = () => {
             <Header variant="user"/>
             {
                 resume
-                    ? <Content resume={ resume }/>
+                    ? <Content resume={ resume } hackathon_id={hackathon_id}/>
                     : <Center w='100vw' h='calc(100vh - 65px)'>
                         <Loader size="md"/>
                     </Center>
@@ -53,6 +55,7 @@ export const MyResume = () => {
 
 type ContentProps = {
     resume: IResume,
+    hackathon_id: string,
 }
 
 type EditableItem = {
@@ -67,6 +70,7 @@ const Content: FC<ContentProps> = (props) => {
 
     const [techSkills, setTechSkills] = useState(props.resume.techStack.map(createEditableItem))
     const [softSkills, setSoftSkills] = useState(props.resume.softSkills.map(createEditableItem))
+    const [hackathon] = useFetchHackathon(props.hackathon_id)
 
     const addTechSkill = () => setTechSkills([...techSkills, createEditableItem('')])
 
@@ -191,15 +195,15 @@ const Content: FC<ContentProps> = (props) => {
 
         <Formik { ...formik }>
             <Form>
-                <FormTextareaInput autosize minRows={ 4 } name='bio' mt="md" placeholder="Опишите себя"/>
+                <FormTextareaInput autosize minRows={ 4 } name='bio' mt="md" placeholder="Опишите себя" disabled={hackathon?.status == HackathonStatus.Ended}/>
 
                 <Container mt="xl" px={ 0 }>
                     <h3>Контакты</h3>
                     <Flex direction="column" gap="sm" mt="md">
-                        <FormInput name='telegram' placeholder="Телеграм"/>
-                        <FormInput name='githubLink' placeholder="Гитхаб"/>
-                        <FormInput name='hhLink' placeholder="hh.ru"/>
-                        <FormInput name='personalWebsite' placeholder="Сайт портфолио"/>
+                        <FormInput name='telegram' placeholder="Телеграм" disabled={hackathon?.status == HackathonStatus.Ended}/>
+                        <FormInput name='githubLink' placeholder="Гитхаб" disabled={hackathon?.status == HackathonStatus.Ended}/>
+                        <FormInput name='hhLink' placeholder="hh.ru" disabled={hackathon?.status == HackathonStatus.Ended}/>
+                        <FormInput name='personalWebsite' placeholder="Сайт портфолио" disabled={hackathon?.status == HackathonStatus.Ended}/>
                     </Flex>
                 </Container>
 
@@ -208,7 +212,7 @@ const Content: FC<ContentProps> = (props) => {
                     <Flex direction="column" gap="sm" mt="xs">
                         { techSkillsItems }
                     </Flex>
-                    <Button variant="subtle" mt="xs" onClick={ addTechSkill }>
+                    <Button variant="subtle" mt="xs" onClick={ addTechSkill } disabled={hackathon?.status == HackathonStatus.Ended}>
                         Добавить
                     </Button>
                 </Container>
@@ -218,12 +222,12 @@ const Content: FC<ContentProps> = (props) => {
                     <Flex direction="column" gap="sm" mt="xs">
                         { softSkillsItems }
                     </Flex>
-                    <Button variant="subtle" mt="xs" onClick={ addSoftSkill }>
+                    <Button variant="subtle" mt="xs" onClick={ addSoftSkill } disabled={hackathon?.status == HackathonStatus.Ended}>
                         Добавить
                     </Button>
                 </Container>
 
-                <Button mt="md" type='submit'>Сохранить</Button>
+                {hackathon?.status != HackathonStatus.Ended && <Button mt="md" type='submit'>Сохранить</Button>}
             </Form>
         </Formik>
     </Container>

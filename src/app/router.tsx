@@ -27,6 +27,7 @@ import { JoinTeam } from "@/pages/join-team";
 import AdminPanel from "@/pages/admin-panel";
 import {UsersWithoutTeam} from "@/pages/users-without-team";
 import {NotAcceptedInvite} from "@/pages/not-accepted-invite";
+import {InvitedUsers} from "@/pages/invited-users";
 
 export const router = createBrowserRouter([
   {
@@ -137,5 +138,9 @@ export const router = createBrowserRouter([
   {
     path: 'admin-panel/:hackathon_id/not-accept-invite',
     element: <NotAcceptedInvite />
-  }
+  },
+  {
+    path: 'admin-panel/:hackathon_id/invited-users',
+    element: <InvitedUsers />
+  },
 ]);

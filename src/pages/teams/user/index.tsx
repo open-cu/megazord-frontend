@@ -9,7 +9,7 @@ import { AuthGuard } from "@/components/auth-guard";
 import { ITeam } from "@/models/ITeam";
 import { useNavigate, useParams } from "react-router-dom"
 import fetchHackathon from "@/api/fetch-hackathon";
-import { IHackathon } from "@/models/IHackathon";
+import {HackathonStatus, IHackathon} from "@/models/IHackathon";
 import fetchMyTeam from "@/api/fetch-my-team";
 import { IVacancySuggestion } from "@/models/IVacancySuggestion.ts";
 import { fetchResume } from "@/api/fetch-resume.ts";
@@ -62,12 +62,12 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
             <Flex justify="space-between" mb='md' align='center'>
                 <h1>Команды</h1>
                 {
-                    !myTeam && <Button
+                    (!myTeam && hackathon?.status != HackathonStatus.Ended) ? <Button
                         onClick={ () => navigate(`/hackathon/${ hackathon_id }/teams/create`) }
                         variant="outline"
                         rightSection={ <IconPlus size={ 14 }/> }>
                         Создать команду
-                    </Button>
+                    </Button> : <></>
                 }
             </Flex>
 
@@ -97,6 +97,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
                                 suggestion={ suggestion }
                                 maxMembers={ hackathon.max_participants }
                                 hackathonId={ hackathon.id }
+                                hackathonStatus={ hackathon.status }
                             />
                         })
                 }

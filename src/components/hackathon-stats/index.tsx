@@ -7,8 +7,10 @@ import { useParams } from "react-router-dom";
 import {HackathonStatsCard} from "@/components/hackathon-stats-card";
 import {IconDownload} from "@tabler/icons-react";
 import {getParticipantsCsv} from "@/api/get-participants-csv";
+import { downloadCsv } from '@/utils/download-csv'
 
 export const HackathonStats = memo(() => {
+
     const navigate = useNavigate()
     const { hackathon_id } = useParams();
     const [stats, setStats] = useState<IHackathonStats | null>();
@@ -40,7 +42,7 @@ export const HackathonStats = memo(() => {
                             variant={"light"}
                             onClick={() => navigate(`/hackathon/${hackathon_id}`)}
                         >Список всех участников</Button>
-                        <ActionIcon size={"bg"} variant="light" aria-label="Download" onClick={() => getParticipantsCsv(hackathon_id)}>
+                        <ActionIcon size={"bg"} variant="light" aria-label="Download" onClick={() => getParticipantsCsv(hackathon_id).then(res => downloadCsv(res))}>
                             <IconDownload style={{ height: "60%" }} stroke={2}/>
                         </ActionIcon>
                     </Flex>

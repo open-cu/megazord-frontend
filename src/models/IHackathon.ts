@@ -9,4 +9,11 @@ export interface IHackathon {
     imageCover: string;
     participants: IUser[];
     teamsIds: number[];
+    status: HackathonStatus;
+}
+
+export enum HackathonStatus {
+    NotStarted = "NOT_STARTED",
+    Started = "STARTED",
+    Ended = "ENDED",
 }

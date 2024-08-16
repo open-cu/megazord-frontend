@@ -9,6 +9,20 @@ import {IconDownload} from "@tabler/icons-react";
 import {getParticipantsCsv} from "@/api/get-participants-csv";
 
 export const HackathonStats = memo(() => {
+    const downloadCsv = (csvString: string) => {
+        const blob = new Blob([csvString], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'data.csv'); // Установите имя файла для загрузки
+        document.body.appendChild(link);
+        link.click();
+
+        // Очистка ссылки после загрузки
+        document.body.removeChild(link);
+    };
+
     const navigate = useNavigate()
     const { hackathon_id } = useParams();
     const [stats, setStats] = useState<IHackathonStats | null>();
@@ -40,7 +54,7 @@ export const HackathonStats = memo(() => {
                             variant={"light"}
                             onClick={() => navigate(`/hackathon/${hackathon_id}`)}
                         >Список всех участников</Button>
-                        <ActionIcon size={"bg"} variant="light" aria-label="Download" onClick={() => getParticipantsCsv(hackathon_id)}>
+                        <ActionIcon size={"bg"} variant="light" aria-label="Download" onClick={() => getParticipantsCsv(hackathon_id).then(res => downloadCsv(res))}>
                             <IconDownload style={{ height: "60%" }} stroke={2}/>
                         </ActionIcon>
                     </Flex>

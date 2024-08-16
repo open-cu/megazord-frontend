@@ -1,12 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import { HackathonStatus, IHackathon } from '@/models/IHackathon';
-import { Button, Center, Container, Flex, Loader, Text } from '@mantine/core';
+import { Button, Center, Container, Flex, Loader, Text, UnstyledButton } from '@mantine/core';
 import { HackathonStats } from '@/components/hackathon-stats';
 import { useNavigate } from 'react-router-dom';
 import { startHackathon } from '@/api/start-hackathon';
 import { useDisclosure } from '@mantine/hooks';
 import { endHackathon } from '@/api/end-hackathon';
 import { useFetchHackathon } from '@/hooks/use-fetch-hackathon';
+import {invite_link} from "@/utils/constants";
+
+const handleCopyLink = (hackathon_id: string) => {
+    const link = invite_link + `join-hackaton?hackathon_id=${hackathon_id}`;
+    navigator.clipboard.writeText(link).then(() => {
+        alert("Ссылка успешно скопирована в буфер обмена")
+    }).catch((error) => {
+        console.error("Ошибка при копировании ссылки: ", error);
+    });
+};
 
 const NotStartedComponent = (
     { hackathon, setHackathon }:
@@ -15,6 +25,8 @@ const NotStartedComponent = (
     const navigate = useNavigate();
     const [startLoading, { toggle: toggleStart }] = useDisclosure();
     const [error, setError] = useState<string>("")
+
+
     const startHackathonFunc = async () => {
         toggleStart();
         try {
@@ -49,6 +61,9 @@ const NotStartedComponent = (
                 >
                     Почты приглашенных участников
                 </Button>
+                <UnstyledButton c={"blue"} fw={600} onClick={() => handleCopyLink(hackathon.id)} size={"xs"}>
+                    Ссылка приглашение
+                </UnstyledButton>
             </Flex>
         </Container>
     );
@@ -80,14 +95,18 @@ const StartedComponent = (
     return (
         <Container size="md">
             <HackathonStats hackathon={hackathon} />
-            <Button
-                color="red"
-                mt="md"
-                onClick={endHackathonFunc}
-                loading={endLoading}
-            >
-                Закончить формирование команд
-            </Button>
+            <Flex direction={"column"} align={"center"} mt="md">
+                <UnstyledButton c={"blue"} fw={600} onClick={() => handleCopyLink(hackathon.id)} size={"xs"}>
+                    Ссылка приглашение
+                </UnstyledButton>
+                <Button
+                    color="red"
+                    onClick={endHackathonFunc}
+                    loading={endLoading}
+                >
+                    Закончить формирование команд
+                </Button>
+            </Flex>
             <Text c={"red"} size={"xs"}>{error}</Text>
         </Container>
     );

@@ -1,33 +1,36 @@
-import { useNavigate } from "react-router-dom"
-import {useEffect, useState} from "react";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {IHackathon} from "@/models/IHackathon";
 import fetchHackathon from "@/api/fetch-hackathon";
 import {route404} from "@/utils/constants";
 
+function assertNonNull<T>(val: T | null | undefined, errorMessage: string = 'Required value is null'): asserts val is T {
+    if (val == null) {
+        throw new Error(errorMessage);
+    }
+}
+
 export const useFetchHackathon = (hackathon_id: string) => {
     const [hackathon, setHackathon] = useState<IHackathon | null>(null);
     const navigate = useNavigate();
+
     useEffect(() => {
         const loadHackathon = async () => {
             try {
                 const id = parseInt(hackathon_id ?? '', 10);
-                if (id) {
-                    const data = await fetchHackathon(id);
-                    if (data) {
-                        setHackathon(data);
-                    } else {
-                        navigate(route404);
-                    }
-                } else {
-                    navigate(route404);
-                }
-            } catch {
+                assertNonNull(id, 'Hackathon ID is required and must be a number');
+
+                const data = await fetchHackathon(id);
+                assertNonNull(data, 'Hackathon not found');
+
+                setHackathon(data);
+            } catch (e) {
                 navigate(route404);
             }
         };
 
         loadHackathon();
-    }, [hackathon_id, navigate, route404]);
+    }, [hackathon_id, navigate]);
 
     return [hackathon, setHackathon] as const;
 };

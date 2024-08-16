@@ -1,5 +1,5 @@
 import { Form, Formik } from "formik";
-import { Autocomplete, Button, Container, FileInput, Flex, Image, Text, FileButton } from "@mantine/core";
+import { Autocomplete, Button, Container, FileInput, Flex, Image, Text, FileButton, Accordion, AccordionControl, AccordionItem, AccordionPanel } from "@mantine/core";
 import { FormInput } from "@/components/form-input/form-input";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
 import { FormNumberInput } from "@/components/form-input/form-number-input";
@@ -96,6 +96,24 @@ export const ChangeHackathonForm = (
                         disabled
                         placeholder="Введите макс количество участников в команде"
                     />
+                    {hackathon.roles && <Accordion defaultValue='role'>
+                        <AccordionItem value='role' style={ {borderBottom: 'none'} }>
+                            <AccordionControl p={ 0 }>Список ролей хакатона</AccordionControl>
+                            {
+                                hackathon.roles.map(role => {
+                                    return <AccordionPanel key={role}>
+                                        <Flex
+                                            justify='space-between' p={"10px 15px"}
+                                            align={"center"}
+                                            style={ {borderRadius: 8, border: '1px solid var(--stroke-color)'} }
+                                        >
+                                            <Text fw={ 500 } size={"sm"}>{ role }</Text>
+                                        </Flex>
+                                    </AccordionPanel>
+                                })
+                            }
+                        </AccordionItem>
+                    </Accordion>}
                     <Container p={ "0" } w={ "100%" }>
                         <FileInput
                             w={ "100%" }

@@ -6,6 +6,7 @@ export interface CreateHackathonPayload {
     min_participants: number,
     max_participants: number,
     participants: string[],
+    roles: string[]
 }
 
 
@@ -17,7 +18,6 @@ export default async function createHackathon(file: File, csvFile: File, data: C
     form.append('body', JSON.stringify({
         ...data,
         min_participants: 1,
-        roles: [],
     }));
 
     return await client.post(`/hackathons/`, form).then((res) => true).catch(() => false);

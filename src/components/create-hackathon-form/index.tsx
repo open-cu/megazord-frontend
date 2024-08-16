@@ -111,17 +111,20 @@ export const CreateHackathonForm = () => {
             <Form>
                 <Flex direction="column" gap="md">
                     <FormInput
+                        required
                         name="name"
                         label="Название хакатона"
                         placeholder="Введите название хакатона"
                     />
                     <FormTextareaInput
+                        required
                         name="description"
                         label="Описание хакатона"
                         autosize
                         placeholder="Введите описание хакатона"
                     />
                     <FormNumberInput
+                        required
                         name="max_participants"
                         label="Макс количество участников в команде"
                         placeholder="Введите макс количество участников в команде"
@@ -174,6 +177,7 @@ export const CreateHackathonForm = () => {
 
                     <Container p={ "0" } w={ "100%" }>
                         <FileInput
+                            required
                             w={ "100%" }
                             value={ file }
                             onChange={ (e) => {

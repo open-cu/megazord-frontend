@@ -67,28 +67,28 @@ export const TeamDetailPage = memo(() => {
                 direction={ {base: 'column', sm: 'row'} }>
                 <h1>{ teamDetail.name }</h1>
 
-                {user.id == teamDetail.creator && hackathon.status != HackathonStatus.Ended
-                    ? <Flex align={"center"} gap={"md"}>
+                <Flex align={"center"} gap={"md"}>
+                    {user.id == teamDetail.creator && hackathon.status != HackathonStatus.Ended ?
                         <Button
-                            onClick={ () => navigate(`/hackathon/${ params.hackathon_id }/teams/${ teamDetail!.id }/change`) }
+                            onClick={() => navigate(`/hackathon/${params.hackathon_id}/teams/${teamDetail!.id}/change`)}
                             variant='transparent'
-                            px={ 0 }>
+                            px={0}>
                             Редактировать
-                        </Button>
-                        {myTeam && teamDetail.id == myTeam.id ?
-                            <Button
-                                onClick={ () => {
-                                    leaveTeam(myTeam?.id).then(() => navigate(`/hackathon/${ params.hackathon_id }/teams`))
-                                } }
-                                variant='transparent'
-                                c={"red"}
-                                px={ 0 }>
-                                Выйти из команды
-                            </Button> :
-                            <></>
-                        }
-                      </Flex>
-                    : <></>}
+                        </Button> : <></>
+                    }
+                    {myTeam && teamDetail.id == myTeam.id && hackathon.status != HackathonStatus.Ended ?
+                        <Button
+                            onClick={ () => {
+                                leaveTeam(myTeam?.id).then(() => navigate(`/hackathon/${ params.hackathon_id }/teams`))
+                            } }
+                            variant='transparent'
+                            c={"red"}
+                            px={ 0 }>
+                            Выйти из команды
+                        </Button> :
+                        <></>
+                    }
+                </Flex>
             </Flex>
 
             {/*  Участники + Popup   */ }
@@ -101,16 +101,21 @@ export const TeamDetailPage = memo(() => {
                 hackathon_id={ hackathonId }/>
 
             {/* Вакансии */ }
-            <h3>Вакансии</h3>
-            <TeamDetailVacancies
-                currentTeam={ teamDetail }
-                vacancy_responses={ vacancyResponses }
-                listVacancies={ listVacancies }
-                myTeam={ myTeam }/>
+            { hackathon.status != HackathonStatus.Ended ?
+                <>
+                    <h3>Вакансии</h3>
+                    <TeamDetailVacancies
+                        currentTeam={ teamDetail }
+                        vacancy_responses={ vacancyResponses }
+                        listVacancies={ listVacancies }
+                        myTeam={ myTeam }/>
+                </> :
+                <></>
+            }
 
             {/* Отклики */ }
             {
-                myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && <>
+                hackathon.status != HackathonStatus.Ended && myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && <>
                     <h3>Отклики на вакансии </h3>
                     <TeamDetailVacanciesResponses
                         variant={ teamVacanciesResponsesVariant }

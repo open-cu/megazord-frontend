@@ -97,6 +97,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
                                 suggestion={ suggestion }
                                 maxMembers={ hackathon.max_participants }
                                 hackathonId={ hackathon.id }
+                                hackathonStatus={ hackathon.status }
                             />
                         })
                 }

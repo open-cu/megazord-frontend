@@ -73,7 +73,7 @@ const NotStartedComponent = (
                     variant="light"
                     onClick={() => navigate(`/admin-panel/${hackathon.id}/invited-users`)}
                 >
-                    Почты приглашенных участников
+                    Приглашенные участники
                 </Button>
             </Flex>
         </Container>

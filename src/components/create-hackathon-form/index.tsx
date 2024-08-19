@@ -8,7 +8,7 @@ import {
     Flex,
     Image,
     Text,
-    TextInput
+    TextInput, Tooltip
 } from "@mantine/core";
 import { FormInput } from "@/components/form-input/form-input";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
@@ -154,9 +154,11 @@ export const CreateHackathonForm = () => {
                                 } }
                                 w={ "100%" }
                             />
-                            <Button size={ "sm" } onClick={ () => addRole(roleInputValue) }>
-                                <IconPlus stroke={ 2 } size={ 20 }/>
-                            </Button>
+                            <Tooltip label={"Добавить роль"} withArrow>
+                                <Button size={ "sm" } onClick={ () => addRole(roleInputValue) }>
+                                    <IconPlus stroke={ 2 } size={ 20 }/>
+                                </Button>
+                            </Tooltip>
                         </Flex>
                         <Accordion defaultValue='role'>
                             <AccordionItem value='role' style={ {borderBottom: 'none'} }>
@@ -226,20 +228,29 @@ export const CreateHackathonForm = () => {
                                 } }
                                 w={ "100%" }
                             />
-                            <FileButton onChange={(e) => {
-                                setCsvFile(e)
-                                toast({
-                                    type: "success",
-                                    message: "Файл успешно загружен"
-                                })
-                            }} accept="csv">
-                                {(props) => <Button {...props}>
-                                    <IconUpload stroke={ 2 } size={ 20 } />
-                                </Button>}
+                            <FileButton
+                                onChange={(e) => {
+                                    setCsvFile(e)
+                                    toast({
+                                        type: "success",
+                                        message: "Файл успешно загружен"
+                                    })
+                                }}
+                                accept="csv"
+                            >
+                                {(props) =>
+                                    <Tooltip label={"Загрзите .csv с почтами участников"} withArrow>
+                                        <Button {...props}>
+                                            <IconUpload stroke={ 2 } size={ 20 } />
+                                        </Button>
+                                    </Tooltip>
+                                }
                             </FileButton>
-                            <Button size={ "sm" } onClick={ () => addParticipant(participantInputValue) }>
-                                <IconPlus stroke={ 2 } size={ 20 }/>
-                            </Button>
+                            <Tooltip label={"Добавить участника"} withArrow>
+                                <Button size={ "sm" } onClick={ () => addParticipant(participantInputValue) }>
+                                    <IconPlus stroke={ 2 } size={ 20 }/>
+                                </Button>
+                            </Tooltip>
                         </Flex>
                         { csvFile && (
                             <Text size="xs" ta="center">

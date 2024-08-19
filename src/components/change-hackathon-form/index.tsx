@@ -1,5 +1,19 @@
 import { Form, Formik } from "formik";
-import { Autocomplete, Button, Container, FileInput, Flex, Image, Text, FileButton, Accordion, AccordionControl, AccordionItem, AccordionPanel } from "@mantine/core";
+import {
+    Autocomplete,
+    Button,
+    Container,
+    FileInput,
+    Flex,
+    Image,
+    Text,
+    FileButton,
+    Accordion,
+    AccordionControl,
+    AccordionItem,
+    AccordionPanel,
+    Tooltip
+} from "@mantine/core";
 import { FormInput } from "@/components/form-input/form-input";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
 import { FormNumberInput } from "@/components/form-input/form-number-input";
@@ -166,23 +180,33 @@ export const ChangeHackathonForm = (
                                 data={ participants }
                                 limit={ 5 }
                             />
-                            <FileButton onChange={(e) => {
-                                setCsvFile(e)
-                                toast({
-                                    type: "success",
-                                    message: "Файл успешно загружен"
-                                })
-                            }} accept="csv">
-                                {(props) => <Button {...props}>
-                                    <IconUpload stroke={ 2 } size={ 20 } />
-                                </Button>}
-                            </FileButton>
-                            <Button
-                                loading={ loading }
-                                size={ "sm" }
-                                onClick={ () => addParticipant(participantInputValue) }>
-                                <IconPlus stroke={ 2 } size={ 20 }/>
-                            </Button>
+                                <FileButton
+                                    onChange={(e) => {
+                                        setCsvFile(e)
+                                        toast({
+                                            type: "success",
+                                            message: "Файл успешно загружен"
+                                        })
+                                    }}
+                                    accept="csv"
+                                >
+                                    {(props) =>
+                                        <Tooltip label={"Загрзите .csv с почтами участников"} withArrow>
+                                            <Button {...props}>
+                                                <IconUpload stroke={ 2 } size={ 20 } />
+                                            </Button>
+                                        </Tooltip>
+                                    }
+                                </FileButton>
+                            <Tooltip label={"Добавить участника"} withArrow>
+                                <Button
+                                    loading={ loading }
+                                    size={ "sm" }
+                                    onClick={ () => addParticipant(participantInputValue) }
+                                >
+                                    <IconPlus stroke={ 2 } size={ 20 }/>
+                                </Button>
+                            </Tooltip>
                         </Flex>
                         { csvFile && (
                             <Text size="xs" ta="center">

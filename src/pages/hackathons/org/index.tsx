@@ -1,4 +1,4 @@
-import { Button, Container, Flex, Text } from "@mantine/core";
+import { Button, Container, Flex, Text, Center } from "@mantine/core";
 import { IconPlus } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom"
 import { HackathonsList } from "@/components/hackathons-list";
@@ -29,7 +29,12 @@ export const HackathonsOrg = () => {
                         <IconPlus/>
                     </Button>
                 </Flex>
-                <HackathonsList role='organizer' hackathons={ hackathons }/>
+                {hackathons.length > 0 ?
+                    <HackathonsList role='organizer' hackathons={ hackathons }/> :
+                    <Text size="lg" ta='center' fw={"600"} mt={"lg"}>
+                        Вы пока не создали ни одного хакатона
+                    </Text>
+                }
             </Container>
         </AuthGuard>
     );

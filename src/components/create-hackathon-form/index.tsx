@@ -8,7 +8,7 @@ import {
     Flex,
     Image,
     Text,
-    TextInput
+    TextInput, Tooltip
 } from "@mantine/core";
 import { FormInput } from "@/components/form-input/form-input";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
@@ -20,6 +20,7 @@ import { createFormik } from "@/utils/create-formik";
 import createHackathon, { CreateHackathonPayload } from "@/api/create-hackathon";
 import * as yup from 'yup'
 import './create-hackathon-form.css'
+import {toast} from "@/utils/toasts";
 
 const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -100,7 +101,13 @@ export const CreateHackathonForm = () => {
             setLoading(true)
             await createHackathon(file, csvFile, data).then(res => {
                 if (!res) setParticipantInputError("Непредвиденная ошибка")
-                else navigate('/')
+                else {
+                    navigate('/')
+                    toast({
+                        type: "success",
+                        message: `Вы успешно создали хакатон "${values.name}"`
+                    })
+                }
             })
             setLoading(false)
         }
@@ -147,9 +154,11 @@ export const CreateHackathonForm = () => {
                                 } }
                                 w={ "100%" }
                             />
-                            <Button size={ "sm" } onClick={ () => addRole(roleInputValue) }>
-                                <IconPlus stroke={ 2 } size={ 20 }/>
-                            </Button>
+                            <Tooltip label={"Добавить роль"} withArrow>
+                                <Button size={ "sm" } onClick={ () => addRole(roleInputValue) }>
+                                    <IconPlus stroke={ 2 } size={ 20 }/>
+                                </Button>
+                            </Tooltip>
                         </Flex>
                         <Accordion defaultValue='role'>
                             <AccordionItem value='role' style={ {borderBottom: 'none'} }>
@@ -219,14 +228,29 @@ export const CreateHackathonForm = () => {
                                 } }
                                 w={ "100%" }
                             />
-                            <FileButton onChange={setCsvFile} accept="csv">
-                                {(props) => <Button {...props}>
-                                    <IconUpload stroke={ 2 } size={ 20 } />
-                                </Button>}
+                            <FileButton
+                                onChange={(e) => {
+                                    setCsvFile(e)
+                                    toast({
+                                        type: "success",
+                                        message: "Файл успешно загружен"
+                                    })
+                                }}
+                                accept="csv"
+                            >
+                                {(props) =>
+                                    <Tooltip label={"Загрзите .csv с почтами участников"} withArrow>
+                                        <Button {...props}>
+                                            <IconUpload stroke={ 2 } size={ 20 } />
+                                        </Button>
+                                    </Tooltip>
+                                }
                             </FileButton>
-                            <Button size={ "sm" } onClick={ () => addParticipant(participantInputValue) }>
-                                <IconPlus stroke={ 2 } size={ 20 }/>
-                            </Button>
+                            <Tooltip label={"Добавить участника"} withArrow>
+                                <Button size={ "sm" } onClick={ () => addParticipant(participantInputValue) }>
+                                    <IconPlus stroke={ 2 } size={ 20 }/>
+                                </Button>
+                            </Tooltip>
                         </Flex>
                         { csvFile && (
                             <Text size="xs" ta="center">

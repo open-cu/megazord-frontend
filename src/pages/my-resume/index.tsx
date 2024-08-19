@@ -16,6 +16,7 @@ import {editResume} from "@/api/edit-resume.ts";
 import {skills} from "@/utils/skills";
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
 import {HackathonStatus} from "@/models/IHackathon";
+import {toast} from "@/utils/toasts";
 
 export const MyResume = () => {
     const [resume, setResume] = useState<IResume | null>(null)
@@ -185,8 +186,16 @@ const Content: FC<ContentProps> = (props) => {
 
             if (success) {
                 navigate(`/hackathon/${ props.resume.hackathonId }`)
+                toast({
+                    type: "success",
+                    message: "Резюме сохранено"
+                })
             } else {
                 formikHelpers.setFieldError('bio', 'Произошла непредвиденная ошибка')
+                toast({
+                    type: "error",
+                    message: "Произошла непредвиденная ошибка"
+                })
             }
         },
     })

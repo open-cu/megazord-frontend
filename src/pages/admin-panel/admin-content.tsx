@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { HackathonStatus, IHackathon } from '@/models/IHackathon';
-import { Button, Center, Container, Flex, Loader, Text, UnstyledButton } from '@mantine/core';
+import { Button, Center, Container, Flex, Loader, Text } from '@mantine/core';
 import { HackathonStats } from '@/components/hackathon-stats';
 import { useNavigate } from 'react-router-dom';
 import { startHackathon } from '@/api/start-hackathon';
@@ -8,11 +8,16 @@ import { useDisclosure } from '@mantine/hooks';
 import { endHackathon } from '@/api/end-hackathon';
 import { useFetchHackathon } from '@/hooks/use-fetch-hackathon';
 import {invite_link} from "@/utils/constants";
+import {toast} from "@/utils/toasts";
+import {IconCopy} from "@tabler/icons-react";
 
 const handleCopyLink = (hackathon_id: string) => {
     const link = invite_link + `join-hackaton?hackathon_id=${hackathon_id}`;
     navigator.clipboard.writeText(link).then(() => {
-        alert("Ссылка успешно скопирована в буфер обмена")
+        toast({
+            type: "success",
+            message: "Успешно скопировано!"
+        })
     }).catch((error) => {
         console.error("Ошибка при копировании ссылки: ", error);
     });
@@ -29,10 +34,19 @@ const NotStartedComponent = (
 
     const startHackathonFunc = async () => {
         toggleStart();
+        const startToast = toast({
+            loading: true,
+            message: "Подготавливаемся, чтобы начать хакатон..."
+        })
         try {
             startHackathon(hackathon.id)
                 .then(() => {
                     setHackathon(prev => prev ? { ...prev, status: HackathonStatus.Started } : null)
+                    toast({
+                        id: startToast,
+                        type: "success",
+                        message: `Вы успешно начали хакатон "${hackathon.name}", приглашения отправлены!`
+                    })
                 })
         } catch (error) {
             setError('Произошла ошибка при попытке начать хакатон');
@@ -59,11 +73,8 @@ const NotStartedComponent = (
                     variant="light"
                     onClick={() => navigate(`/admin-panel/${hackathon.id}/invited-users`)}
                 >
-                    Почты приглашенных участников
+                    Приглашенные участники
                 </Button>
-                <UnstyledButton c={"blue"} fw={600} onClick={() => handleCopyLink(hackathon.id)} size={"xs"}>
-                    Ссылка приглашение
-                </UnstyledButton>
             </Flex>
         </Container>
     );
@@ -82,6 +93,10 @@ const StartedComponent = (
             endHackathon(hackathon.id)
                 .then(() => {
                     setHackathon(prev => prev ? {...prev, status: HackathonStatus.Ended} : null)
+                    toast({
+                        type: "success",
+                        message: "Хакатон закончен, формирование команд завершено!"
+                    })
                 })
         } catch (error) {
             setError('Произошла ошибка при попытке закончить формирование команд')
@@ -95,10 +110,16 @@ const StartedComponent = (
     return (
         <Container size="md">
             <HackathonStats hackathon={hackathon} />
-            <Flex direction={"column"} align={"center"} mt="md">
-                <UnstyledButton c={"blue"} fw={600} onClick={() => handleCopyLink(hackathon.id)} size={"xs"}>
+            <Flex direction={"column"} align={"center"} mt="md" gap={"xs"}>
+                <Button
+                    size={"sm"}
+                    variant={"subtle"}
+                    fw={"600"}
+                    rightSection={<IconCopy stroke={ 3 } size={ 18 } />}
+                    onClick={() => handleCopyLink(hackathon.id)}
+                >
                     Ссылка приглашение
-                </UnstyledButton>
+                </Button>
                 <Button
                     color="red"
                     onClick={endHackathonFunc}

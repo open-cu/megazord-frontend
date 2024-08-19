@@ -1,5 +1,19 @@
 import { Form, Formik } from "formik";
-import { Autocomplete, Button, Container, FileInput, Flex, Image, Text, FileButton, Accordion, AccordionControl, AccordionItem, AccordionPanel } from "@mantine/core";
+import {
+    Autocomplete,
+    Button,
+    Container,
+    FileInput,
+    Flex,
+    Image,
+    Text,
+    FileButton,
+    Accordion,
+    AccordionControl,
+    AccordionItem,
+    AccordionPanel,
+    Tooltip
+} from "@mantine/core";
 import { FormInput } from "@/components/form-input/form-input";
 import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
 import { FormNumberInput } from "@/components/form-input/form-number-input";
@@ -12,6 +26,7 @@ import addParticipantToHackathon from "@/api/add-participant-to-hackathon";
 import changeHackathon from "@/api/change-hackathon";
 import * as yup from "yup";
 import uploadEmailsCsv from "@/api/upload-emails-csv";
+import {toast} from "@/utils/toasts";
 
 export const ChangeHackathonForm = (
     {hackathon, updateHackathonFunc}: { hackathon: IHackathon, updateHackathonFunc: () => void }
@@ -69,8 +84,16 @@ export const ChangeHackathonForm = (
                 await uploadEmailsCsv(hackathon.id, csvFile);
                 await changeHackathon(hackathon.id, file, values);
                 navigate(`/admin-panel/${hackathon.id}`);
+                toast({
+                    type: "success",
+                    message: "Хакатон успешно изменен"
+                })
             } catch (error) {
                 setParticipantInputError(error.message);
+                toast({
+                    type: "error",
+                    message: error.message
+                })
             }
         }
     })
@@ -157,17 +180,33 @@ export const ChangeHackathonForm = (
                                 data={ participants }
                                 limit={ 5 }
                             />
-                            <FileButton onChange={setCsvFile} accept="csv">
-                                {(props) => <Button {...props}>
-                                    <IconUpload stroke={ 2 } size={ 20 } />
-                                </Button>}
-                            </FileButton>
-                            <Button
-                                loading={ loading }
-                                size={ "sm" }
-                                onClick={ () => addParticipant(participantInputValue) }>
-                                <IconPlus stroke={ 2 } size={ 20 }/>
-                            </Button>
+                                <FileButton
+                                    onChange={(e) => {
+                                        setCsvFile(e)
+                                        toast({
+                                            type: "success",
+                                            message: "Файл успешно загружен"
+                                        })
+                                    }}
+                                    accept="csv"
+                                >
+                                    {(props) =>
+                                        <Tooltip label={"Загрзите .csv с почтами участников"} withArrow>
+                                            <Button {...props}>
+                                                <IconUpload stroke={ 2 } size={ 20 } />
+                                            </Button>
+                                        </Tooltip>
+                                    }
+                                </FileButton>
+                            <Tooltip label={"Добавить участника"} withArrow>
+                                <Button
+                                    loading={ loading }
+                                    size={ "sm" }
+                                    onClick={ () => addParticipant(participantInputValue) }
+                                >
+                                    <IconPlus stroke={ 2 } size={ 20 }/>
+                                </Button>
+                            </Tooltip>
                         </Flex>
                         { csvFile && (
                             <Text size="xs" ta="center">

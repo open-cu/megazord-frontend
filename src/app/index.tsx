@@ -6,6 +6,7 @@ import { router } from './router';
 import '@/app/reset.css'
 import '@/app/global.css'
 import '@mantine/core/styles.css';
+import '@mantine/notifications/styles.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

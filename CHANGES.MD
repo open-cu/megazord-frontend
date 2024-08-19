@@ -9,6 +9,7 @@
 - *(change-hackathon)* Make uploading emails with csv - ([966faba](https://github.com/open-cu/megazord-frontend/commit/966faba6c5885ded6457313afe5d831cdacb36d5))
 - *(change-team-vacancy)* Make the input of stack more user friendly - ([3fefc3e](https://github.com/open-cu/megazord-frontend/commit/3fefc3ee6885c8f706f0f10bd857c1fe95896de1))
 - *(create and change hackathon forms)* Add tooltips to buttons - ([492d8e5](https://github.com/open-cu/megazord-frontend/commit/492d8e5c956913377d0366368d787d0998615eaa))
+- Make resending invitations - ([f607ad1](https://github.com/open-cu/megazord-frontend/commit/f607ad12be3c593baf8a9ce85a19daa6fd421519))
 - Add toast to user flow - ([70ebabc](https://github.com/open-cu/megazord-frontend/commit/70ebabc8893de1292dec56df5f60b1b62da34281))
 - Add toasts to admin flow - ([0bce042](https://github.com/open-cu/megazord-frontend/commit/0bce042bd58d3564cfba72ce1d2ef45d56b32728))
 - Add roles selection in the joining scenario - ([a593357](https://github.com/open-cu/megazord-frontend/commit/a59335706a5bea7f12ca9b47d0c9375497c8ab15))

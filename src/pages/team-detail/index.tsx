@@ -115,7 +115,7 @@ export const TeamDetailPage = memo(() => {
 
             {/* Отклики */ }
             {
-                hackathon.status != HackathonStatus.Ended && myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && <>
+                (hackathon.status != HackathonStatus.Ended && myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && vacancyResponses.length != 0) && <>
                     <h3>Отклики на вакансии </h3>
                     <TeamDetailVacanciesResponses
                         variant={ teamVacanciesResponsesVariant }

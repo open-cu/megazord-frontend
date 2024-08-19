@@ -10,6 +10,7 @@ export interface IHackathon {
     participants: IUser[];
     teamsIds: number[];
     status: HackathonStatus;
+    roles: string[];
 }
 
 export enum HackathonStatus {

@@ -69,14 +69,21 @@ export const ResumeView = () => {
             <Text>{contactsItems}</Text>
         </Box>}
 
-        {resume?.techStack && <Box mt="xl">
+       {resume?.role && <Box mt="xl">
+           <h3>Роль участника</h3>
+           <Text fw={"500"} mt="sm" pl={0}>
+               {resume.role}
+           </Text>
+       </Box>}
+
+        {resume?.techStack && resume.techStack.length > 0 && <Box mt="xl">
             <h3>Tech Skills</h3>
             <Container mt="sm" pl={0}>
                 {techSkillsItems}
             </Container>
         </Box>}
 
-        {resume?.softSkills && <Box mt="xl">
+        {resume?.softSkills && resume.softSkills.length > 0 && <Box mt="xl">
             <h3>Soft Skills</h3>
             <Container mt="sm" pl={0}>
                 {softSkillsItems}

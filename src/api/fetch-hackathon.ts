@@ -26,6 +26,7 @@ export default async function fetchHackathon(hackathon_id: number): Promise<IHac
             })),
             teamsIds: [],
             status: response.data.status,
+            roles: response.data.roles
         }
     }
 

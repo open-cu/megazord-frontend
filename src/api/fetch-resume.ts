@@ -6,7 +6,6 @@ export async function fetchResume(userId: number, hackathonId: number): Promise<
         method: 'GET', 
         url: `/resumes/get?user_id=${userId}&hackathon_id=${hackathonId}`,
     })
-    
     if (response.status === 200) {
         return {
             id: response.data.id,
@@ -19,6 +18,7 @@ export async function fetchResume(userId: number, hackathonId: number): Promise<
             hhLink: response.data.hh,
             telegram: response.data.telegram,
             personalWebsite: response.data.personal_website,
+            role: response.data.role,
         }
     }
     

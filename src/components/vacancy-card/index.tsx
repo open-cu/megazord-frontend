@@ -1,10 +1,11 @@
 import {FC, memo, useEffect, useState} from "react";
 import styles from './vacancy-card.module.css';
-import { Text } from "@mantine/core";
+import { Text, Button } from "@mantine/core";
 import applyForJob from "@/api/apply-for-job";
 import {IVacancyResponse} from "@/models/IVacancyResponse";
 import useUser from "@/hooks/use-user";
 import {ITeam} from "@/models/ITeam";
+import {useDisclosure} from "@mantine/hooks";
 
 export type VacancyCardProps = {
     id: number
@@ -18,6 +19,7 @@ export type VacancyCardProps = {
 export const VacancyCard: FC<VacancyCardProps> = memo(props => {
     const [canSendResume, setCanSendResume] = useState<'canSend' | 'cantSend' | 'sended'>('cantSend')
     const { user } = useUser()
+    const [loadingApplyButton, { toggle: toggleApplyButton  }] = useDisclosure();
     
     useEffect(() => {
         let state = 'cantSend' as 'canSend' | 'cantSend' | 'sended'
@@ -38,12 +40,16 @@ export const VacancyCard: FC<VacancyCardProps> = memo(props => {
         <Text fs='16px'>{ props.keywords.join(', ') }</Text>
         {
             canSendResume == 'canSend' ?
-                <Text
+                <Button
+                    loading={loadingApplyButton}
+                    variant={"subtle"}
                     fs='16px' c='blue'
                     onClick={() => {
+                        toggleApplyButton()
                         applyForJob(props.id).then(() => window.location.reload())
+                        toggleApplyButton()
                     }}
-                >Отправить свое резюме</Text> :
+                >Отправить свое резюме</Button> :
                 canSendResume == 'sended' ?
                     <Text fs='16px' c='blue'>Вы уже отправили своё резюме</Text> :
                     <></>

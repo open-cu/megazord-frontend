@@ -7,12 +7,16 @@ import {IconMailForward} from "@tabler/icons-react";
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
 import {IUser} from "@/models/IUser";
 import getNotAcceptedInvite from "@/api/get-not-accepted-invite";
+import {toast} from "@/utils/toasts";
+import sendHackathonInvites from "@/api/send-hackathon-invites";
+import {sendEmailInvitesFunc} from "@/utils/sendInvites";
 
 export const InvitedUsers = () => {
     const {hackathon_id} = useParams()
     const [hackathon] = useFetchHackathon(hackathon_id)
     const [emails, setEmails] = useState<string[]>([])
     const navigate = useNavigate()
+
     useEffect(() => {
         getNotAcceptedInvite(hackathon_id).then(data => setEmails(data))
     }, []);
@@ -29,7 +33,11 @@ export const InvitedUsers = () => {
                     return <Card padding={"sm"} radius={"md"} withBorder key={index}>
                         <Flex direction={"row"} justify={"space-between"} align={"center"}>
                             <Text fw={500}>{email}</Text>
-                            <Button size={"xs"} variant={"light"}>
+                            <Button
+                                size={"xs"}
+                                variant={"light"}
+                                onClick={() => sendEmailInvitesFunc(email, hackathon_id)}
+                            >
                                 <IconMailForward stroke={1} />
                             </Button>
                         </Flex>

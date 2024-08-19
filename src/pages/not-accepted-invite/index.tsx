@@ -7,6 +7,7 @@ import {IconMailForward} from "@tabler/icons-react";
 import getNotAcceptedInvite from "@/api/get-not-accepted-invite";
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
 import {HackathonStatus} from "@/models/IHackathon";
+import {sendEmailInvitesFunc} from "@/utils/sendInvites";
 
 export const NotAcceptedInvite = () => {
     const {hackathon_id} = useParams()
@@ -23,7 +24,7 @@ export const NotAcceptedInvite = () => {
                 <h2>Участники не принявшие приглашение в хакатон</h2>
                 {
                     (hackathon && hackathon?.status != HackathonStatus.Ended && emails.length) ?
-                        <Button size={"xs"}>Повторно пригласить всех</Button> :
+                        <Button size={"xs"} onClick={() => sendEmailInvitesFunc(emails, hackathon_id)}>Повторно пригласить всех</Button> :
                         <></>
                 }
             </Flex>
@@ -34,7 +35,7 @@ export const NotAcceptedInvite = () => {
                             <Text fw={500}>{email}</Text>
                             {
                                 (hackathon && hackathon?.status != HackathonStatus.Ended) ?
-                                <Button size={"xs"} variant={"light"}>
+                                <Button size={"xs"} variant={"light"} onClick={() => sendEmailInvitesFunc(email, hackathon_id)}>
                                     <IconMailForward stroke={1} />
                                 </Button> :
                                 <></>

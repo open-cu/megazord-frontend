@@ -67,7 +67,7 @@ export const JoinHackathon = () => {
                     <br/>
                     Тебя пригласили на «{ hackathon.name }»
                 </Text>
-                {hackathon.roles && <Select
+                {hackathon.roles.length != 0 && <Select
                     required
                     value={role}
                     onChange={setRole}

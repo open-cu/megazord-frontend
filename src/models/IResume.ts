@@ -9,4 +9,5 @@ export interface IResume {
     githubLink: string | null;
     hhLink: string | null;
     telegram: string | null;
+    role: string;
 }

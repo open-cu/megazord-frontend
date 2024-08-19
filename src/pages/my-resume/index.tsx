@@ -29,6 +29,7 @@ export const MyResume = () => {
         if (userId && hackathon_id) {
             fetchResume(userId, hackathonId).then(data => {
                 if (data) {
+                    console.log("Resume role", data.role)
                     setResume(data)
                 } else {
                     navigate('/')
@@ -206,6 +207,11 @@ const Content: FC<ContentProps> = (props) => {
                         <FormInput name='personalWebsite' placeholder="Сайт портфолио" disabled={hackathon?.status == HackathonStatus.Ended}/>
                     </Flex>
                 </Container>
+
+                {(props.resume.role && props.resume.role != "") && <Container mt="xl" px={0}>
+                    <h3>Роль в хакатоне {hackathon?.name}</h3>
+                    <FormInput name='role' placeholder="Роль" disabled value={props.resume.role}/>
+                </Container>}
 
                 <Container mt="xl" px={ 0 }>
                     <h3>Tech Skills</h3>

@@ -1,4 +1,4 @@
-.mantine-Accordion-label {
-    padding: 3px 0 !important;
+.mantine-Accordion-label.mantine-Accordion-label {
+    padding: 3px 0;
     font-size: calc(0.875rem* var(--mantine-scale));
 }

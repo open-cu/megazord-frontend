@@ -1,5 +1,5 @@
 import { FC, memo, useState, useEffect } from "react";
-import { Button, Container, Flex, SimpleGrid } from "@mantine/core";
+import { Button, Container, Flex, SimpleGrid, Text } from "@mantine/core";
 import { Header } from "@/components/header";
 import { IconPlus } from "@tabler/icons-react";
 import { CurrentTeamCard } from "@/components/current-team-card";
@@ -88,20 +88,25 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
             />
 
             {/* Teams list */ }
-            <SimpleGrid cols={ is960 ? 2 : is650 ? 1 : 3 } mt='md' spacing="md" mb="xl">
-                {
-                    hackathon && suggestions
-                        .filter(x => x.name.toLowerCase().includes(search) || x.name.toLowerCase().includes(search))
-                        .map(suggestion => {
-                            return <VacancySuggestionCard
-                                suggestion={ suggestion }
-                                maxMembers={ hackathon.max_participants }
-                                hackathonId={ hackathon.id }
-                                hackathonStatus={ hackathon.status }
-                            />
-                        })
-                }
-            </SimpleGrid>
+            {suggestions.length > 0 ?
+                <SimpleGrid cols={is960 ? 2 : is650 ? 1 : 3} mt='md' spacing="md" mb="xl">
+                    {
+                        hackathon && suggestions
+                            .filter(x => x.name.toLowerCase().includes(search) || x.name.toLowerCase().includes(search))
+                            .map(suggestion => {
+                                return <VacancySuggestionCard
+                                    suggestion={suggestion}
+                                    maxMembers={hackathon.max_participants}
+                                    hackathonId={hackathon.id}
+                                    hackathonStatus={hackathon.status}
+                                />
+                            })
+                    }
+                </SimpleGrid> :
+                <Text size="lg" fw={"500"} mt={"lg"}>
+                    Команд не найдено
+                </Text>
+            }
         </Container>
     </AuthGuard>
 })

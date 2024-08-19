@@ -11,6 +11,7 @@ import { cities } from "@/utils/cities.ts"
 import { useState } from "react";
 import * as yup from 'yup';
 import { useNavigate } from "react-router-dom";
+import {toast} from "@/utils/toasts";
 
 export const Profile = () => {
     return (
@@ -49,9 +50,15 @@ const Content = () => {
             })
 
             if (response) {
-                setUser(response)
+                toast({
+                    type: "success",
+                    message: "Изменения сохранены"
+                })
             } else {
-                console.error('failed to update profile')
+                toast({
+                    type: "error",
+                    message: "Произошла ошибка при обновлении профиля"
+                })
             }
         }
     })
@@ -61,6 +68,10 @@ const Content = () => {
         localStorage.removeItem('auth_token')
         localStorage.removeItem('user_id')
         setUser(null)
+        toast({
+            type: "success",
+            message: "Вы успешно вышли из аккаунта"
+        })
     }
 
     return <Formik { ...formik }>

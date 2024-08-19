@@ -5,6 +5,7 @@ import { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTeam } from "@/api/create-team";
 import { ChangeTeamVacancy } from "@/components/change-team-vacancy";
+import {toast} from "@/utils/toasts";
 
 export const CreateTeam = () => {
     const {hackathon_id} = useParams()
@@ -85,7 +86,11 @@ const Content: FC<ContentProps> = (props) => {
 
         if (id) {
             navigate(`/hackathon/${ hackathon_id }/teams/${id}`)
-        } 
+        }
+        toast({
+            type: "success",
+            message: "Команда успешно создана"
+        })
         setLoading(false)
     }
 

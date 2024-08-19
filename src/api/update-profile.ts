@@ -19,18 +19,5 @@ export default async function updateProfile(payload: UpdateProfilePayload): Prom
             work_experience: payload.workExp,
         },
     })
-    
-    if (response.status == 201) {
-        return {
-            id: response.data.id,
-            name: response.data.username,
-            email: response.data.email,
-            role: response.data.is_organizator ? 'organizer' : 'user',
-            age: response.data.age,
-            city: response.data.city,
-            workExp: response.data.work_experience,
-        }
-    }
-    
-    return null
+    return response.status === 200
 }

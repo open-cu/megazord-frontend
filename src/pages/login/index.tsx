@@ -7,6 +7,7 @@ import parseJwt from "@/utils/parse-jwt.ts";
 import { Form, Formik } from "formik";
 import { FormInput } from "@/components/form-input/form-input.tsx";
 import { FormPasswordInput } from "@/components/form-input/form-password-input.tsx";
+import {toast} from "@/utils/toasts";
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -21,11 +22,19 @@ export const Login = () => {
 
             if (response == 'invalid-credentials') {
                 formikHelpers.setFieldError('email', 'Не найден аккаунт с таким email и/или паролем')
+                toast({
+                    type: "error",
+                    message: "Не найден аккаунт с таким email и/или паролем"
+                })
                 return
             }
 
             if (!response) {
                 formikHelpers.setFieldError('email', 'Не найден аккаунт с таким email и/или паролем')
+                toast({
+                    type: "error",
+                    message: "Не найден аккаунт с таким email и/или паролем"
+                })
                 return
             }
 
@@ -34,6 +43,10 @@ export const Login = () => {
                 localStorage.setItem('auth_token', response)
                 localStorage.setItem('user_id', userId)
                 navigate('/')
+                toast({
+                    type: "success",
+                    message: "Вы успешно вошли в аккаунт"
+                })
             }
         }
     })

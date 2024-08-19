@@ -18,6 +18,7 @@ import {route404} from "@/utils/constants";
 import leaveTeam from "@/api/leave-team";
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
 import {HackathonStatus} from "@/models/IHackathon";
+import {toast} from "@/utils/toasts";
 
 export const TeamDetailPage = memo(() => {
     const {user} = useUser()
@@ -79,7 +80,13 @@ export const TeamDetailPage = memo(() => {
                     {myTeam && teamDetail.id == myTeam.id && hackathon.status != HackathonStatus.Ended ?
                         <Button
                             onClick={ () => {
-                                leaveTeam(myTeam?.id).then(() => navigate(`/hackathon/${ params.hackathon_id }/teams`))
+                                leaveTeam(myTeam?.id).then(() => {
+                                    toast({
+                                        type: "success",
+                                        message: "Вы успешно вышли из команды"
+                                    })
+                                    navigate(`/hackathon/${ params.hackathon_id }/teams`)
+                                })
                             } }
                             variant='transparent'
                             c={"red"}

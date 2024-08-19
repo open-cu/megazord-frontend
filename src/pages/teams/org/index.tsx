@@ -75,7 +75,12 @@ export const TeamsOrg = () => {
             <SearchInput placeholder="Поиск команд" onChange={search => filterItems(search)} />
             <Space h="md" />
             <SimpleGrid cols={{ base: 1, xs: 2, sm: 3 }} >
-                {items}
+                {items.length > 0 ?
+                    items :
+                    <Text size="lg" fw={"500"} mt={"lg"}>
+                        Команд не найдено
+                    </Text>
+                }
             </SimpleGrid>
        </Container>
     </AuthGuard>

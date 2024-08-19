@@ -12,6 +12,7 @@ import addParticipantToHackathon from "@/api/add-participant-to-hackathon";
 import changeHackathon from "@/api/change-hackathon";
 import * as yup from "yup";
 import uploadEmailsCsv from "@/api/upload-emails-csv";
+import {toast} from "@/utils/toasts";
 
 export const ChangeHackathonForm = (
     {hackathon, updateHackathonFunc}: { hackathon: IHackathon, updateHackathonFunc: () => void }
@@ -69,8 +70,16 @@ export const ChangeHackathonForm = (
                 await uploadEmailsCsv(hackathon.id, csvFile);
                 await changeHackathon(hackathon.id, file, values);
                 navigate(`/admin-panel/${hackathon.id}`);
+                toast({
+                    type: "success",
+                    message: "Хакатон успешно изменен"
+                })
             } catch (error) {
                 setParticipantInputError(error.message);
+                toast({
+                    type: "error",
+                    message: error.message
+                })
             }
         }
     })
@@ -157,7 +166,13 @@ export const ChangeHackathonForm = (
                                 data={ participants }
                                 limit={ 5 }
                             />
-                            <FileButton onChange={setCsvFile} accept="csv">
+                            <FileButton onChange={(e) => {
+                                setCsvFile(e)
+                                toast({
+                                    type: "success",
+                                    message: "Файл успешно загружен"
+                                })
+                            }} accept="csv">
                                 {(props) => <Button {...props}>
                                     <IconUpload stroke={ 2 } size={ 20 } />
                                 </Button>}

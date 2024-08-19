@@ -20,6 +20,7 @@ import { createFormik } from "@/utils/create-formik";
 import createHackathon, { CreateHackathonPayload } from "@/api/create-hackathon";
 import * as yup from 'yup'
 import './create-hackathon-form.css'
+import {toast} from "@/utils/toasts";
 
 const emailRegexp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -100,7 +101,13 @@ export const CreateHackathonForm = () => {
             setLoading(true)
             await createHackathon(file, csvFile, data).then(res => {
                 if (!res) setParticipantInputError("Непредвиденная ошибка")
-                else navigate('/')
+                else {
+                    navigate('/')
+                    toast({
+                        type: "success",
+                        message: `Вы успешно создали хакатон "${values.name}"`
+                    })
+                }
             })
             setLoading(false)
         }
@@ -219,7 +226,13 @@ export const CreateHackathonForm = () => {
                                 } }
                                 w={ "100%" }
                             />
-                            <FileButton onChange={setCsvFile} accept="csv">
+                            <FileButton onChange={(e) => {
+                                setCsvFile(e)
+                                toast({
+                                    type: "success",
+                                    message: "Файл успешно загружен"
+                                })
+                            }} accept="csv">
                                 {(props) => <Button {...props}>
                                     <IconUpload stroke={ 2 } size={ 20 } />
                                 </Button>}

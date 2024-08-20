@@ -23,7 +23,7 @@ export const HackathonInfo = () => {
   useEffect(() => {
     fetchHackathon(parseInt(hackathon_id as string)).then(data => {
       if (!data) return null;
-      setPreview(`${import.meta.env.VITE_BACKEND_URL}${data.imageCover}`);
+      setPreview(`data:image/png;base64,${data.imageCover}`);
       setMembers(data.participants)
       setFilteredMembers(data.participants)
       setMinMembersAmount(data.min_participants)

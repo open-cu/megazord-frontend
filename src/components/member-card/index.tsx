@@ -32,7 +32,7 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
                     window.location.reload()
                 })
             }} variant="transparent">
-                <IconTrash color="pink" />
+                <IconTrash color='red' />
             </ActionIcon>)}
         </div>
     

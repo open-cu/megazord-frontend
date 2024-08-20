@@ -38,7 +38,7 @@ export const ChangeHackathonForm = (
 
     const [previewLink, setPreviewLink] = useState<string>(
         hackathon.imageCover ?
-            `${ import.meta.env.VITE_BACKEND_URL }${ hackathon.imageCover }` :
+            `data:image/png;base64,${hackathon.imageCover}` :
             '/img-placeholder.jpg'
     )
     const [previewError, setPreviewError] = useState<string>('')

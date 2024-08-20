@@ -28,8 +28,6 @@ export function useSignupForm(isOrganization: boolean) {
         },
         validationSchema: validationSchema,
         onSubmit: async (values, formikHelpers) => {
-            console.log(values)
-
             const response = await signup(values, isOrganization);
 
             if (response == 'email-already-in-use') {
@@ -41,23 +39,7 @@ export function useSignupForm(isOrganization: boolean) {
                 formikHelpers.setFieldError('email', 'Произошла непредвиденная ошибка')
                 return
             }
-
-            const token = await login({
-                email: values.email,
-                password: values.password
-            })
-
-            if (token == 'invalid-credentials' || !token) {
-                formikHelpers.setFieldError('email', 'Произошла непредвиденная ошибка')
-                return
-            }
-
-            const userId = parseJwt(token, 'user_id')
-            if (userId) {
-                localStorage.setItem('auth_token', token)
-                localStorage.setItem('user_id', userId)
-                navigate('/')
-            }
+            navigate(`/verification/${encodeURIComponent(values.email)}`)
         }
     })
 

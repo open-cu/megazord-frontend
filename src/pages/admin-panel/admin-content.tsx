@@ -12,7 +12,7 @@ import {toast} from "@/utils/toasts";
 import {IconCopy} from "@tabler/icons-react";
 
 const handleCopyLink = (hackathon_id: string) => {
-    const link = invite_link + `join-hackaton?hackathon_id=${hackathon_id}`;
+    const link = invite_link + `join-hackathon?hackathon_id=${hackathon_id}`;
     navigator.clipboard.writeText(link).then(() => {
         toast({
             type: "success",

@@ -155,7 +155,10 @@ export const CreateHackathonForm = () => {
                                 w={ "100%" }
                             />
                             <Tooltip label={"Добавить роль"} withArrow>
-                                <Button size={ "sm" } onClick={ () => addRole(roleInputValue) }>
+                                <Button size={ "sm" } onClick={ () => {
+                                    if(roleInputValue === "") setRoleInputError("Значение не может быть пустым")
+                                    else addRole(roleInputValue)
+                                } }>
                                     <IconPlus stroke={ 2 } size={ 20 }/>
                                 </Button>
                             </Tooltip>
@@ -173,7 +176,7 @@ export const CreateHackathonForm = () => {
                                             >
                                                 <Text fw={ 500 } size={"sm"}>{ role }</Text>
                                                 <IconTrash
-                                                    color='pink'
+                                                    color='red'
                                                     style={ {cursor: 'pointer'} }
                                                     onClick={ () => deleteRole(role) }/>
                                             </Flex>
@@ -269,7 +272,7 @@ export const CreateHackathonForm = () => {
                                                 style={ {borderRadius: 8, border: '1px solid var(--stroke-color)'} }>
                                                 <Text fw={ 500 }>{ email }</Text>
                                                 <IconTrash
-                                                    color='pink'
+                                                    color='red'
                                                     style={ {cursor: 'pointer'} }
                                                     onClick={ () => deleteParticipant(email) }/>
                                             </Flex>

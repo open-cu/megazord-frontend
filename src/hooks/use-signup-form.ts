@@ -28,8 +28,6 @@ export function useSignupForm(isOrganization: boolean) {
         },
         validationSchema: validationSchema,
         onSubmit: async (values, formikHelpers) => {
-            console.log(values)
-
             const response = await signup(values, isOrganization);
 
             if (response == 'email-already-in-use') {
@@ -56,7 +54,7 @@ export function useSignupForm(isOrganization: boolean) {
             if (userId) {
                 localStorage.setItem('auth_token', token)
                 localStorage.setItem('user_id', userId)
-                navigate('/')
+                navigate('/verification')
             }
         }
     })

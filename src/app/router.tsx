@@ -28,6 +28,7 @@ import AdminPanel from "@/pages/admin-panel";
 import {UsersWithoutTeam} from "@/pages/users-without-team";
 import {NotAcceptedInvite} from "@/pages/not-accepted-invite";
 import {InvitedUsers} from "@/pages/invited-users";
+import {Verification} from "@/pages/verification";
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
   {
     path: "/sign-up/org",
     element: <SignUpOrg />
+  },
+  {
+    path: "/verification",
+    element: <Verification />
   },
   {
     path: "/hackathon/:hackathon_id",

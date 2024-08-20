@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased - 19.08.2024
+## Unreleased - 20.08.2024
 
 ### Features
 
@@ -9,6 +9,8 @@
 - *(change-hackathon)* Make uploading emails with csv - ([966faba](https://github.com/open-cu/megazord-frontend/commit/966faba6c5885ded6457313afe5d831cdacb36d5))
 - *(change-team-vacancy)* Make the input of stack more user friendly - ([3fefc3e](https://github.com/open-cu/megazord-frontend/commit/3fefc3ee6885c8f706f0f10bd857c1fe95896de1))
 - *(create and change hackathon forms)* Add tooltips to buttons - ([492d8e5](https://github.com/open-cu/megazord-frontend/commit/492d8e5c956913377d0366368d787d0998615eaa))
+- Finished verification - ([46bbf37](https://github.com/open-cu/megazord-frontend/commit/46bbf3728f4157fba0537009c7b2966f46c01314))
+- Make verification form - ([0d60810](https://github.com/open-cu/megazord-frontend/commit/0d6081065bb2929100ac78285bc23a4677ee212f))
 - Make resending invitations - ([f607ad1](https://github.com/open-cu/megazord-frontend/commit/f607ad12be3c593baf8a9ce85a19daa6fd421519))
 - Add toast to user flow - ([70ebabc](https://github.com/open-cu/megazord-frontend/commit/70ebabc8893de1292dec56df5f60b1b62da34281))
 - Add toasts to admin flow - ([0bce042](https://github.com/open-cu/megazord-frontend/commit/0bce042bd58d3564cfba72ce1d2ef45d56b32728))
@@ -28,6 +30,8 @@
 - *(change-hackathon)* Api requests - ([8c4e150](https://github.com/open-cu/megazord-frontend/commit/8c4e1504623225120cfed87b8fa1ff8cd17c0339))
 - *(change-hackathon)* Api requests - ([4bf53bf](https://github.com/open-cu/megazord-frontend/commit/4bf53bf92a7541bb3b590d4683c43510fce732b5))
 - *(create hackathon form styles)* Remove the use of import - ([d972966](https://github.com/open-cu/megazord-frontend/commit/d972966c48456b8df1bc19f0597a2db0b402d343))
+- Add encoding and decoding email - ([784cf57](https://github.com/open-cu/megazord-frontend/commit/784cf57bff1c60c6763cccf353bafb74d66fb036))
+- Replace email from localstorage to query params - ([699fb67](https://github.com/open-cu/megazord-frontend/commit/699fb67c6c70d5edc944b7fb470b59e638a996bf))
 - Add 404 route to consts and refactor api requests - ([b1ee38b](https://github.com/open-cu/megazord-frontend/commit/b1ee38be1a4de46c4fb480e6ae7e43abefd47a51))
 
 ### Miscellaneous Tasks

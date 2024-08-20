@@ -1,5 +1,5 @@
 import { Anchor, Button, UnstyledButton, Center, Flex, Text } from "@mantine/core";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Form, Formik } from "formik";
 import {useVerificationForm} from "@/hooks/use-verification-form";
 import {FormPinInput} from "@/components/form-input/form-pin-input";
@@ -8,7 +8,8 @@ import {toast} from "@/utils/toasts";
 import resendCode from "@/api/resend-code";
 
 export const Verification = () => {
-    const {formik} = useVerificationForm()
+    const { email } = useParams();
+    const {formik} = useVerificationForm(email)
 
     const [timeLeft, setTimeLeft] = useState(120);
 
@@ -23,7 +24,6 @@ export const Verification = () => {
     }, [timeLeft]);
 
     const handleResendClick = async () => {
-        const email = localStorage.getItem('email')
         resendCode(email).then(res => {
             if(res) toast({
                 type: "success",

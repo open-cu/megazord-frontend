@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
     element: <SignUpOrg />
   },
   {
-    path: "/verification",
+    path: "/verification/:email",
     element: <Verification />
   },
   {

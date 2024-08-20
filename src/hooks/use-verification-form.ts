@@ -12,7 +12,7 @@ const validationSchema = yup.object({
     code: yup.string().required('Введите код').min(6, 'Введите код полностью'),
 })
 
-export function useVerificationForm() {
+export function useVerificationForm(email) {
     const navigate = useNavigate()
 
     const formik = createFormik({
@@ -21,7 +21,6 @@ export function useVerificationForm() {
         },
         validationSchema: validationSchema,
         onSubmit: async (values, formikHelpers) => {
-            const email = localStorage.getItem('email')
             const response = await activateAccount(email, values.code)
             if (!response) {
                 formikHelpers.setFieldError('code', 'Неверный код')

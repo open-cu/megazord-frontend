@@ -39,8 +39,7 @@ export function useSignupForm(isOrganization: boolean) {
                 formikHelpers.setFieldError('email', 'Произошла непредвиденная ошибка')
                 return
             }
-            localStorage.setItem('email', values.email)
-            navigate('/verification')
+            navigate(`/verification/${values.email}`)
         }
     })
 

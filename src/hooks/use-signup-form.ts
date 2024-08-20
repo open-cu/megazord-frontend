@@ -39,7 +39,7 @@ export function useSignupForm(isOrganization: boolean) {
                 formikHelpers.setFieldError('email', 'Произошла непредвиденная ошибка')
                 return
             }
-            navigate(`/verification/${values.email}`)
+            navigate(`/verification/${encodeURIComponent(values.email)}`)
         }
     })
 

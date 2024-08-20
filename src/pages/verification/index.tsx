@@ -8,7 +8,8 @@ import {toast} from "@/utils/toasts";
 import resendCode from "@/api/resend-code";
 
 export const Verification = () => {
-    const { email } = useParams();
+    const params = useParams();
+    const email = decodeURIComponent(params.email)
     const {formik} = useVerificationForm(email)
 
     const [timeLeft, setTimeLeft] = useState(120);

@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import login from "@/api/login.ts";
 import parseJwt from "@/utils/parse-jwt.ts";
 import {useEffect} from "react";
+import activateAccount from "@/api/activate-account";
+import {toast} from "@/utils/toasts";
 
 const validationSchema = yup.object({
     code: yup.string().required('Введите код').min(6, 'Введите код полностью'),
@@ -19,35 +21,21 @@ export function useVerificationForm() {
         },
         validationSchema: validationSchema,
         onSubmit: async (values, formikHelpers) => {
-            console.log(values)
-            // const response = await signup(values, isOrganization);
-            //
-            // if (response == 'email-already-in-use') {
-            //     formikHelpers.setFieldError('email', 'Этот email уже используется другим пользователем')
-            //     return
-            // }
-            //
-            // if (!response) {
-            //     formikHelpers.setFieldError('email', 'Произошла непредвиденная ошибка')
-            //     return
-            // }
-            //
-            // const token = await login({
-            //     email: values.email,
-            //     password: values.password
-            // })
-            //
-            // if (token == 'invalid-credentials' || !token) {
-            //     formikHelpers.setFieldError('email', 'Произошла непредвиденная ошибка')
-            //     return
-            // }
-            //
-            // const userId = parseJwt(token, 'user_id')
-            // if (userId) {
-            //     localStorage.setItem('auth_token', token)
-            //     localStorage.setItem('user_id', userId)
-            //     navigate('/')
-            // }
+            const email = localStorage.getItem('email')
+            const response = await activateAccount(email, values.code)
+            if (!response) {
+                formikHelpers.setFieldError('code', 'Неверный код')
+                toast({
+                    type: "error",
+                    message: "Вы ввели неверный код"
+                })
+                return
+            }
+            toast({
+                type: "success",
+                message: "Вы успешно зарегестрировались"
+            })
+            navigate('/login')
         }
     })
 

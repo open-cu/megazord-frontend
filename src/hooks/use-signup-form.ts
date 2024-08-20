@@ -39,23 +39,8 @@ export function useSignupForm(isOrganization: boolean) {
                 formikHelpers.setFieldError('email', 'Произошла непредвиденная ошибка')
                 return
             }
-
-            const token = await login({
-                email: values.email,
-                password: values.password
-            })
-
-            if (token == 'invalid-credentials' || !token) {
-                formikHelpers.setFieldError('email', 'Произошла непредвиденная ошибка')
-                return
-            }
-
-            const userId = parseJwt(token, 'user_id')
-            if (userId) {
-                localStorage.setItem('auth_token', token)
-                localStorage.setItem('user_id', userId)
-                navigate('/verification')
-            }
+            localStorage.setItem('email', values.email)
+            navigate('/verification')
         }
     })
 

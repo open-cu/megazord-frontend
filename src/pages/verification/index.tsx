@@ -1,11 +1,41 @@
-import { Anchor, Button, Center, Flex, Text } from "@mantine/core";
+import { Anchor, Button, UnstyledButton, Center, Flex, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { Form, Formik } from "formik";
 import {useVerificationForm} from "@/hooks/use-verification-form";
 import {FormPinInput} from "@/components/form-input/form-pin-input";
+import {useEffect, useState} from "react";
+import {toast} from "@/utils/toasts";
+import resendCode from "@/api/resend-code";
 
 export const Verification = () => {
     const {formik} = useVerificationForm()
+
+    const [timeLeft, setTimeLeft] = useState(120);
+
+    useEffect(() => {
+        if (timeLeft > 0) {
+            const timerId = setInterval(() => {
+                setTimeLeft(prev => prev - 1);
+            }, 1000);
+
+            return () => clearInterval(timerId);
+        }
+    }, [timeLeft]);
+
+    const handleResendClick = async () => {
+        const email = localStorage.getItem('email')
+        resendCode(email).then(res => {
+            if(res) toast({
+                type: "success",
+                message: "Код отправлен повторно"
+            })
+            else toast({
+                type: "error",
+                message: "Ошибка при повторной отправке кода"
+            })
+        })
+        setTimeLeft(120);
+    };
     return (
         <Flex component={ Center } h={ "100vh" } direction={ "column" }>
             <h1 style={{ textAlign: 'center' }}>Верификация</h1>
@@ -23,8 +53,19 @@ export const Verification = () => {
                     </Flex>
                 </Form>
             </Formik>
+            <UnstyledButton
+                my={8}
+                onClick={handleResendClick}
+                disabled={timeLeft > 0}
+                fz={"sm"}
+                c={timeLeft > 0 ? "grey" : "blue"}
+            >
+                {timeLeft > 0
+                    ? `Отправить код повторно через ${Math.floor(timeLeft / 60)}:${String(timeLeft % 60).padStart(2, '0')}`
+                    : "Отправить код повторно"}
+            </UnstyledButton>
             <Link to={ "/sign-up/user" }>
-                <Anchor size={ "sm" } mt={ 8 }>
+                <Anchor size={ "sm" } fz={"md"}>
                     Вернуться
                 </Anchor>
             </Link>

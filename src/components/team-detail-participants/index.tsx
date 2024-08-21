@@ -7,7 +7,7 @@ import useUser from "@/hooks/use-user";
 import {useNavigate} from "react-router-dom";
 import {HackathonStatus, IHackathon} from "@/models/IHackathon";
 
-export const TeamDetailParticipants = ({ team_id, members, creator, hackathon_id, hackathon }: { team_id: number, members: IUser[], creator: number, hackathon_id: number, hackathon: IHackathon }) => {
+export const TeamDetailParticipants = ({ team_id, members, creator, hackathon_id, hackathon }: { team_id: number, members: IUser[], creator: number, hackathon_id: string, hackathon: IHackathon }) => {
     const [opened, {close, open}] = useDisclosure(false)
     const { user } = useUser()
     const navigate = useNavigate()

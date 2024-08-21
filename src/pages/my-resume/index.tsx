@@ -25,7 +25,7 @@ export const MyResume = () => {
 
     useEffect(() => {
         const userId = parseInt(localStorage.getItem('user_id') ?? '')
-        const hackathonId = parseInt(hackathon_id ?? '')
+        const hackathonId = hackathon_id ?? ''
 
         if (userId && hackathon_id) {
             fetchResume(userId, hackathonId).then(data => {

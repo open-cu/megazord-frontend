@@ -21,7 +21,7 @@ export const HackathonInfo = () => {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    fetchHackathon(parseInt(hackathon_id as string)).then(data => {
+    fetchHackathon(hackathon_id as string).then(data => {
       if (!data) return null;
       setPreview(`data:image/png;base64,${data.imageCover}`);
       setMembers(data.participants)
@@ -45,7 +45,7 @@ export const HackathonInfo = () => {
             <Space h="md" />
             <SearchInput onChange={(search) => setFilteredMembers(members.filter(member => member.email.includes(search) || member.name.includes(search)))} />
             <Space h="md" />
-            <MembersList hackathon_id={parseInt(hackathon_id as string)} members={filteredMembers} />
+            <MembersList hackathon_id={hackathon_id as string} members={filteredMembers} />
        </Container>
     </AuthGuard>
   );

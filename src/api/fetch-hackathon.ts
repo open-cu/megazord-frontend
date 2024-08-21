@@ -1,7 +1,7 @@
 import apiClient from "@/api-client.ts";
 import { IHackathon } from "@/models/IHackathon.ts";
 
-export default async function fetchHackathon(hackathon_id: number): Promise<IHackathon | null>  {
+export default async function fetchHackathon(hackathon_id: string): Promise<IHackathon | null>  {
     const response = await apiClient({
         method: 'get',
         url: `/hackathons/${hackathon_id}`

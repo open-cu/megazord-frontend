@@ -19,14 +19,14 @@ export const TeamsOrg = () => {
     const [hackathon, setHackathon] = useState<IHackathon | null>(null);
 
     useEffect(() => {
-        fetchTeams(parseInt(hackathon_id as string)).then(data => {
+        fetchTeams(hackathon_id as string).then(data => {
             if (!data) return null;
             setTeams(data)
             setFilteredTeams(data)
             console.log(data);
         });
 
-        fetchHackathon(parseInt(hackathon_id as string)).then(data => {
+        fetchHackathon(hackathon_id as string).then(data => {
             if (!data) return null;
             setHackathon(data);
             console.log(data);

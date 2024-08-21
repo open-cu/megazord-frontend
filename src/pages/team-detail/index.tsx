@@ -34,7 +34,7 @@ export const TeamDetailPage = memo(() => {
 
     useEffect(() => {
         const team_id = parseInt(params.team_id ?? '')
-        const hackathon_id = parseInt(params.hackathon_id ?? '')
+        const hackathon_id = params.hackathon_id ?? ''
         fetchTeamVacancies(team_id).then(setListVacancies)
         fetchMyTeam(hackathon_id).then(setMyTeam)
         if (team_id && hackathon_id) {

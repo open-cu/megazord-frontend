@@ -17,7 +17,7 @@ export const ChangeHackathon = () => {
 
     const updateHackathonFunc = () => {
         try {
-            const id = parseInt(params.hackathon_id ?? '')
+            const id = params.hackathon_id ?? ''
             if(id) {
                 fetchHackathon(id).then((hackathon) => {
                     if (hackathon) {

@@ -10,7 +10,7 @@ export const TeamDetailVacanciesResponses = (
         {
             variant: "teamlead" | "user",
             vacancy_responses: IVacancyResponse[],
-            hackathon_id: number,
+            hackathon_id: string,
             callbackOnDelete: (res_id: number) => void,
             callbackOnAccept: (res_id: number) => void
         }

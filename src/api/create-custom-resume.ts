@@ -9,7 +9,7 @@ type Payload = {
     tech?: string[]
 }
 
-export default async function createCustomResume(hackathonId: number, payload: Payload = {}): Promise<boolean> {
+export default async function createCustomResume(hackathonId: string, payload: Payload = {}): Promise<boolean> {
     const response = await apiClient({
         method: 'post',
         url: '/resumes/create/custom',

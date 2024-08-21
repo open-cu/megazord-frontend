@@ -17,8 +17,7 @@ export const useFetchHackathon = (hackathon_id: string) => {
     useEffect(() => {
         const loadHackathon = async () => {
             try {
-                const id = parseInt(hackathon_id ?? '', 10);
-                assertNonNull(id, 'Hackathon ID is required and must be a number');
+                const id = hackathon_id ?? '';
 
                 const data = await fetchHackathon(id);
                 assertNonNull(data, 'Hackathon not found');

@@ -7,7 +7,7 @@ import {HackathonStatus} from "@/models/IHackathon";
 
 export type VacancySuggestionCardProps = {
     maxMembers: number
-    hackathonId: number
+    hackathonId: string
     suggestion: IVacancySuggestion
     hackathonStatus: HackathonStatus
 }

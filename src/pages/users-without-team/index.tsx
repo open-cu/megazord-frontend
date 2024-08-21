@@ -21,7 +21,7 @@ export const UsersWithoutTeam = memo(() => {
                 <h1>Участники без команды</h1>
                 <Space h={"md"} />
                 {users && users.length ?
-                    <MembersList hackathon_id={parseInt(hackathon_id as string)} members={users} /> :
+                    <MembersList hackathon_id={hackathon_id as string} members={users} /> :
                     <Center mt={"xl"}>
                         <h2>Все участники распределились 🥳</h2>
                     </Center>

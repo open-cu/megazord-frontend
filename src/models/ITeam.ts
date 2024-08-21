@@ -3,7 +3,7 @@ import { IUser } from "@/models/IUser.ts";
 export interface ITeam {
     id: number
     name: string
-    hackathonId: number
+    hackathonId: string
     members: IUser[]
     creator: number
 }

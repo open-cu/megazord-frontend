@@ -1,7 +1,7 @@
 import {client} from "@/api-client.ts";
 
 export default async function uploadEmailsCsv(
-    hackathon_id: number,
+    hackathon_id: string,
     file: File | null
 ): Promise<boolean> {
     if (!file) return true;

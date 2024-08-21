@@ -6,7 +6,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
 
 export type CurrentTeamCardProps = {
-    hackathonId: number;
+    hackathonId: string;
     id: number;
     name: string;
     members: number;

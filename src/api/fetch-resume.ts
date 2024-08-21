@@ -1,7 +1,7 @@
 import { IResume } from "@/models/IResume.ts";
 import apiClient from "@/api-client.ts";
 
-export async function fetchResume(userId: number, hackathonId: number): Promise<IResume | null> {
+export async function fetchResume(userId: number, hackathonId: string): Promise<IResume | null> {
     const response = await apiClient({
         method: 'GET', 
         url: `/resumes/get?user_id=${userId}&hackathon_id=${hackathonId}`,

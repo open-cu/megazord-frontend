@@ -14,7 +14,7 @@ export const CreateResume = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const id = parseInt(params.hackathon_id ?? '')
+        const id = params.hackathon_id ?? ''
 
         if (id) {
             fetchHackathonById(id).then(setHackathon)

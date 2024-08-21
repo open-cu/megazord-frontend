@@ -16,7 +16,7 @@ export const ImportPdf = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setHackathonId(parseInt(params.hackathon_id ?? ''))
+        setHackathonId(params.hackathon_id ?? '')
     }, [])
 
     const onSubmit = async () => {

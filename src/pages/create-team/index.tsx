@@ -14,7 +14,7 @@ export const CreateTeam = () => {
         <>
             <Header variant={ "user" }/>
             <Container size={ "md" } pb={ "100px" }>
-                <Content hackathonId={ parseInt(hackathon_id ?? '') }/>
+                <Content hackathonId={ hackathon_id ?? '' }/>
             </Container>
         </>
     )
@@ -27,7 +27,7 @@ export type EditableVacancy = {
 }
 
 type ContentProps = {
-    hackathonId: number
+    hackathonId: string
 }
 
 const createDefaultVacancy = () => {

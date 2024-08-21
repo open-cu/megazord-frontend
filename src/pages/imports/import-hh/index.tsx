@@ -17,7 +17,7 @@ export const ImportHh = () => {
     const navigate = useNavigate()
     
     useEffect(() => {
-        setHackathonId(parseInt(params.hackathon_id ?? ''))
+        setHackathonId(params.hackathon_id ?? '')
     }, [])
 
     const formik = createFormik({

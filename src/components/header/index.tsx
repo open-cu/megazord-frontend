@@ -15,14 +15,14 @@ const organizerLinks = [
     {link: '/profile', label: 'Профиль'},
 ];
 
-const createUserLinks = (hackathonId: number) => [
+const createUserLinks = (hackathonId: string) => [
     {link: '/hackathons/user', label: "Хакатоны"},
     {link: `/hackathon/${ hackathonId }/teams`, label: 'Команды'},
     {link: `/hackathon/${ hackathonId }/my-resume`, label: 'Мое резюме'},
     {link: '/profile', label: 'Профиль'},
 ];
 
-const getLinks = (variant: "default" | "organizer" | "user", hackathonId: number | null = null) => {
+const getLinks = (variant: "default" | "organizer" | "user", hackathonId: string | null = null) => {
     if (variant === "default") return defaultLinks;
     else if (variant === "organizer") return organizerLinks
     else return createUserLinks(hackathonId!);
@@ -43,7 +43,7 @@ export const Header = ({variant}: Props) => {
     const { setColorScheme, colorScheme } = useMantineColorScheme();
     const {hackathon_id} = useParams();
 
-    const links = getLinks(variant, parseInt(hackathon_id ?? '') ?? null);
+    const links = getLinks(variant, hackathon_id ?? '' ?? null);
 
     const isMobile = useMediaQuery('(max-width: 600px)')
     const [opened, {toggle, close}] = useDisclosure();

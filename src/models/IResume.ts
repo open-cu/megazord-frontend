@@ -2,7 +2,7 @@ export interface IResume {
     id: number;
     bio: string;
     userId: number;
-    hackathonId: number;
+    hackathonId: string;
     techStack: string[];
     softSkills: string[];
     personalWebsite: string | null;

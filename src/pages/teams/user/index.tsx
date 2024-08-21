@@ -32,7 +32,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
     useEffect(() => {
         fetchResume(
             parseInt(localStorage.getItem('user_id') ?? ''),
-            parseInt(hackathon_id ?? ''),
+            hackathon_id ?? '',
         ).then(resume => {
             if (resume) {
                 getVacanciesSuggestions(resume.id).then(data => {
@@ -44,12 +44,12 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
             }
         })
 
-        fetchHackathon(parseInt(hackathon_id as string)).then(data => {
+        fetchHackathon(hackathon_id as string).then(data => {
             if (!data) return null;
             setHackathon(data);
         })
 
-        fetchMyTeam(parseInt(hackathon_id as string)).then(data => {
+        fetchMyTeam(hackathon_id as string).then(data => {
             setMyTeam(data)
         })
 

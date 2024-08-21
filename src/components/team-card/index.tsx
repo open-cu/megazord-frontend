@@ -4,7 +4,7 @@ import { Avatar, Flex, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 
 export type TeamCardProps = {
-    hackathonId: number;
+    hackathonId: string;
     id: number;
     members: number;
     maxMembers: number;

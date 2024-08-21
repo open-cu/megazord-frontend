@@ -4,7 +4,7 @@ import { IUser } from "@/models/IUser";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-  hackathon_id: number;
+  hackathon_id: string;
   members: IUser[];
 }
 

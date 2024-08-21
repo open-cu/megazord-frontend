@@ -18,7 +18,7 @@ export const JoinHackathon = () => {
     const [role, setRole] = useState('')
 
     useEffect(() => {
-        const id = parseInt(searchParams.get("hackathon_id") as string ?? '')
+        const id = searchParams.get("hackathon_id") as string ?? ''
 
         if (!id) {
             navigate('/')

@@ -146,7 +146,7 @@ const EndedComponent = ({ hackathon }: { hackathon: IHackathon }) => {
     );
 };
 
-export const AdminContent = ({ hackathon_id }: { hackathon_id: number }) => {
+export const AdminContent = ({ hackathon_id }: { hackathon_id: string }) => {
     const [hackathon, setHackathon] = useFetchHackathon(hackathon_id);
     useEffect(() => {
         if (hackathon) {

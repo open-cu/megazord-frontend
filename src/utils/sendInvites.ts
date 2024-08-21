@@ -1,7 +1,7 @@
 import {toast} from "@/utils/toasts";
 import sendHackathonInvites from "@/api/send-hackathon-invites";
 
-export const sendEmailInvitesFunc = (email: string | string[], hackathon_id: number) => {
+export const sendEmailInvitesFunc = (email: string | string[], hackathon_id: string) => {
     if(typeof email == "string") {
         const sendEmailToast = toast({
             loading: true,

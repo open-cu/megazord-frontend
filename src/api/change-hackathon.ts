@@ -7,7 +7,7 @@ interface ChangeHackathonPayload {
 }
 
 export default async function changeHackathon(
-    hackathon_id: number,
+    hackathon_id: string,
     file: File | null,
     data: ChangeHackathonPayload
 ): Promise<boolean> {

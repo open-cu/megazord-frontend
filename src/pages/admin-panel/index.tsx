@@ -17,7 +17,7 @@ const AdminPanel = () => {
     const navigate = useNavigate()
     useEffect(() => {
         try {
-            const id = parseInt(hackathon_id ?? '')
+            const id = hackathon_id ?? ''
             if(id) {
                 fetchHackathon(id).then((data) => {
                     if (data) {

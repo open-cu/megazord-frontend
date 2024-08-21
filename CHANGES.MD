@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased - 20.08.2024
+## Unreleased - 21.08.2024
 
 ### Features
 
@@ -9,6 +9,7 @@
 - *(change-hackathon)* Make uploading emails with csv - ([966faba](https://github.com/open-cu/megazord-frontend/commit/966faba6c5885ded6457313afe5d831cdacb36d5))
 - *(change-team-vacancy)* Make the input of stack more user friendly - ([3fefc3e](https://github.com/open-cu/megazord-frontend/commit/3fefc3ee6885c8f706f0f10bd857c1fe95896de1))
 - *(create and change hackathon forms)* Add tooltips to buttons - ([492d8e5](https://github.com/open-cu/megazord-frontend/commit/492d8e5c956913377d0366368d787d0998615eaa))
+- Add tg link - ([b7d6618](https://github.com/open-cu/megazord-frontend/commit/b7d66188e8e7e4505ccf3825c948249dcb25b06f))
 - Finished verification - ([46bbf37](https://github.com/open-cu/megazord-frontend/commit/46bbf3728f4157fba0537009c7b2966f46c01314))
 - Make verification form - ([0d60810](https://github.com/open-cu/megazord-frontend/commit/0d6081065bb2929100ac78285bc23a4677ee212f))
 - Make resending invitations - ([f607ad1](https://github.com/open-cu/megazord-frontend/commit/f607ad12be3c593baf8a9ce85a19daa6fd421519))

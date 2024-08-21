@@ -33,7 +33,7 @@ export const TeamDetailPage = memo(() => {
     const [teamVacanciesResponsesVariant, setTeamVacanciesResponsesVariant] = useState<'teamlead' | 'user'>('user')
 
     useEffect(() => {
-        const team_id = parseInt(params.team_id ?? '')
+        const team_id = params.team_id ?? ''
         const hackathon_id = params.hackathon_id ?? ''
         fetchTeamVacancies(team_id).then(setListVacancies)
         fetchMyTeam(hackathon_id).then(setMyTeam)
@@ -122,7 +122,7 @@ export const TeamDetailPage = memo(() => {
 
             {/* Отклики */ }
             {
-                (hackathon.status != HackathonStatus.Ended && myTeam?.id && myTeam.id == parseInt(params.team_id ?? '') && vacancyResponses.length != 0) && <>
+                (hackathon.status != HackathonStatus.Ended && myTeam?.id && myTeam.id == (params.team_id ?? '') && vacancyResponses.length != 0) && <>
                     <h3>Отклики на вакансии </h3>
                     <TeamDetailVacanciesResponses
                         variant={ teamVacanciesResponsesVariant }
@@ -132,7 +132,7 @@ export const TeamDetailPage = memo(() => {
                         callbackOnAccept={ (res_id: number) => {
                             setVacanciesResponses(vacancyResponses.filter(res => res.id != res_id))
                             if (myTeam?.id) getTeam(myTeam.id).then(setTeamDetail)
-                            fetchTeamVacancies(parseInt(params.team_id ?? '')).then(setListVacancies)
+                            fetchTeamVacancies(params.team_id ?? '').then(setListVacancies)
                         } }
                     />
                 </>

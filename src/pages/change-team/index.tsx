@@ -20,7 +20,7 @@ export const ChangeTeam = () => {
 
     useEffect(() => {
         const hackathonId = hackathon_id ?? ''
-        const teamId = parseInt(team_id ?? '')
+        const teamId = team_id ?? ''
 
         if (user && hackathonId && teamId) {
             getTeam(teamId).then(data => {

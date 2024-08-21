@@ -1,5 +1,5 @@
 export interface IResume {
-    id: number;
+    id: string;
     bio: string;
     userId: number;
     hackathonId: string;

@@ -1,15 +1,13 @@
-import { useParams, useNavigate } from "react-router-dom"
+import {useParams, useNavigate, Link} from "react-router-dom"
 import {AuthGuard} from "@/components/auth-guard";
 import {Header} from "@/components/header";
 import {Card, Container, Flex, Button, Text, Center, Loader} from "@mantine/core";
 import {useEffect, useState} from "react";
 import {IconMailForward} from "@tabler/icons-react";
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
-import {IUser} from "@/models/IUser";
 import getNotAcceptedInvite from "@/api/get-not-accepted-invite";
-import {toast} from "@/utils/toasts";
-import sendHackathonInvites from "@/api/send-hackathon-invites";
 import {sendEmailInvitesFunc} from "@/utils/sendInvites";
+import styles from "@/pages/admin-panel/admin-panel.module.css";
 
 export const InvitedUsers = () => {
     const {hackathon_id} = useParams()
@@ -27,7 +25,15 @@ export const InvitedUsers = () => {
     return <AuthGuard role={"organizer"}>
         <Header variant={"organizer"}/>
         <Container size={"md"}>
-            <h1>Приглашенные участники</h1>
+            <Flex justify={"space-between"} wrap={"wrap"} align={"center"}>
+                <h1>Приглашенные участники</h1>
+                <Link
+                    to={ `/admin-panel/${ hackathon_id }` }
+                    className={ styles.link }
+                >
+                    Вернуться в админ панель
+                </Link>
+            </Flex>
             {emails.length ?<Flex direction={"column"} gap={"md"} mt={"md"}>
                 { emails.map((email: string, index: number) => {
                     return <Card padding={"sm"} radius={"md"} withBorder key={index}>

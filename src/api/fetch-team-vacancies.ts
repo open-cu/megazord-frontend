@@ -1,7 +1,7 @@
 import apiClient from "@/api-client.ts";
 import { ITeamVacancy } from "@/models/ITeamVacancy";
 
-export default async function fetchTeamVacancies(team_id: number): Promise<ITeamVacancy[]>  {
+export default async function fetchTeamVacancies(team_id: string): Promise<ITeamVacancy[]>  {
     const response = await apiClient({
         method: 'get', 
         url: '/teams/team_vacancies',

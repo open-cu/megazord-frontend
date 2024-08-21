@@ -24,7 +24,7 @@ export const MyResume = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const userId = parseInt(localStorage.getItem('user_id') ?? '')
+        const userId = localStorage.getItem('user_id') ?? ''
         const hackathonId = hackathon_id ?? ''
 
         if (userId && hackathon_id) {

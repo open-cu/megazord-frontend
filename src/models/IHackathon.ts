@@ -1,7 +1,7 @@
 import { IUser } from "@/models/IUser.ts";
 
 export interface IHackathon {
-    id: number;
+    id: string;
     name: string;
     description: string;
     min_participants: number;

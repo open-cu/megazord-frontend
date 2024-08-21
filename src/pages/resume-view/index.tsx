@@ -18,13 +18,13 @@ export const ResumeView = () => {
     const { hackathon_id, user_id } = useParams()
 
     useEffect(() => {
-        fetchResume(parseInt(user_id as string), hackathon_id as string).then(data => {
+        fetchResume(user_id as string, hackathon_id as string).then(data => {
             setResume(data)
             const contacts = [data?.telegram, data?.githubLink, data?.hhLink].filter(contact => !!contact)
             setContacts(contacts as string[])
         })  
 
-        fetchProfileById(parseInt(user_id as string)).then(data => {
+        fetchProfileById(user_id as string).then(data => {
             setProfile(data)
         })
     }, [])

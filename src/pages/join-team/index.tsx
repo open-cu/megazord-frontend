@@ -17,7 +17,7 @@ export const JoinTeam = () => {
     const {user} = useUser()
 
     useEffect(() => {
-        const id = parseInt(parseJwt(searchParams.get("team_id") as string, 'id') ?? '')
+        const id = parseJwt(searchParams.get("team_id") as string, 'id') ?? ''
         const email = parseJwt(searchParams.get("team_id") as string, 'email')
 
         if (!id) {
@@ -37,7 +37,7 @@ export const JoinTeam = () => {
     }, [user])
 
     const onClick = async () => {
-        const id = parseInt(parseJwt(searchParams.get("team_id") as string, 'id') ?? '')
+        const id = parseJwt(searchParams.get("team_id") as string, 'id') ?? ''
         const token = searchParams.get("team_id")
 
         if (loading || !team || !token || !id || !user) return

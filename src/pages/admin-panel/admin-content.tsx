@@ -148,11 +148,6 @@ const EndedComponent = ({ hackathon }: { hackathon: IHackathon }) => {
 
 export const AdminContent = ({ hackathon_id }: { hackathon_id: string }) => {
     const [hackathon, setHackathon] = useFetchHackathon(hackathon_id);
-    useEffect(() => {
-        if (hackathon) {
-            console.log('Hackathon status:', hackathon.status);
-        }
-    }, [hackathon]);
     if (!hackathon) return (
         <Center w="100vw" h="calc(100vh-65px)">
             <Loader size="md" />

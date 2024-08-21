@@ -7,7 +7,7 @@ import { FormInput } from "@/components/form-input/form-input.tsx";
 import sendTeamInviteEmail from "@/api/send-team-invite-email";
 
 export type TeamInvitePopupProps = {
-    team_id: number
+    team_id: string
     opened: boolean
     close: () => void
     onClose: () => void

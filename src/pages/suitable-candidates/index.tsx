@@ -19,7 +19,7 @@ export const SuitableCandidates = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        getSuitableCandidates(parseInt(vacancy_id ?? ''))
+        getSuitableCandidates(vacancy_id ?? '')
             .then(setSuggestions)
     }, [])
 
@@ -32,7 +32,7 @@ export const SuitableCandidates = () => {
 
             const invite = () => {
                 sendTeamInviteEmail(
-                    parseInt(team_id ?? ''),
+                    team_id ?? '',
                     {email: suggestion.user.email},
                 )
                 navigate(`/hackathon/${ hackathon_id }/teams/${ team_id }`)

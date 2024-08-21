@@ -16,7 +16,7 @@ export const CreateResume = () => {
     useEffect(() => {
         const id = params.hackathon_id ?? ''
 
-        if (id) {
+        if (id != "") {
             fetchHackathonById(id).then(setHackathon)
         } else {
             navigate('/')

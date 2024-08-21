@@ -31,7 +31,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
     
     useEffect(() => {
         fetchResume(
-            parseInt(localStorage.getItem('user_id') ?? ''),
+            localStorage.getItem('user_id') ?? '',
             hackathon_id ?? '',
         ).then(resume => {
             if (resume) {

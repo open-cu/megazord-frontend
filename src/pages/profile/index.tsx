@@ -60,6 +60,13 @@ const Content = () => {
                     type: "success",
                     message: "Изменения сохранены"
                 })
+                setUser({
+                    ...user,
+                    name: values.name,
+                    age: parseInt(values.age) ?? user.age,
+                    city: city ?? user.city,
+                    workExp: parseInt(values.workExp) ?? user.workExp,
+                })
             } else {
                 toast({
                     type: "error",

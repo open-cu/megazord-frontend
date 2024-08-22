@@ -35,8 +35,8 @@ export const NotAcceptedInvite = () => {
     return <AuthGuard role={"organizer"}>
         <Header variant={"organizer"}/>
         <Container size={"md"}>
-            <Flex justify={"space-between"} align={"center"}>
-                <h2>Участники не принявшие приглашение в хакатон</h2>
+            <Flex justify={"space-between"} align={"center"} direction={{ xs: "row", base: "column" }}>
+                <Text fz={{ xs: "xl", base: "md" }} fw={"600"} ta={{ xs: "left", base: "center" }}>Участники не принявшие приглашение в хакатон</Text>
                 {
                     (hackathon && hackathon?.status != HackathonStatus.Ended && filteredParticipants.length) ?
                         <Button size={"xs"} onClick={() =>
@@ -48,15 +48,17 @@ export const NotAcceptedInvite = () => {
                 }
             </Flex>
             <SegmentedControl
+                my={"xs"}
+                size={"sm"}
                 value={status}
                 onChange={setStatus}
                 data={[
                     { label: 'Все', value: 'default' },
-                    { label: 'Ошибка при отправке email', value: 'email_error' },
-                    { label: 'Ошибка при отправке telegram', value: 'tg_error' },
+                    { label: 'Ошибка email', value: 'email_error' },
+                    { label: 'Ошибка telegram', value: 'tg_error' },
                 ]}
             />
-            <Flex direction={"column"} gap={"md"} mt={"md"}>
+            <Flex direction={"column"} gap={"md"}>
                 { filteredParticipants.length ? filteredParticipants.map((unit: NotAcceptedInviteUnit) => {
                     return <NotAcceptedInviteUnitCard hackathon={hackathon} unit={unit} key={unit.email} />
                 }) : <Text size={"md"}>Все приглашенные участники зарегестрировались</Text> }

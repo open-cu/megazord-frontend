@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { Form, Formik } from "formik";
 import { FormInput } from "@/components/form-input/form-input.tsx";
 import sendTeamInviteEmail from "@/api/send-team-invite-email";
+import {toast} from "@/utils/toasts";
 
 export type TeamInvitePopupProps = {
     team_id: string
@@ -25,6 +26,10 @@ export const TeamInvitePopup: FC<TeamInvitePopupProps> = memo(props => {
         }),
         onSubmit: (values) => {
             sendTeamInviteEmail(props.team_id, { "email": values.email })
+                .then(() => toast({
+                    type: "success",
+                    message: "Вы успешно пригласили в команду"
+                }))
             props.close()
         },
     })

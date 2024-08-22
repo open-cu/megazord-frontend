@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const MultiSelectInput = ({ state, setState, data }: Props) => {
-    const [list, setList] = useState<string[]>(state);
+    const [list, setList] = useState<string[]>(state.split(', '));
     const [searchValue, setSearchValue] = useState("");
 
     return (

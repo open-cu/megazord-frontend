@@ -36,8 +36,8 @@ class HttpClient {
     }
 
     // Метод DELETE
-    async delete<T>(url: string, fullResponse: boolean = false): Promise<T | AxiosResponse<T>> {
-        return this.makeRequest<T>({ method: 'delete', url }, fullResponse);
+    async delete<T>(url: string, body: any, fullResponse: boolean = false): Promise<T | AxiosResponse<T>> {
+        return this.makeRequest<T>({ method: 'delete', url, data: body }, fullResponse);
     }
 
     // Универсальный метод для выполнения запросов

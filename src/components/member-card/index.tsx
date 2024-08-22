@@ -4,6 +4,7 @@ import { Avatar, Text, ActionIcon } from "@mantine/core";
 import useUser from "@/hooks/use-user";
 import { IconTrash } from "@tabler/icons-react";
 import deleteParticipant from "@/api/delete-participant";
+import {toast} from "@/utils/toasts";
 
 export type MemberCardProps = {
     name: string;
@@ -30,7 +31,10 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
                 e.stopPropagation()
                 deleteParticipant(props.team_id as string, props.email).then(()=>{
                     window.location.reload()
-                })
+                }).catch(() => toast({
+                    type: "error",
+                    message: "Не удалось исключить участника"
+                }))
             }} variant="transparent">
                 <IconTrash color='red' />
             </ActionIcon>)}

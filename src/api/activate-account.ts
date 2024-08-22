@@ -1,13 +1,6 @@
-import apiClient from "@/api-client.ts";
+import {client} from "@/api-client.ts";
 
 export default async function activateAccount(email: string, code: string): Promise<boolean> {
-    const response = await apiClient({
-        method: 'post',
-        url: '/auth/activate',
-        data: {
-            email: email,
-            code: code,
-        },
-    });
+    const response = await client.post('/auth/activate', { email: email, code: code }, true)
     return response.status === 200
 }

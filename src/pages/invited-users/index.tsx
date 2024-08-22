@@ -5,18 +5,18 @@ import {Card, Container, Flex, Button, Text, Center, Loader} from "@mantine/core
 import {useEffect, useState} from "react";
 import {IconMailForward} from "@tabler/icons-react";
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
-import getNotAcceptedInvite from "@/api/get-not-accepted-invite";
+import getNotAcceptedInvite, {NotAcceptedInviteUnit} from "@/api/get-not-accepted-invite";
 import {sendEmailInvitesFunc} from "@/utils/sendInvites";
 import styles from "@/pages/admin-panel/admin-panel.module.css";
 
 export const InvitedUsers = () => {
     const {hackathon_id} = useParams()
     const [hackathon] = useFetchHackathon(hackathon_id)
-    const [emails, setEmails] = useState<string[]>([])
+    const [participants, setParticipants] = useState<NotAcceptedInviteUnit[]>([])
     const navigate = useNavigate()
 
     useEffect(() => {
-        getNotAcceptedInvite(hackathon_id).then(data => setEmails(data))
+        getNotAcceptedInvite(hackathon_id).then(data => setParticipants(data))
     }, []);
 
     if(!hackathon) return <Center w={"100vw"} h={"calc(100vh-65px)"}>
@@ -34,15 +34,15 @@ export const InvitedUsers = () => {
                     Вернуться в админ панель
                 </Link>
             </Flex>
-            {emails.length ?<Flex direction={"column"} gap={"md"} mt={"md"}>
-                { emails.map((email: string, index: number) => {
+            {participants.length ?<Flex direction={"column"} gap={"md"} mt={"md"}>
+                { participants.map((unit: NotAcceptedInviteUnit, index: number) => {
                     return <Card padding={"sm"} radius={"md"} withBorder key={index}>
                         <Flex direction={"row"} justify={"space-between"} align={"center"}>
-                            <Text fw={500}>{email}</Text>
+                            <Text fw={500}>{unit.email}</Text>
                             <Button
                                 size={"xs"}
                                 variant={"light"}
-                                onClick={() => sendEmailInvitesFunc(email, hackathon_id)}
+                                onClick={() => sendEmailInvitesFunc(unit.email, hackathon_id)}
                             >
                                 <IconMailForward stroke={1} />
                             </Button>

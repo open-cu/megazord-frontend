@@ -41,7 +41,7 @@ export const ChangeTeam = () => {
                 {
                     team != null && vacancies != null
                         ? <Content team={ team } vacancies={ vacancies }/>
-                        : <Center w='100vw' h='calc(100vh - 65px)'>
+                        : <Center w='100vw' h='90vh'>
                             <Loader size="md"/>
                         </Center>
                 }

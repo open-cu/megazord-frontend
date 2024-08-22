@@ -1,20 +1,20 @@
-import apiClient from "@/api-client.ts";
+import { client } from "@/api-client.ts";
+import { AxiosResponse } from "axios";
 
 export type EditResumePayload = {
     bio: string;
-    tech: string[]
-    soft: string[]
-    github: string
-    hh: string
-    telegram: string
-    personalWebsite: string
-}
+    tech: string[];
+    soft: string[];
+    github: string;
+    hh: string;
+    telegram: string;
+    personalWebsite: string;
+};
 
-export async function editResume(id: number, payload: EditResumePayload): Promise<boolean> {
-    const response = await apiClient({
-        method: 'patch',
-        url: '/resumes/edit',
-        data: {
+export function editResume(id: number, payload: EditResumePayload): Promise<boolean> {
+    return client.patch<void>(
+        '/resumes/edit',
+        {
             bio: payload.bio,
             hackathon_id: id,
             tech: payload.tech,
@@ -23,8 +23,7 @@ export async function editResume(id: number, payload: EditResumePayload): Promis
             hh: payload.hh,
             telegram: payload.telegram,
             personal_website: payload.personalWebsite,
-        }
-    })
-    
-    return response.status === 200;
+        },
+        true
+    ).then((response: AxiosResponse<void>) => response.status === 200).catch(() => false);
 }

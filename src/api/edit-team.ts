@@ -1,20 +1,19 @@
-import apiClient from "@/api-client.ts";
+import { client } from "@/api-client.ts";
+import { AxiosResponse } from "axios";
 
 type EditTeamPayload = {
-    name: string
+    name: string;
     vacancies: {
         id?: number;
         name: string;
-        keywords: string[]
-    }[]
-}
+        keywords: string[];
+    }[];
+};
 
-export async function editTeam(id: number, payload: EditTeamPayload): Promise<boolean> {
-    const response = await apiClient({
-        method: 'patch',
-        url: `/teams/edit_team?id=${id}`,
-        data: payload,
-    })
-    
-    return response.status === 200;
+export function editTeam(id: number, payload: EditTeamPayload): Promise<boolean> {
+    return client.patch<void>(
+        `/teams/edit_team?id=${id}`,
+        payload,
+        true
+    ).then((response: AxiosResponse<void>) => response.status === 200).catch(() => false);
 }

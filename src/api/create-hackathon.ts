@@ -12,7 +12,6 @@ export interface CreateHackathonPayload {
 
 export default async function createHackathon(file: File, csvFile: File, data: CreateHackathonPayload): Promise<boolean> {
     const form = new FormData();
-
     form.append('image_cover', file);
     if (csvFile) form.append('csv_emails', csvFile);
     form.append('body', JSON.stringify({
@@ -20,5 +19,5 @@ export default async function createHackathon(file: File, csvFile: File, data: C
         min_participants: 1,
     }));
 
-    return await client.post(`/hackathons/`, form).then((res) => true).catch(() => false);
+    return await client.post(`/hackathons/`, form).then(() => true).catch(() => false);
 }

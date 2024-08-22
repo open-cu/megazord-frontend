@@ -16,35 +16,35 @@ apiClient.interceptors.request.use((config) => {
 
 class HttpClient {
     // Метод GET
-    async get<T>(url: string): Promise<T> {
-        return this.makeRequest<T>({ method: 'get', url });
+    async get<T>(url: string, fullResponse: boolean = false): Promise<T | AxiosResponse<T>> {
+        return this.makeRequest<T>({ method: 'get', url }, fullResponse);
     }
 
     // Метод POST
-    async post<T>(url: string, body: any): Promise<T> {
-        return this.makeRequest<T>({ method: 'post', url, data: body });
+    async post<T>(url: string, body: any, fullResponse: boolean = false): Promise<T | AxiosResponse<T>> {
+        return this.makeRequest<T>({ method: 'post', url, data: body }, fullResponse);
     }
 
     // Метод PUT
-    async put<T>(url: string, body: any): Promise<T> {
-        return this.makeRequest<T>({ method: 'put', url, data: body });
+    async put<T>(url: string, body: any, fullResponse: boolean = false): Promise<T | AxiosResponse<T>> {
+        return this.makeRequest<T>({ method: 'put', url, data: body }, fullResponse);
     }
 
     // Метод PATCH
-    async patch<T>(url: string, body: any): Promise<T> {
-        return this.makeRequest<T>({ method: 'patch', url, data: body });
+    async patch<T>(url: string, body: any, fullResponse: boolean = false): Promise<T | AxiosResponse<T>> {
+        return this.makeRequest<T>({ method: 'patch', url, data: body }, fullResponse);
     }
 
     // Метод DELETE
-    async delete<T>(url: string): Promise<T> {
-        return this.makeRequest<T>({ method: 'delete', url });
+    async delete<T>(url: string, fullResponse: boolean = false): Promise<T | AxiosResponse<T>> {
+        return this.makeRequest<T>({ method: 'delete', url }, fullResponse);
     }
 
     // Универсальный метод для выполнения запросов
-    private async makeRequest<T>(config: AxiosRequestConfig): Promise<T> {
+    private async makeRequest<T>(config: AxiosRequestConfig, fullResponse: boolean): Promise<T | AxiosResponse<T>> {
         try {
             const response: AxiosResponse<T> = await apiClient(config);
-            return response.data;
+            return fullResponse ? response : response.data;
         } catch (error) {
             // Обработка ошибок
             if (axios.isAxiosError(error)) {
@@ -58,5 +58,6 @@ class HttpClient {
         }
     }
 }
+
 export const client = new HttpClient();
-export default apiClient
+export default apiClient;

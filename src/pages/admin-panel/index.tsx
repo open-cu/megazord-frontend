@@ -1,7 +1,7 @@
 import {Link, useParams, useNavigate} from "react-router-dom";
 import {Header} from "@/components/header";
 import {AuthGuard} from "@/components/auth-guard";
-import {Center, Container, Flex, Loader, Button} from "@mantine/core";
+import {Center, Container, Flex, Loader, Button, Text} from "@mantine/core";
 import styles from './admin-panel.module.css'
 import {useEffect, useState} from "react";
 import {IHackathon} from "@/models/IHackathon";
@@ -41,7 +41,7 @@ const AdminPanel = () => {
             <Header variant={"organizer"} />
             <Container size="md">
                 <Flex justify={"space-between"} wrap={"wrap"} align={"center"}>
-                    <h1>{hackathon?.name}</h1>
+                    <Text fz={32} truncate={"end"}>{hackathon?.name}</Text>
                     <Link
                         to={ `/change-hackathon/${ hackathon_id }` }
                         className={ styles.link }

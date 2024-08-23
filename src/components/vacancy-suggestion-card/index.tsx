@@ -17,7 +17,7 @@ export const VacancySuggestionCard: FC<VacancySuggestionCardProps> = memo(props 
         to={ `/hackathon/${ props.hackathonId }/teams/${ props.suggestion.team.id }` }
         className={ styles.teamCard }>
 
-        <Text fw={ 500 } size="lg">{ props.suggestion.team.name }</Text>
+        <Text fw={ 500 } size="lg" truncate={"end"}>{ props.suggestion.team.name }</Text>
 
         <Flex gap={ 8 } mt={ 16 }>
             {
@@ -34,8 +34,8 @@ export const VacancySuggestionCard: FC<VacancySuggestionCardProps> = memo(props 
 
         {props.hackathonStatus != HackathonStatus.Ended &&
             <>
-                <Text fw={ 500 } mt={ 16 } size="md">{ props.suggestion.name }</Text>
-                <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' flex='wrap'>
+                <Text fw={ 500 } mt={ 16 } size="md" truncate={"end"}>{ props.suggestion.name }</Text>
+                <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' wrap='wrap'>
                     {
                         props.suggestion.keywords.map(skill => {
                             return <Badge w='fit-content' miw={ 50 }>

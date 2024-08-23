@@ -7,7 +7,7 @@ import getNotAcceptedInvite, {NotAcceptedInviteUnit} from "@/api/get-not-accepte
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
 import {HackathonStatus} from "@/models/IHackathon";
 import {sendEmailInvitesFunc} from "@/utils/sendInvites";
-import {NotAcceptedInviteUnitCard} from "@/components/NotAcceptedInviteUnitCard";
+import {NotAcceptedInviteUnitCard} from "@/components/not-accepted-invite-unit-card";
 
 type NotAcceptedInviteUnitStatus = 'default' | 'email_error' | 'tg_error'
 

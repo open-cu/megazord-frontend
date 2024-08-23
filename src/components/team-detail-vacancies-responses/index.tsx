@@ -28,21 +28,39 @@ export const TeamDetailVacanciesResponses = (
                         navigate(`/hackathon/${ hackathon_id }/resume/${ response.candidate_id }`)
                     } }
                     onDecline={ () => {
+                        const declineToast = toast({
+                            loading: true,
+                            message: "Отклонение кандидата"
+                        })
                         declineApplication(response.id).then(() => {
                             toast({
+                                id: declineToast,
                                 type: "success",
-                                message: "Вы отклонили кандидата"
+                                message: "Вы успешно отклонили кандидата"
                             })
                             callbackOnDelete(response.id)
+                            window.location.reload()
                         })
                     } }
                     onAccept={ () => {
+                        const acceptToast = toast({
+                            loading: true,
+                            message: "Принятие кандидата"
+                        })
                         acceptApplication(response.id).then(() => {
                             toast({
+                                id: acceptToast,
                                 type: "success",
                                 message: "Вы успешно приняли кандидата"
                             })
                             callbackOnAccept(response.id)
+                            window.location.reload()
+                        }).catch(() => {
+                            toast({
+                                id: acceptToast,
+                                type: "success",
+                                message: "Произошла ошибка"
+                            })
                         })
                     } }
                 />

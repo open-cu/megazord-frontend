@@ -37,9 +37,9 @@ export const HackathonInfo = () => {
     <AuthGuard role='any'>
        <Header variant={user?.role} />
        <Container pb={"100px"}>
-            <h1>{title}</h1>
+            <Text fz={32} truncate={"end"}>{title}</Text>
             <Image src={preview} mah={350} radius="sm" mt="xs" />
-            <Text mt="md">{description}</Text>
+            <Text mt="md" w={"100%"} style={{ wordWrap: "break-word" }}>{description}</Text>
             <Text mt="xs" mb="md">Количество участников в команде: от {minMembersAmount} до {maxMembersAmount}</Text>
             <h2>Участники</h2>
             <Space h="md" />

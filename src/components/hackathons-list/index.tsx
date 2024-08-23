@@ -40,12 +40,12 @@ export const HackathonsList: FC<HackathonsListProps> = (props) => {
                 </Card.Section>
 
                 <Group justify="space-between" mt="md" mb="xs">
-                    <Text fw={500}>
+                    <Text fw={500} truncate={"end"}>
                         {hackathon.name}
                     </Text>
                 </Group>
 
-                <Text size="sm" c="dimmed">
+                <Text size="sm" c="dimmed" truncate={"end"}>
                     {hackathon.description}
                 </Text>
             </Card>

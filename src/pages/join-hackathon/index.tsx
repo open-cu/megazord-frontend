@@ -62,7 +62,7 @@ export const JoinHackathon = () => {
     return (
         <AuthGuard role='user'>
             <Flex component={ Center } h={ "100vh" } direction={ "column" } gap={"sm"}>
-                <Text fw="500" size={ "xl" } className={ styles.title }>
+                <Text fw="500" size={ "xl" } className={ styles.title } truncate={"end"} px={"md"}>
                     Привет!
                     <br/>
                     Тебя пригласили на «{ hackathon.name }»

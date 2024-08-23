@@ -22,16 +22,26 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
         <div className={ classes["member-container"] }>
             <Avatar/>
             <div className={ classes["member-info"] }>
-                <Text>{ props.name }</Text>
-                <Text>{ props.email }</Text>
+                <Text truncate={"end"}>{ props.name }</Text>
+                <Text truncate={"end"}>{ props.email }</Text>
             </div>
         </div>
         {user && (props.email !== user.email) && props.creator && props.team_id && props.creator === user.id && (
             <ActionIcon onClick={(e) => {
                 e.stopPropagation()
+                const deleteParticipantToast = toast({
+                    loading: true,
+                    message: "Исключаем участника"
+                })
                 deleteParticipant(props.team_id as string, props.email).then(()=>{
+                    toast({
+                        id: deleteParticipantToast,
+                        type: "success",
+                        message: "Успешно исключили участника"
+                    })
                     window.location.reload()
                 }).catch(() => toast({
+                    id: deleteParticipantToast,
                     type: "error",
                     message: "Не удалось исключить участника"
                 }))

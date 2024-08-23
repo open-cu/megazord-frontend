@@ -67,8 +67,8 @@ export const CreateHackathonForm = () => {
     }
 
     const deleteRole = (role: string) => {
-        if (!participants.includes(role)) setParticipantInputError("В списке нет такой роли")
-        else setParticipants(participants.filter((item) => item != role))
+        if (!roles.includes(role)) setRoleInputError("В списке нет такой роли")
+        else setRoles(roles.filter((item) => item != role))
     }
 
     const formik = createFormik({

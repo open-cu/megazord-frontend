@@ -37,8 +37,10 @@ export const VacancyCard: FC<VacancyCardProps> = memo(props => {
     }, [user, props.vacancy_responses, props.myTeam])
     
     return <div className={ styles.card } onClick={ props.onClick }>
-        <Text fs='16px' fw={ 500 }>{ props.name }</Text>
-        <Text fs='16px'>{ props.keywords.join(', ') }</Text>
+        <div>
+            <Text size="md" fw={ 600 } mb={4} truncate={"end"}>{ props.name }</Text>
+            <Text size="sm">{ props.keywords.join(', ') }</Text>
+        </div>
         {
             canSendResume == 'canSend' ?
                 <Button

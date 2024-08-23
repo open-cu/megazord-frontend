@@ -1,10 +1,10 @@
 import {memo, useEffect, useState} from "react";
 import {AuthGuard} from "@/components/auth-guard";
 import {Header} from "@/components/header";
-import {Button, Center, Container, Flex, Loader} from "@mantine/core";
+import {Button, Center, Container, Flex, Loader, Text} from "@mantine/core";
 import {TeamDetailParticipants} from "@/components/team-detail-participants";
 import {TeamDetailVacancies} from "@/components/team-detail-vacancies";
-import {TeamDetailVacanciesResponses} from "@/components/team-detali-vacancies-responses";
+import {TeamDetailVacanciesResponses} from "@/components/team-detail-vacancies-responses";
 import useUser from "@/hooks/use-user";
 import {useNavigate, useParams} from "react-router-dom";
 import {ITeam} from "@/models/ITeam";
@@ -66,7 +66,7 @@ export const TeamDetailPage = memo(() => {
                 align={ {base: 'flex-start', sm: 'center'} }
                 mb='50'
                 direction={ {base: 'column', sm: 'row'} }>
-                <h1>{ teamDetail.name }</h1>
+                <Text size={"32px"} truncate={"end"} pr={"md"}>{ teamDetail.name }</Text>
 
                 <Flex align={"center"} gap={"md"}>
                     {user.id == teamDetail.creator && hackathon.status != HackathonStatus.Ended ?

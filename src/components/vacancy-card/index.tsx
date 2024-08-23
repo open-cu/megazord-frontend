@@ -52,7 +52,7 @@ export const VacancyCard: FC<VacancyCardProps> = memo(props => {
                                 type: "success",
                                 message: "Вы успешно отправили свое резюме"
                             })
-                            window.location.reload()
+                            setCanSendResume("sended")
                         })
                         toggleApplyButton()
                     }}

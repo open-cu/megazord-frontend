@@ -9,7 +9,7 @@ export type NotAcceptedInviteUnit = {
 export default async function getNotAcceptedInvite(hackathon_id: string): Promise<NotAcceptedInviteUnit[]>  {
     const response = await apiClient({
         method: 'get',
-        url: `/teams/hackathon/${hackathon_id}/pending_invitations`,
+        url: `/hackathons/${hackathon_id}/pending_invitations`,
     })
 
     if (response.status == 200) {

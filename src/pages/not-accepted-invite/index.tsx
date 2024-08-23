@@ -39,7 +39,7 @@ export const NotAcceptedInvite = () => {
                 <Text fz={{ xs: "xl", base: "md" }} fw={"600"} ta={{ xs: "left", base: "center" }}>Участники не принявшие приглашение в хакатон</Text>
                 {
                     (hackathon && hackathon?.status != HackathonStatus.Ended && filteredParticipants.length) ?
-                        <Button size={"xs"} onClick={() =>
+                        <Button size={"xs"} disabled={filteredParticipants.length == 0} onClick={() =>
                             sendEmailInvitesFunc(
                                 filteredParticipants.map(participant => participant.email),
                                 hackathon_id
@@ -60,8 +60,11 @@ export const NotAcceptedInvite = () => {
             />
             <Flex direction={"column"} gap={"md"}>
                 { filteredParticipants.length ? filteredParticipants.map((unit: NotAcceptedInviteUnit) => {
-                    return <NotAcceptedInviteUnitCard hackathon={hackathon} unit={unit} key={unit.email} />
-                }) : <Text size={"md"}>Все приглашенные участники зарегестрировались</Text> }
+                    return <NotAcceptedInviteUnitCard key={unit.email} hackathon={hackathon} unit={unit} />
+                }) : (status == "default" ?
+                    <Text size={"md"}>Все приглашенные участники зарегестрировались</Text> :
+                        <Text size={"md"}>Ничего не найдено</Text>
+                ) }
             </Flex>
         </Container>
     </AuthGuard>

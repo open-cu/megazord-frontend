@@ -92,7 +92,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
                 <SimpleGrid cols={is960 ? 2 : is650 ? 1 : 3} mt='md' spacing="md" mb="xl">
                     {
                         hackathon && suggestions
-                            .filter(x => x.name.toLowerCase().includes(search) || x.name.toLowerCase().includes(search))
+                            .filter(x => x.name.toLowerCase().includes(search))
                             .map(suggestion => {
                                 return <VacancySuggestionCard
                                     suggestion={suggestion}

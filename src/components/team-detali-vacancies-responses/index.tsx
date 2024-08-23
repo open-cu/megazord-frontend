@@ -4,6 +4,7 @@ import { IVacancyResponse } from "@/models/IVacancyResponse";
 import { useNavigate } from "react-router-dom";
 import declineApplication from "@/api/decline-application";
 import acceptApplication from "@/api/accept-application";
+import {toast} from "@/utils/toasts";
 
 export const TeamDetailVacanciesResponses = (
     {variant, vacancy_responses, hackathon_id, callbackOnDelete, callbackOnAccept}:
@@ -27,11 +28,20 @@ export const TeamDetailVacanciesResponses = (
                         navigate(`/hackathon/${ hackathon_id }/resume/${ response.candidate_id }`)
                     } }
                     onDecline={ () => {
-                        declineApplication(response.id)
-                        callbackOnDelete(response.id)
+                        declineApplication(response.id).then(() => {
+                            toast({
+                                type: "success",
+                                message: "Вы отклонили кандидата"
+                            })
+                            callbackOnDelete(response.id)
+                        })
                     } }
                     onAccept={ () => {
                         acceptApplication(response.id).then(() => {
+                            toast({
+                                type: "success",
+                                message: "Вы успешно приняли кандидата"
+                            })
                             callbackOnAccept(response.id)
                         })
                     } }

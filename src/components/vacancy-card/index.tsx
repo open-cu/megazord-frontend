@@ -6,6 +6,7 @@ import {IVacancyResponse} from "@/models/IVacancyResponse";
 import useUser from "@/hooks/use-user";
 import {ITeam} from "@/models/ITeam";
 import {useDisclosure} from "@mantine/hooks";
+import {toast} from "@/utils/toasts";
 
 export type VacancyCardProps = {
     id: number
@@ -46,7 +47,13 @@ export const VacancyCard: FC<VacancyCardProps> = memo(props => {
                     fs='16px' c='blue'
                     onClick={() => {
                         toggleApplyButton()
-                        applyForJob(props.id).then(() => window.location.reload())
+                        applyForJob(props.id).then(() => {
+                            toast({
+                                type: "success",
+                                message: "Вы успешно отправили свое резюме"
+                            })
+                            window.location.reload()
+                        })
                         toggleApplyButton()
                     }}
                 >Отправить свое резюме</Button> :

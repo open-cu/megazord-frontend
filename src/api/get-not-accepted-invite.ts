@@ -13,11 +13,11 @@ export default async function getNotAcceptedInvite(hackathon_id: string): Promis
     })
 
     if (response.status == 200) {
-        return (response.data as string[]).map(email => {
+        return (response.data as NotAcceptedInviteUnit[]).map(unit => {
             return {
-                email: email,
-                send_email_status: Math.random() < 0.5,
-                send_tg_status: Math.random() < 0.5
+                email: unit.email,
+                send_email_status: unit.send_email_status,
+                send_tg_status: unit.send_tg_status
             }
         })
     }

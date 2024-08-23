@@ -27,6 +27,7 @@ import changeHackathon from "@/api/change-hackathon";
 import * as yup from "yup";
 import uploadEmailsCsv from "@/api/upload-emails-csv";
 import {toast} from "@/utils/toasts";
+import {sendEmailInvitesFunc} from "@/utils/sendInvites";
 
 export const ChangeHackathonForm = (
     {hackathon, updateHackathonFunc}: { hackathon: IHackathon, updateHackathonFunc: () => void }
@@ -56,6 +57,7 @@ export const ChangeHackathonForm = (
             addParticipantToHackathon(hackathon.id, email).then((res) => {
                 if (!res) setParticipantInputError("Непредвимиая ошибка")
                 else {
+                    sendEmailInvitesFunc([email], hackathon.id)
                     setSuccessMessage(`Участник ${ email } успешно добавлен`)
                     setParticipantInputValue('')
                 }

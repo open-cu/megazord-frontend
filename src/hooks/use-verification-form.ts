@@ -22,7 +22,7 @@ export function useVerificationForm(email) {
         validationSchema: validationSchema,
         onSubmit: async (values, formikHelpers) => {
             const response = await activateAccount(email, values.code)
-            if (!response) {
+            if (response == "") {
                 formikHelpers.setFieldError('code', 'Неверный код')
                 toast({
                     type: "error",
@@ -30,9 +30,20 @@ export function useVerificationForm(email) {
                 })
                 return
             }
+            const userId = parseJwt(response, 'user_id')
+            if (userId) {
+                localStorage.setItem('auth_token', response)
+                localStorage.setItem('user_id', userId)
+                navigate('/')
+                toast({
+                    type: "success",
+                    message: "Вы успешно зарегестрировались"
+                })
+                return
+            }
             toast({
-                type: "success",
-                message: "Вы успешно зарегестрировались"
+                type: "error",
+                message: "Произошла ошибка"
             })
             navigate('/login')
         }

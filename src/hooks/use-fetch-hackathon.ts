@@ -21,7 +21,6 @@ export const useFetchHackathon = (hackathon_id: string) => {
 
                 const data = await fetchHackathon(id);
                 assertNonNull(data, 'Hackathon not found');
-
                 setHackathon(data);
             } catch (e) {
                 navigate(route404);
@@ -30,6 +29,5 @@ export const useFetchHackathon = (hackathon_id: string) => {
 
         loadHackathon();
     }, [hackathon_id, navigate]);
-
     return [hackathon, setHackathon] as const;
 };

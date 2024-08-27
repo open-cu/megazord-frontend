@@ -9,7 +9,7 @@ export async function fetchResume(userId: number, hackathonId: string): Promise<
     if (response.status === 200) {
         return {
             id: response.data.id,
-            userId: response.data.userId,
+            user: response.data.user,
             bio: response.data.bio,
             hackathonId: hackathonId,
             techStack: response.data.tech,

@@ -1,7 +1,9 @@
+import {IUser} from "@/models/IUser";
+
 export interface IResume {
     id: string;
     bio: string;
-    userId: number;
+    user: IUser;
     hackathonId: string;
     techStack: string[];
     softSkills: string[];

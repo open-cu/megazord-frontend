@@ -1,0 +1,8 @@
+.active.active {
+    border: calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-color-blue-filled);
+}
+
+.card {
+    cursor: pointer;
+    user-select: none
+}

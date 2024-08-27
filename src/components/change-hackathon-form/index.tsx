@@ -57,7 +57,6 @@ export const ChangeHackathonForm = (
             addParticipantToHackathon(hackathon.id, email).then((res) => {
                 if (!res) setParticipantInputError("Непредвимиая ошибка")
                 else {
-                    sendEmailInvitesFunc([email], hackathon.id)
                     setSuccessMessage(`Участник ${ email } успешно добавлен`)
                     setParticipantInputValue('')
                 }

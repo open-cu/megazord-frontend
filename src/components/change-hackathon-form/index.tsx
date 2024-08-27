@@ -1,27 +1,27 @@
-import { Form, Formik } from "formik";
+import {Form, Formik} from "formik";
 import {
-    Autocomplete,
-    Button,
-    Container,
-    FileInput,
-    Flex,
-    Image,
-    Text,
-    FileButton,
     Accordion,
     AccordionControl,
     AccordionItem,
     AccordionPanel,
+    Autocomplete,
+    Button,
+    Container,
+    FileButton,
+    FileInput,
+    Flex,
+    Image,
+    Text,
     Tooltip
 } from "@mantine/core";
-import { FormInput } from "@/components/form-input/form-input";
-import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
-import { FormNumberInput } from "@/components/form-input/form-number-input";
-import { IconPlus, IconUpload} from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { createFormik } from "@/utils/create-formik";
-import { IHackathon } from "@/models/IHackathon";
+import {FormInput} from "@/components/form-input/form-input";
+import {FormTextareaInput} from "@/components/form-input/form-textarea-input";
+import {FormNumberInput} from "@/components/form-input/form-number-input";
+import {IconPlus, IconUpload} from "@tabler/icons-react";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {createFormik} from "@/utils/create-formik";
+import {HackathonStatus, IHackathon} from "@/models/IHackathon";
 import addParticipantToHackathon from "@/api/add-participant-to-hackathon";
 import changeHackathon from "@/api/change-hackathon";
 import * as yup from "yup";
@@ -57,6 +57,7 @@ export const ChangeHackathonForm = (
             addParticipantToHackathon(hackathon.id, email).then((res) => {
                 if (!res) setParticipantInputError("Непредвимиая ошибка")
                 else {
+                    if(hackathon.status == HackathonStatus.Started) sendEmailInvitesFunc([email], hackathon.id)
                     setSuccessMessage(`Участник ${ email } успешно добавлен`)
                     setParticipantInputValue('')
                 }

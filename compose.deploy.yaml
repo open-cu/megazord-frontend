@@ -1,0 +1,25 @@
+version: "3.9"
+name: "megazord-frontend"
+
+services:
+  frontend:
+    container_name: "megazord-frontend"
+    image: ghcr.io/open-cu/megazord-frontend:${FRONTEND_IMAGE_TAG:-main}
+
+    networks:
+      - proxy
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.megazord_frontend.entrypoints=https"
+      - "traefik.http.routers.megazord_frontend.rule=Host(`$DEPLOY_DOMAIN`) && !PathPrefix(`/api`)"
+      - "traefik.http.services.megazord_frontend.loadbalancer.server.port=3000"
+      - "traefik.http.routers.megazord_frontend.tls.certresolver=letsEncrypt"
+      - "traefik.docker.network=proxy"
+
+    environment:
+      - VITE_API_CLIENT=${API_URL:?error}
+
+networks:
+  proxy:
+    external: true

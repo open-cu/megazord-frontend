@@ -1,0 +1,47 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      image_tag:
+        description: "Image tag for deploy"
+        default: main
+        type: string
+        required: false
+
+  workflow_call:
+    inputs:
+      image_tag:
+        description: "Image tag for deploy"
+        type: string
+        required: true
+
+jobs:
+  deploy:
+    runs-on: megazord_prod
+    environment: prod
+    permissions:
+      packages: read
+
+    env:
+      FRONTEND_IMAGE_TAG: ${{ inputs.image_tag }}
+      DEPLOY_DOMAIN: ${{ vars.DEPLOY_DOMAIN }}
+      API_URL: ${{ vars.API_URL }}
+
+    steps:
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download docker compose
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            compose.deploy.yaml
+
+      - name: Deploy
+        run: docker compose -f compose.deploy.yaml up -d --pull always

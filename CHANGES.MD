@@ -31,6 +31,7 @@
 
 ### Bug Fixes
 
+- Export - ([e12327a](https://github.com/open-cu/megazord-frontend/commit/e12327a6a7de8a039b807f7b671fc5b66f137696))
 - Make links in team board card - ([a277d30](https://github.com/open-cu/megazord-frontend/commit/a277d3087385b95718287c3ae1016150c5b18850))
 - Sign up flow - ([8cb4158](https://github.com/open-cu/megazord-frontend/commit/8cb41582cfcbf2a4097bd68567de03e1a9a90880))
 - Bug fixes - ([7097bf6](https://github.com/open-cu/megazord-frontend/commit/7097bf6320c222659ec7aa95eab63430658e807b))

@@ -61,3 +61,7 @@
 
 - Initial commit - ([8a59285](https://github.com/open-cu/megazord-frontend/commit/8a59285d2315db6c9a9f5ae78e1272116baa11f5))
 
+### Cd
+
+- Setup deploy (#53) - ([83b1f7a](https://github.com/open-cu/megazord-frontend/commit/83b1f7aad057f0befeb652cc09488cba87f83c73))
+

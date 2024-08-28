@@ -1,5 +1,10 @@
 # Changelog
-## Unreleased - 06.08.2024
+## Unreleased - 28.08.2024
+
+### Features
+
+- *(change-team-vacancy)* Make the input of stack more user friendly - ([3fefc3e](https://github.com/open-cu/megazord-frontend/commit/3fefc3ee6885c8f706f0f10bd857c1fe95896de1))
+- Make multi-celect-input for skill selecting - ([a3fdc21](https://github.com/open-cu/megazord-frontend/commit/a3fdc21e6eb4a587f0ffcac0ffb36abe361384dd))
 
 ### Miscellaneous Tasks
 

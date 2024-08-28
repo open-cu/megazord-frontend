@@ -1,20 +1,48 @@
-name: Build
+name: CI
 
 on:
-  workflow_run:
-    workflows:
-      - Test
-    types:
-      - completed
+  push:
     branches:
       - main
+    paths-ignore:
+      - "**.md"
+
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    paths-ignore:
+      - "**.md"
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push-image:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install requirements
+        run: npm install
+
+      # - name: Lint
+      #   run: npm run lint
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          verbose: true
+          token: ${{ secrets.CODECOV_TOKEN }}
+  build:
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -23,6 +51,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -40,13 +71,12 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=schedule
-            type=ref,event=branch
             type=ref,event=pr
+            type=ref,event=branch
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
-            type=sha
+            type=sha,format=long
 
       - name: Build and push image
         id: push
@@ -54,8 +84,16 @@ jobs:
         with:
           context: .
           push: true
+          platforms: linux/amd64,linux/arm64/v8
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: false
+  deploy:
+    # run if push into main branch and фгещ вуздщн not prohibited
+    needs: build
+    if: ${{ github.ref == 'refs/heads/main' && (vars.AUTO_DEPLOY == 'True' || vars.AUTO_DEPLOY == '') }}
+    uses: ./.github/workflows/deploy.yaml
+    with:
+      image_tag: ${{ format('sha-{0}', github.sha) }}

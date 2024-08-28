@@ -6,7 +6,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
 
 export type CurrentTeamCardProps = {
-    hackathonId: number;
+    hackathonId: string;
     id: number;
     name: string;
     members: number;
@@ -29,12 +29,15 @@ export const CurrentTeamCard: FC<CurrentTeamCardProps> = memo(props => {
             mt={ 1 }
             className={ styles.card }
             direction={ isPhoneCard ? 'column' : 'row' }
-            align={ isPhoneCard ? 'flex-start' : 'initial' }>
+            align={ isPhoneCard ? 'flex-start' : 'initial' }
+        >
             <Flex
                 flex="fit-content"
                 direction={ isPhoneCard ? 'column' : 'row' }
                 gap={ 15 }
-                align={ isPhoneCard ? 'flex-start' : 'center' }>
+                align={ isPhoneCard ? 'flex-start' : 'center' }
+                style={{ overflow: "hidden" }}
+            >
                 <Avatar.Group>
                     {
                         new Array(props.members).fill('').map((_, i) => <Avatar key={ `avatar-${ i }` }/>)
@@ -44,7 +47,7 @@ export const CurrentTeamCard: FC<CurrentTeamCardProps> = memo(props => {
                     }
                 </Avatar.Group>
 
-                <Text size="md" fw={ 500 }>{ props.name }</Text>
+                <Text size="md" fw={ 500 } truncate={"end"} mw={"100%"}>{ props.name }</Text>
             </Flex>
 
             <Button

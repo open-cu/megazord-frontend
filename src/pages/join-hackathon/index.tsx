@@ -1,8 +1,7 @@
-import { Button, Center, Flex, Loader, Text } from "@mantine/core";
+import {Button, Center, Flex, Loader, Select, Text} from "@mantine/core";
 import styles from './join-hackathon.module.css';
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import parseJwt from "@/utils/parse-jwt.ts";
 import { AuthGuard } from "@/components/auth-guard";
 import joinHackathon from "@/api/join-hackathon.ts";
 import { IHackathon } from "@/models/IHackathon.ts";
@@ -16,26 +15,22 @@ export const JoinHackathon = () => {
     const navigate = useNavigate();
     const {user} = useUser()
     const [error, setError] = useState('')
+    const [role, setRole] = useState('')
 
     useEffect(() => {
-        const id = parseInt(parseJwt(searchParams.get("hackathon_id") as string, 'id') ?? '')
-        const email = parseJwt(searchParams.get("hackathon_id") as string, 'email')
+        const id = searchParams.get("hackathon_id") as string ?? ''
 
-        if (!id || !email) {
+        if (!id) {
             navigate('/')
         }
 
         if (user) {
-            if (user.email != email) {
-                navigate('/')
-            } else if (!loading && !hackathon) {
-                setLoading(true)
-                fetchHackathon(id)
-                    .then(data => {
-                        setHackathon(data);
-                        setLoading(false);
-                    })
-            }
+            setLoading(true)
+            fetchHackathon(id)
+                .then(data => {
+                    setHackathon(data);
+                    setLoading(false);
+                })
         }
     }, [user])
 
@@ -44,7 +39,7 @@ export const JoinHackathon = () => {
         setError('')
         setLoading(true)
 
-        const response = await joinHackathon(hackathon.id, searchParams.get("hackathon_id") as string)
+        const response = await joinHackathon(hackathon.id, role)
         if (response == 'success') {
             navigate(`/hackathon/${ hackathon.id }/create-resume`)
         } else if (response == 'already-join') {
@@ -52,7 +47,7 @@ export const JoinHackathon = () => {
         } else {
             setError('Произошла непредвиденная ошибка')
         }
-        
+
         setLoading(false)
     }
 
@@ -66,12 +61,23 @@ export const JoinHackathon = () => {
 
     return (
         <AuthGuard role='user'>
-            <Flex component={ Center } h={ "100vh" } direction={ "column" }>
-                <Text fw="500" size={ "xl" } mb={ "sm" } className={ styles.title }>
+            <Flex component={ Center } h={ "100vh" } direction={ "column" } gap={"sm"}>
+                <Text fw="500" size={ "xl" } className={ styles.title } truncate={"end"} px={"md"}>
                     Привет!
                     <br/>
                     Тебя пригласили на «{ hackathon.name }»
                 </Text>
+                {hackathon.roles.length != 0 && <Select
+                    required
+                    value={role}
+                    onChange={setRole}
+                    size={"md"}
+                    placeholder="Выбери роль"
+                    clearable
+                    allowDeselect
+                    checkIconPosition="right"
+                    data={hackathon.roles}
+                />}
                 <Button
                     loading={ loading }
                     onClick={ onClick }>

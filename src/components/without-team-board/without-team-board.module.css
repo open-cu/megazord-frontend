@@ -1,0 +1,21 @@
+.joinBtn {
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+}
+
+.grid {
+    display: grid;
+}
+
+.column.column {
+    border-right: 1px solid var(--mantine-color-default-border);
+    padding: 0 10px;
+    width: 305px;
+}
+
+.column:last-child {
+    border-right: none;
+}

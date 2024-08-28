@@ -2,7 +2,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: var(--mantine-color-white);
+  background-color: var(--mantine-color-body);
 }
 
 .link {

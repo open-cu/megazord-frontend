@@ -1,12 +1,15 @@
+import {IUser} from "@/models/IUser";
+
 export interface IResume {
-    id: number;
+    id: string;
     bio: string;
-    userId: number;
-    hackathonId: number;
+    user: IUser;
+    hackathonId: string;
     techStack: string[];
     softSkills: string[];
     personalWebsite: string | null;
     githubLink: string | null;
     hhLink: string | null;
     telegram: string | null;
+    role: string;
 }

@@ -1,12 +1,12 @@
-import apiClient from "@/api-client.ts";
+import { client } from "@/api-client.ts";
+import { AxiosResponse } from "axios";
 
-export default async function deleteParticipant(team_id: number, email: string): Promise<boolean>  {
-    const response = await apiClient({
-        method: 'delete',
-        url: `/teams/${team_id}/remove_user`,
-        data: {
+export default function deleteParticipant(team_id: string, email: string): Promise<boolean> {
+    return client.delete<void>(
+        `/teams/${team_id}/remove_user`,
+        {
             email: email
-        }
-    })
-    return response.status == 202
+        },
+        true
+    ).then((response: AxiosResponse<void>) => response.status === 202).catch(() => false);
 }

@@ -1,4 +1,4 @@
-import apiClient from "@/api-client.ts";
+import apiClient, {client} from "@/api-client.ts";
 
 type Payload = {
     hh?: string,
@@ -9,11 +9,10 @@ type Payload = {
     tech?: string[]
 }
 
-export default async function createCustomResume(hackathonId: number, payload: Payload = {}): Promise<boolean> {
-    const response = await apiClient({
-        method: 'post',
-        url: '/resumes/create/custom',
-        data: {
+export default async function createCustomResume(hackathonId: string, payload: Payload = {}): Promise<boolean> {
+    const response = await client.post(
+        '/resumes/create/custom',
+        {
             hh: payload.hh ?? '',
             telegram: payload.telegram ?? '',
             github: payload.github ?? '',
@@ -24,7 +23,7 @@ export default async function createCustomResume(hackathonId: number, payload: P
             tech: payload.tech ??  [],
             personal_website: '',
         },
-    })
-
+        true
+    )
     return response.status === 201
 }

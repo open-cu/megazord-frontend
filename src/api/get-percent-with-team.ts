@@ -1,9 +1,9 @@
 import apiClient from "@/api-client.ts";
 
-export async function getPercentWithTeam(hackathonId: number): Promise<number> {
+export async function getPercentWithTeam(hackathonId: string): Promise<number> {
     const response = await apiClient({
         method: 'GET', 
-        url: `/teams/analytic/${hackathonId}`,
+        url: `/hackathons/${hackathonId}/analytic`,
     })
     
     if (response.status === 200) {        

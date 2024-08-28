@@ -1,5 +1,5 @@
 export interface ITeamVacancy {
-    id: number;
+    id: string;
     name: string;
     keywords: string[];
     // userId: number | null;

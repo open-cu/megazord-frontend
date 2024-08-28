@@ -7,8 +7,10 @@ import { IResume } from "@/models/IResume";
 import { useParams } from "react-router-dom";
 import { IUser } from "@/models/IUser";
 import fetchProfileById from "@/api/fetch-profile-by-id";
+import useUserStore from "@/stores/user-store";
 
 export const ResumeView = () => {
+    const {user} = useUserStore()
     const [resume, setResume] = useState<IResume | null>(null)
     const [profile, setProfile] = useState<IUser | null>(null)
     const [contacts, setContacts] = useState<string[]>([])
@@ -16,13 +18,13 @@ export const ResumeView = () => {
     const { hackathon_id, user_id } = useParams()
 
     useEffect(() => {
-        fetchResume(parseInt(user_id as string), parseInt(hackathon_id as string)).then(data => {
+        fetchResume(user_id as string, hackathon_id as string).then(data => {
             setResume(data)
             const contacts = [data?.telegram, data?.githubLink, data?.hhLink].filter(contact => !!contact)
             setContacts(contacts as string[])
         })  
 
-        fetchProfileById(parseInt(user_id as string)).then(data => {
+        fetchProfileById(user_id as string).then(data => {
             setProfile(data)
         })
     }, [])
@@ -45,7 +47,7 @@ export const ResumeView = () => {
 
   return (
     <AuthGuard role='any'>
-       <Header variant="user" />
+       <Header variant={user?.role} />
        <Container>
        <Flex align="center" gap="md">
             <Avatar w={100} h={100} />
@@ -67,14 +69,21 @@ export const ResumeView = () => {
             <Text>{contactsItems}</Text>
         </Box>}
 
-        {resume?.techStack && <Box mt="xl">
+       {resume?.role && <Box mt="xl">
+           <h3>Роль участника</h3>
+           <Text fw={"500"} mt="sm" pl={0}>
+               {resume.role}
+           </Text>
+       </Box>}
+
+        {resume?.techStack && resume.techStack.length > 0 && <Box mt="xl">
             <h3>Tech Skills</h3>
             <Container mt="sm" pl={0}>
                 {techSkillsItems}
             </Container>
         </Box>}
 
-        {resume?.softSkills && <Box mt="xl">
+        {resume?.softSkills && resume.softSkills.length > 0 && <Box mt="xl">
             <h3>Soft Skills</h3>
             <Container mt="sm" pl={0}>
                 {softSkillsItems}

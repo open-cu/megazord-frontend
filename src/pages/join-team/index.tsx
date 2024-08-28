@@ -8,6 +8,7 @@ import joinTeamById from "@/api/join-team-by-id";
 import getTeam from "@/api/get-team";
 import { ITeam } from "@/models/ITeam";
 import useUser from "@/hooks/use-user.ts";
+import {toast} from "@/utils/toasts";
 
 export const JoinTeam = () => {
     const [searchParams] = useSearchParams();
@@ -17,7 +18,7 @@ export const JoinTeam = () => {
     const {user} = useUser()
 
     useEffect(() => {
-        const id = parseInt(parseJwt(searchParams.get("team_id") as string, 'id') ?? '')
+        const id = parseJwt(searchParams.get("team_id") as string, 'id') ?? ''
         const email = parseJwt(searchParams.get("team_id") as string, 'email')
 
         if (!id) {
@@ -37,7 +38,7 @@ export const JoinTeam = () => {
     }, [user])
 
     const onClick = async () => {
-        const id = parseInt(parseJwt(searchParams.get("team_id") as string, 'id') ?? '')
+        const id = parseJwt(searchParams.get("team_id") as string, 'id') ?? ''
         const token = searchParams.get("team_id")
 
         if (loading || !team || !token || !id || !user) return
@@ -45,9 +46,16 @@ export const JoinTeam = () => {
 
         const success = await joinTeamById(team.id, token)
         if (success) {
+            toast({
+                type: "success",
+                message: `Вы успешно присоеденились к команде ${team.name}!`
+            })
             navigate("/")
         } else {
-            console.error('error')
+            toast({
+                type: "error",
+                message: "Произошла ошибка"
+            })
         }
     }
 

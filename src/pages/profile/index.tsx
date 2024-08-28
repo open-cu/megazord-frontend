@@ -1,5 +1,5 @@
 import { Header } from "@/components/header";
-import { Button, Container, Flex, Select, TextInput } from "@mantine/core";
+import { Button, Container, Flex, Select, TextInput, Anchor } from "@mantine/core";
 import { AuthGuard } from "@/components/auth-guard";
 import { createFormik } from "@/utils/create-formik.ts";
 import useUser from "@/hooks/use-user.ts";
@@ -8,9 +8,11 @@ import { FormInput } from "@/components/form-input/form-input.tsx";
 import { FormNumberInput } from "@/components/form-input/form-number-input.tsx";
 import updateProfile from "@/api/update-profile.ts";
 import { cities } from "@/utils/cities.ts"
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import * as yup from 'yup';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import {toast} from "@/utils/toasts";
+import getTelegramLink from "@/api/get-telegram-link";
 
 export const Profile = () => {
     return (
@@ -28,6 +30,11 @@ const Content = () => {
     const {user, setUser} = useUser()
     const [city, setCity] = useState<string | null>(user!.city ?? null)
     const navigate = useNavigate()
+    const [tgLink, setTgLink] = useState<null | string>(null);
+
+    useEffect(() => {
+        getTelegramLink().then(setTgLink)
+    }, [])
 
     const formik = createFormik({
         initialValues: {
@@ -36,7 +43,7 @@ const Content = () => {
             workExp: user!.workExp ? user!.workExp!.toString() : '',
         },
         validationSchema: yup.object({
-            name: yup.string().required('Введите имя').max(30, 'Имя слишком длинное'),
+            name: yup.string().required('Введите имя').max(30, 'Имя слишком длинное').matches(/^[^,]*$/, 'Поле не должно содержать запятые'),
             age: yup.number().min(0, 'Возраст не может быть отрицательным').integer('Введите целое число лет'),
             workExp: yup.number().min(0, 'Опыт не может быть отрицательным').integer('Опыт целое число лет'),
         }),
@@ -49,9 +56,22 @@ const Content = () => {
             })
 
             if (response) {
-                setUser(response)
+                toast({
+                    type: "success",
+                    message: "Изменения сохранены"
+                })
+                setUser({
+                    ...user,
+                    name: values.name,
+                    age: parseInt(values.age) ?? user.age,
+                    city: city ?? user.city,
+                    workExp: parseInt(values.workExp) ?? user.workExp,
+                })
             } else {
-                console.error('failed to update profile')
+                toast({
+                    type: "error",
+                    message: "Произошла ошибка при обновлении профиля"
+                })
             }
         }
     })
@@ -61,6 +81,10 @@ const Content = () => {
         localStorage.removeItem('auth_token')
         localStorage.removeItem('user_id')
         setUser(null)
+        toast({
+            type: "success",
+            message: "Вы успешно вышли из аккаунта"
+        })
     }
 
     return <Formik { ...formik }>
@@ -100,7 +124,9 @@ const Content = () => {
                         placeholder="Стаж работы"
                     />
                 }
-
+                {tgLink && <Link to={tgLink} target="_blank">
+                    <Anchor fz={"sm"}>Переходи в телеграм бота, чтобы оперативно получать уведомления</Anchor>
+                </Link>}
                 <Flex gap='md'>
                     <Button
                         type='submit'

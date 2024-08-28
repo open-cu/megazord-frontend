@@ -5,6 +5,7 @@ import { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTeam } from "@/api/create-team";
 import { ChangeTeamVacancy } from "@/components/change-team-vacancy";
+import {toast} from "@/utils/toasts";
 
 export const CreateTeam = () => {
     const {hackathon_id} = useParams()
@@ -13,7 +14,7 @@ export const CreateTeam = () => {
         <>
             <Header variant={ "user" }/>
             <Container size={ "md" } pb={ "100px" }>
-                <Content hackathonId={ parseInt(hackathon_id ?? '') }/>
+                <Content hackathonId={ hackathon_id ?? '' }/>
             </Container>
         </>
     )
@@ -26,7 +27,7 @@ export type EditableVacancy = {
 }
 
 type ContentProps = {
-    hackathonId: number
+    hackathonId: string
 }
 
 const createDefaultVacancy = () => {
@@ -85,7 +86,11 @@ const Content: FC<ContentProps> = (props) => {
 
         if (id) {
             navigate(`/hackathon/${ hackathon_id }/teams/${id}`)
-        } 
+        }
+        toast({
+            type: "success",
+            message: "Команда успешно создана"
+        })
         setLoading(false)
     }
 

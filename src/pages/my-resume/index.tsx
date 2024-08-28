@@ -1,18 +1,22 @@
-import { AuthGuard } from "@/components/auth-guard";
-import { Header } from "@/components/header";
-import { ActionIcon, Button, Container, Flex, TextInput, Center, Loader } from "@mantine/core";
-import { IconTrash } from "@tabler/icons-react";
-import { FC, useEffect, useState } from "react";
-import { IResume } from "@/models/IResume";
-import { fetchResume } from "@/api/fetch-resume.ts";
-import { useNavigate, useParams } from "react-router-dom";
-import { v4 as uuid } from 'uuid'
-import { createFormik } from "@/utils/create-formik";
+import {AuthGuard} from "@/components/auth-guard";
+import {Header} from "@/components/header";
+import {ActionIcon, Autocomplete, Button, Center, Container, Flex, Loader, TextInput} from "@mantine/core";
+import {IconTrash} from "@tabler/icons-react";
+import {FC, useEffect, useState} from "react";
+import {IResume} from "@/models/IResume";
+import {fetchResume} from "@/api/fetch-resume.ts";
+import {useNavigate, useParams} from "react-router-dom";
+import {v4 as uuid} from 'uuid'
+import {createFormik} from "@/utils/create-formik";
 import * as yup from 'yup';
-import { Form, Formik } from "formik";
-import { FormTextareaInput } from "@/components/form-input/form-textarea-input.tsx";
-import { FormInput } from "@/components/form-input/form-input.tsx";
-import { editResume } from "@/api/edit-resume.ts";
+import {Form, Formik} from "formik";
+import {FormTextareaInput} from "@/components/form-input/form-textarea-input.tsx";
+import {FormInput} from "@/components/form-input/form-input.tsx";
+import {editResume} from "@/api/edit-resume.ts";
+import {skills} from "@/utils/skills";
+import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";
+import {HackathonStatus} from "@/models/IHackathon";
+import {toast} from "@/utils/toasts";
 
 export const MyResume = () => {
     const [resume, setResume] = useState<IResume | null>(null)
@@ -20,12 +24,13 @@ export const MyResume = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const userId = parseInt(localStorage.getItem('user_id') ?? '')
-        const hackathonId = parseInt(hackathon_id ?? '')
+        const userId = localStorage.getItem('user_id') ?? ''
+        const hackathonId = hackathon_id ?? ''
 
         if (userId && hackathon_id) {
             fetchResume(userId, hackathonId).then(data => {
                 if (data) {
+                    console.log("Resume role", data.role)
                     setResume(data)
                 } else {
                     navigate('/')
@@ -41,7 +46,7 @@ export const MyResume = () => {
             <Header variant="user"/>
             {
                 resume
-                    ? <Content resume={ resume }/>
+                    ? <Content resume={ resume } hackathon_id={hackathon_id}/>
                     : <Center w='100vw' h='calc(100vh - 65px)'>
                         <Loader size="md"/>
                     </Center>
@@ -52,6 +57,7 @@ export const MyResume = () => {
 
 type ContentProps = {
     resume: IResume,
+    hackathon_id: string,
 }
 
 type EditableItem = {
@@ -66,6 +72,7 @@ const Content: FC<ContentProps> = (props) => {
 
     const [techSkills, setTechSkills] = useState(props.resume.techStack.map(createEditableItem))
     const [softSkills, setSoftSkills] = useState(props.resume.softSkills.map(createEditableItem))
+    const [hackathon] = useFetchHackathon(props.hackathon_id)
 
     const addTechSkill = () => setTechSkills([...techSkills, createEditableItem('')])
 
@@ -92,13 +99,15 @@ const Content: FC<ContentProps> = (props) => {
 
         return (
             <Flex gap="xs" w="100%" align="center" key={ skill.id }>
-                <TextInput
+                <Autocomplete
                     w="100%"
                     value={ skill.value }
-                    onChange={ e => change(e.target.value) }
-                    placeholder="Введите tech skill"/>
+                    onChange={change}
+                    placeholder="Введите tech skill"
+                    data={skills}
+                />
                 <ActionIcon variant="transparent" aria-label="Удалить tech skill" onClick={ remove }>
-                    <IconTrash color="pink"/>
+                    <IconTrash color='red'/>
                 </ActionIcon>
             </Flex>
         );
@@ -131,7 +140,7 @@ const Content: FC<ContentProps> = (props) => {
                     onChange={ e => change(e.target.value) }
                     placeholder="Введите soft skill"/>
                 <ActionIcon variant="transparent" aria-label="Удалить soft skill" onClick={ remove }>
-                    <IconTrash color="pink"/>
+                    <IconTrash color='red'/>
                 </ActionIcon>
             </Flex>
         );
@@ -177,8 +186,16 @@ const Content: FC<ContentProps> = (props) => {
 
             if (success) {
                 navigate(`/hackathon/${ props.resume.hackathonId }`)
+                toast({
+                    type: "success",
+                    message: "Резюме сохранено"
+                })
             } else {
                 formikHelpers.setFieldError('bio', 'Произошла непредвиденная ошибка')
+                toast({
+                    type: "error",
+                    message: "Произошла непредвиденная ошибка"
+                })
             }
         },
     })
@@ -188,24 +205,29 @@ const Content: FC<ContentProps> = (props) => {
 
         <Formik { ...formik }>
             <Form>
-                <FormTextareaInput autosize minRows={ 4 } name='bio' mt="md" placeholder="Опишите себя"/>
+                <FormTextareaInput autosize minRows={ 4 } name='bio' mt="md" placeholder="Опишите себя" disabled={hackathon?.status == HackathonStatus.Ended}/>
 
                 <Container mt="xl" px={ 0 }>
                     <h3>Контакты</h3>
                     <Flex direction="column" gap="sm" mt="md">
-                        <FormInput name='telegram' placeholder="Телеграм"/>
-                        <FormInput name='githubLink' placeholder="Гитхаб"/>
-                        <FormInput name='hhLink' placeholder="hh.ru"/>
-                        <FormInput name='personalWebsite' placeholder="Сайт портфолио"/>
+                        <FormInput name='telegram' placeholder="Телеграм" disabled={hackathon?.status == HackathonStatus.Ended}/>
+                        <FormInput name='githubLink' placeholder="Гитхаб" disabled={hackathon?.status == HackathonStatus.Ended}/>
+                        <FormInput name='hhLink' placeholder="hh.ru" disabled={hackathon?.status == HackathonStatus.Ended}/>
+                        <FormInput name='personalWebsite' placeholder="Сайт портфолио" disabled={hackathon?.status == HackathonStatus.Ended}/>
                     </Flex>
                 </Container>
+
+                {(props.resume.role && props.resume.role != "") && <Container mt="xl" px={0}>
+                    <h3>Роль в хакатоне {hackathon?.name}</h3>
+                    <FormInput name='role' placeholder="Роль" disabled value={props.resume.role}/>
+                </Container>}
 
                 <Container mt="xl" px={ 0 }>
                     <h3>Tech Skills</h3>
                     <Flex direction="column" gap="sm" mt="xs">
                         { techSkillsItems }
                     </Flex>
-                    <Button variant="subtle" mt="xs" onClick={ addTechSkill }>
+                    <Button variant="subtle" mt="xs" onClick={ addTechSkill } disabled={hackathon?.status == HackathonStatus.Ended}>
                         Добавить
                     </Button>
                 </Container>
@@ -215,12 +237,12 @@ const Content: FC<ContentProps> = (props) => {
                     <Flex direction="column" gap="sm" mt="xs">
                         { softSkillsItems }
                     </Flex>
-                    <Button variant="subtle" mt="xs" onClick={ addSoftSkill }>
+                    <Button variant="subtle" mt="xs" onClick={ addSoftSkill } disabled={hackathon?.status == HackathonStatus.Ended}>
                         Добавить
                     </Button>
                 </Container>
 
-                <Button mt="md" type='submit'>Сохранить</Button>
+                {hackathon?.status != HackathonStatus.Ended && <Button mt="md" type='submit'>Сохранить</Button>}
             </Form>
         </Formik>
     </Container>

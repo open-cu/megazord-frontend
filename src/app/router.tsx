@@ -25,6 +25,10 @@ import { TeamDetailPage } from "@/pages/team-detail";
 import { CreateTeam } from "@/pages/create-team";
 import { JoinTeam } from "@/pages/join-team";
 import AdminPanel from "@/pages/admin-panel";
+import {UsersWithoutTeam} from "@/pages/users-without-team";
+import {NotAcceptedInvite} from "@/pages/not-accepted-invite";
+import {InvitedUsers} from "@/pages/invited-users";
+import {Verification} from "@/pages/verification";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +53,10 @@ export const router = createBrowserRouter([
     element: <SignUpOrg />
   },
   {
+    path: "/verification/:email",
+    element: <Verification />
+  },
+  {
     path: "/hackathon/:hackathon_id",
     element: <HackathonInfo />
   },
@@ -57,7 +65,7 @@ export const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/join-hackaton",
+    path: "/join-hackathon",
     element: <JoinHackathon />,
   },
   {
@@ -127,5 +135,17 @@ export const router = createBrowserRouter([
   {
     path: 'admin-panel/:hackathon_id',
     element: <AdminPanel />
-  }
+  },
+  {
+    path: 'admin-panel/:hackathon_id/without-team',
+    element: <UsersWithoutTeam />
+  },
+  {
+    path: 'admin-panel/:hackathon_id/not-accept-invite',
+    element: <NotAcceptedInvite />
+  },
+  {
+    path: 'admin-panel/:hackathon_id/invited-users',
+    element: <InvitedUsers />
+  },
 ]);

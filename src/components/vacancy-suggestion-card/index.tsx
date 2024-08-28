@@ -3,11 +3,13 @@ import styles from "./vacancy-suggestion-card.module.css";
 import { Avatar, Badge, Flex, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import { IVacancySuggestion } from "@/models/IVacancySuggestion.ts";
+import {HackathonStatus} from "@/models/IHackathon";
 
 export type VacancySuggestionCardProps = {
     maxMembers: number
-    hackathonId: number
+    hackathonId: string
     suggestion: IVacancySuggestion
+    hackathonStatus: HackathonStatus
 }
 
 export const VacancySuggestionCard: FC<VacancySuggestionCardProps> = memo(props => {
@@ -15,7 +17,7 @@ export const VacancySuggestionCard: FC<VacancySuggestionCardProps> = memo(props 
         to={ `/hackathon/${ props.hackathonId }/teams/${ props.suggestion.team.id }` }
         className={ styles.teamCard }>
 
-        <Text fw={ 500 } size="lg">{ props.suggestion.name }</Text>
+        <Text fw={ 500 } size="lg" truncate={"end"}>{ props.suggestion.team.name }</Text>
 
         <Flex gap={ 8 } mt={ 16 }>
             {
@@ -30,16 +32,18 @@ export const VacancySuggestionCard: FC<VacancySuggestionCardProps> = memo(props 
             }
         </Flex>
 
-        <Text fw={ 500 } mt={ 16 } size="md">{ props.suggestion.team.name }</Text>
-
-        <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' flex='wrap'>
-            {
-                props.suggestion.keywords.map(skill => {
-                    return <Badge w='fit-content' miw={ 50 }>
-                        <span>{ skill }</span>
-                    </Badge>
-                })
-            }
-        </Flex>
+        {props.hackathonStatus != HackathonStatus.Ended &&
+            <>
+                <Text fw={ 500 } mt={ 16 } size="md" truncate={"end"}>{ props.suggestion.name }</Text>
+                <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' wrap='wrap'>
+                    {
+                        props.suggestion.keywords.map(skill => {
+                            return <Badge w='fit-content' miw={ 50 }>
+                                <span>{ skill }</span>
+                            </Badge>
+                        })
+                    }
+                </Flex>
+            </>}
     </Link>
 })

@@ -1,18 +1,33 @@
-import { Form, Formik } from "formik";
-import { Autocomplete, Button, Container, FileInput, Flex, Image, Text } from "@mantine/core";
-import { FormInput } from "@/components/form-input/form-input";
-import { FormTextareaInput } from "@/components/form-input/form-textarea-input";
-import { FormNumberInput } from "@/components/form-input/form-number-input";
-import { IconPlus } from "@tabler/icons-react";
-import { Link, useNavigate } from "react-router-dom";
-import styles from "@/pages/change-hackathon/change-hackathon.module.css";
-import { useEffect, useState } from "react";
-import { createFormik } from "@/utils/create-formik";
-import { IHackathon } from "@/models/IHackathon";
+import {Form, Formik} from "formik";
+import {
+    Accordion,
+    AccordionControl,
+    AccordionItem,
+    AccordionPanel,
+    Autocomplete,
+    Button,
+    Container,
+    FileButton,
+    FileInput,
+    Flex,
+    Image,
+    Text,
+    Tooltip
+} from "@mantine/core";
+import {FormInput} from "@/components/form-input/form-input";
+import {FormTextareaInput} from "@/components/form-input/form-textarea-input";
+import {FormNumberInput} from "@/components/form-input/form-number-input";
+import {IconPlus, IconUpload} from "@tabler/icons-react";
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import {createFormik} from "@/utils/create-formik";
+import {HackathonStatus, IHackathon} from "@/models/IHackathon";
 import addParticipantToHackathon from "@/api/add-participant-to-hackathon";
 import changeHackathon from "@/api/change-hackathon";
-import { getPercentWithTeam } from "@/api/get-percent-with-team";
 import * as yup from "yup";
+import uploadEmailsCsv from "@/api/upload-emails-csv";
+import {toast} from "@/utils/toasts";
+import {sendEmailInvitesFunc} from "@/utils/sendInvites";
 
 export const ChangeHackathonForm = (
     {hackathon, updateHackathonFunc}: { hackathon: IHackathon, updateHackathonFunc: () => void }
@@ -20,9 +35,11 @@ export const ChangeHackathonForm = (
     const navigate = useNavigate()
 
     const [file, setFile] = useState<File | null>(null)
+    const [csvFile, setCsvFile] = useState<File | null>(null);
+
     const [previewLink, setPreviewLink] = useState<string>(
         hackathon.imageCover ?
-            `${ import.meta.env.VITE_BACKEND_URL }${ hackathon.imageCover }` :
+            `data:image/png;base64,${hackathon.imageCover}` :
             '/img-placeholder.jpg'
     )
     const [previewError, setPreviewError] = useState<string>('')
@@ -31,7 +48,6 @@ export const ChangeHackathonForm = (
     const participants = hackathon.participants.map(item => item.email)
     const [participantInputError, setParticipantInputError] = useState<string>('')
     const [participantInputValue, setParticipantInputValue] = useState<string>('')
-    const [percentWithTeam, setPercentWithTeam] = useState(0)
     const [loading, setLoading] = useState(false)
 
     const addParticipant = (email: string) => {
@@ -41,7 +57,8 @@ export const ChangeHackathonForm = (
             addParticipantToHackathon(hackathon.id, email).then((res) => {
                 if (!res) setParticipantInputError("Непредвимиая ошибка")
                 else {
-                    setSuccessMessage(`Пользователю ${ email } отправлено приглашение`)
+                    if(hackathon.status == HackathonStatus.Started) sendEmailInvitesFunc([email], hackathon.id)
+                    setSuccessMessage(`Участник ${ email } успешно добавлен`)
                     setParticipantInputValue('')
                 }
                 setLoading(false)
@@ -65,18 +82,23 @@ export const ChangeHackathonForm = (
                 .max(7, 'Не более семи участника в одной команде'),
         }),
         onSubmit: async (values) => {
-            changeHackathon(hackathon.id, file, values).then(res => {
-                if (!res) setParticipantInputError("Непредвиденная ошибка")
-                else navigate('/')
-            })
+            try {
+                await uploadEmailsCsv(hackathon.id, csvFile);
+                await changeHackathon(hackathon.id, file, values);
+                navigate(`/admin-panel/${hackathon.id}`);
+                toast({
+                    type: "success",
+                    message: "Хакатон успешно изменен"
+                })
+            } catch (error) {
+                setParticipantInputError(error.message);
+                toast({
+                    type: "error",
+                    message: error.message
+                })
+            }
         }
     })
-
-    useEffect(() => {
-        getPercentWithTeam(hackathon.id).then(data => {
-            setPercentWithTeam(data)
-        })
-    }, [])
 
     return (
         <Formik { ...formik }>
@@ -99,6 +121,24 @@ export const ChangeHackathonForm = (
                         disabled
                         placeholder="Введите макс количество участников в команде"
                     />
+                    {hackathon.roles && <Accordion defaultValue='role'>
+                        <AccordionItem value='role' style={ {borderBottom: 'none'} }>
+                            <AccordionControl p={ 0 }>Список ролей хакатона</AccordionControl>
+                            {
+                                hackathon.roles.map(role => {
+                                    return <AccordionPanel key={role}>
+                                        <Flex
+                                            justify='space-between' p={"10px 15px"}
+                                            align={"center"}
+                                            style={ {borderRadius: 8, border: '1px solid var(--stroke-color)'} }
+                                        >
+                                            <Text fw={ 500 } size={"sm"}>{ role }</Text>
+                                        </Flex>
+                                    </AccordionPanel>
+                                })
+                            }
+                        </AccordionItem>
+                    </Accordion>}
                     <Container p={ "0" } w={ "100%" }>
                         <FileInput
                             w={ "100%" }
@@ -125,45 +165,61 @@ export const ChangeHackathonForm = (
                             radius="sm"
                         />
                     </Container>
-                    <Flex justify={ "space-between" } gap={ "xs" }
-                          align={ participantInputError ? "center" : "flex-end" }>
-                        <Autocomplete
-                            error={ participantInputError }
-                            label={ `Участники (Всего: ${ hackathon.participants.length })` }
-                            placeholder={ "Введите email участника" }
-                            value={ participantInputValue }
-                            onChange={ (e) => {
-                                setParticipantInputValue(e)
-                                setParticipantInputError('')
-                                setSuccessMessage('')
-                            } }
-                            w={ "100%" }
-                            data={ participants }
-                            limit={ 5 }
-                        />
-                        
-                        <Button
-                            loading={ loading }
-                            size={ "sm" }
-                            onClick={ () => addParticipant(participantInputValue) }>
-                            <IconPlus stroke={ 2 } size={ 20 }/>
-                        </Button>
-                    </Flex>
-                    {
-                        successMessage && <Text size='sm' c='green'>{ successMessage }</Text>
-                    }
-                    {
-                        participants.length !== 0 && <Text size="sm" mt={ 10 }>
-                            Уже <strong>{ percentWithTeam }%</strong> участиков находится в команде
-                        </Text>
-                    }
+                    <Container p={ "0" } w={ "100%" }>
+                        <Flex justify={ "space-between" } gap={ "xs" }
+                              align={ participantInputError ? "center" : "flex-end" }>
+                            <Autocomplete
+                                error={ participantInputError }
+                                label={ `Участники (Всего: ${ hackathon.participants.length })` }
+                                placeholder={ "Введите email участника" }
+                                value={ participantInputValue }
+                                onChange={ (e) => {
+                                    setParticipantInputValue(e)
+                                    setParticipantInputError('')
+                                    setSuccessMessage('')
+                                } }
+                                w={ "100%" }
+                                data={ participants }
+                                limit={ 5 }
+                            />
+                                <FileButton
+                                    onChange={(e) => {
+                                        setCsvFile(e)
+                                        toast({
+                                            type: "success",
+                                            message: "Файл успешно загружен"
+                                        })
+                                    }}
+                                    accept="csv"
+                                >
+                                    {(props) =>
+                                        <Tooltip label={"Загрзите .csv с почтами участников"} withArrow>
+                                            <Button {...props}>
+                                                <IconUpload stroke={ 2 } size={ 20 } />
+                                            </Button>
+                                        </Tooltip>
+                                    }
+                                </FileButton>
+                            <Tooltip label={"Добавить участника"} withArrow>
+                                <Button
+                                    loading={ loading }
+                                    size={ "sm" }
+                                    onClick={ () => addParticipant(participantInputValue) }
+                                >
+                                    <IconPlus stroke={ 2 } size={ 20 }/>
+                                </Button>
+                            </Tooltip>
+                        </Flex>
+                        { csvFile && (
+                            <Text size="xs" ta="center">
+                                Выбранный файл: {csvFile.name}
+                            </Text>
+                        )}
+                        {
+                            successMessage && <Text size='sm' c='green'>{ successMessage }</Text>
+                        }
+                    </Container>
                     <Button w={ "fit-content" } type={ "submit" }>Сохранить</Button>
-                    <Link
-                        to={ `/hackathon/${ hackathon.id }/org/teams` }
-                        className={ styles.link }
-                    >
-                        Смотреть команды
-                    </Link>
                 </Flex>
             </Form>
         </Formik>

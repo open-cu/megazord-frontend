@@ -1,10 +1,10 @@
-import apiClient from "@/api-client.ts";
+import { client } from "@/api-client.ts";
+import { AxiosResponse } from "axios";
 
-export default async function declineApplication(response_id: number): Promise<boolean> {
-    const response = await apiClient({
-        method: 'post',
-        url: `/teams/decline_application?app_id=${ response_id }`,
-    })
-
-    return response.status == 200
+export default function declineApplication(response_id: number): Promise<boolean> {
+    return client.post<void>(
+        `/teams/decline_application?app_id=${response_id}`,
+        true
+    ).then((response: AxiosResponse<void>) => response.status === 200)
+        .catch(() => false);
 }

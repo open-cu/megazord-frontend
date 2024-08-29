@@ -45,3 +45,6 @@ jobs:
 
       - name: Deploy
         run: docker compose -f compose.deploy.yaml up -d --pull always
+      
+      - name: Cleanup
+        run: docker system prune -af

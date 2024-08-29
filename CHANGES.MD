@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased - 28.08.2024
+## Unreleased - 29.08.2024
 
 ### Features
 
@@ -63,5 +63,6 @@
 
 ### Cd
 
+- Auto cleanup old images & auto restart container (#54) - ([044f716](https://github.com/open-cu/megazord-frontend/commit/044f71656eaaff6a3df10c94dac805f9f1576d9d))
 - Setup deploy (#53) - ([83b1f7a](https://github.com/open-cu/megazord-frontend/commit/83b1f7aad057f0befeb652cc09488cba87f83c73))
 

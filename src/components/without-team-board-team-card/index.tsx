@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 export const WithoutTeamBoardTeamCard: FC = ({team}: {team: ICreatedTeam}) => {
     return (
-        <Card withBorder>
+        <Card withBorder style={{ border: "1px solid var(--mantine-color-dimmed)" }}>
             <Text fw={600} size={"md"}>{ team.name }</Text>
             <Flex direction={"column"}>
                 { team.resumes.map(resume => {

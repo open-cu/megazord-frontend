@@ -1,8 +1,9 @@
-.active.active {
-    border: calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-primary-color-filled);
+.card.card {
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid var(--mantine-color-dimmed)
 }
 
-.card {
-    cursor: pointer;
-    user-select: none
+.active.active {
+    border: calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-primary-color-filled);
 }

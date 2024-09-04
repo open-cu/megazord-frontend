@@ -50,8 +50,8 @@ export const ResumeView = () => {
         })
     }, [])
 
-    const contactsItems = contacts.map(contact => (
-        <Flex gap={"5"}>
+    const contactsItems = contacts.map((contact, i) => (
+        <Flex gap={"5"} key={`cont-${contact}-${i}`}>
             <Text fw={500}>{contact.name + ": "}</Text>
             <Text truncate c={"blue"} style={{ cursor: "pointer" }} onClick={() => copyClipboard(contact.data)}>{contact.data}</Text>
         </Flex>
@@ -59,8 +59,8 @@ export const ResumeView = () => {
 
     const techSkillsItems = (
         <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' wrap='wrap'>
-            {resume?.techStack.map(skill =>
-                <Center component={Badge} w='fit-content' miw={ 40 } size={"xs"}>
+            {resume?.techStack.map((skill, i) =>
+                <Center component={Badge} w='fit-content' miw={ 40 } size={"xs"} key={`tech-${i}`}>
                     { skill }
                 </Center>
             )}
@@ -69,8 +69,8 @@ export const ResumeView = () => {
 
     const softSkillsItems = (
         <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' wrap='wrap'>
-            {resume?.softSkills.map(skill =>
-                <Center component={Badge} w='fit-content' miw={ 40 } size={"xs"}>
+            {resume?.softSkills.map((skill, i) =>
+                <Center component={Badge} w='fit-content' miw={ 40 } size={"xs"} key={`soft-${i}`}>
                     { skill }
                 </Center>
             )}

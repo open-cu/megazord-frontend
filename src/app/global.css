@@ -1,5 +1,5 @@
 :root {
-    --stroke-color: #CED4DA;
+    --stroke-color: var(--mantine-color-dark-4);
 }
 
 :root[data-mantine-color-scheme="light"] body {

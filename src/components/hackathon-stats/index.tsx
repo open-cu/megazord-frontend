@@ -35,7 +35,7 @@ export const HackathonStats = memo(() => {
                     direction="column"
                 >
                     <Text size={"md"} fw={500}>Всего участников хакатона</Text>
-                    <Text size={"2rem"} c={"blue"} fw={600}>{stats.accepted_invite}</Text>
+                    <Text size={"2rem"} c={"var(--mantine-primary-color-filled)"} fw={600}>{stats.accepted_invite}</Text>
                     <Flex gap={"xs"} p={0} m={0}>
                         <Button
                             size={"xs"}

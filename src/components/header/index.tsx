@@ -4,6 +4,7 @@ import { useDisclosure, useMediaQuery } from "@mantine/hooks";
 import { FC } from "react";
 import classes from "./styles.module.css"
 import {IconMoon, IconSun} from "@tabler/icons-react";
+import {SwitchThemeBtn} from "@/components/switch-theme-btn";
 
 const defaultLinks = [
     {link: '/', label: "Хакатоны"},
@@ -40,7 +41,6 @@ interface Props {
 }
 
 export const Header = ({variant}: Props) => {
-    const { setColorScheme, colorScheme } = useMantineColorScheme();
     const {hackathon_id} = useParams();
 
     const links = getLinks(variant, hackathon_id ?? '' ?? null);
@@ -67,16 +67,7 @@ export const Header = ({variant}: Props) => {
                 <Flex justify={ "space-between" } align={ "center" } py="md">
                     <Flex align={"center"} gap={"xs"}>
                         <Logo/>
-                        <ActionIcon
-                            radius={"xl"}
-                            size={"md"}
-                            onClick={() => { setColorScheme(colorScheme== "light" ? "dark" : "light" ) }}
-                        >
-                            { colorScheme == "light" ?
-                                <IconSun size={18} stroke={2} /> :
-                                <IconMoon size={18} stroke={2} />
-                            }
-                        </ActionIcon>
+                        <SwitchThemeBtn />
                     </Flex>
                     {
                         isMobile

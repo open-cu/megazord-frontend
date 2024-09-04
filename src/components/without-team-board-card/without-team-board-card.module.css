@@ -1,5 +1,5 @@
 .active.active {
-    border: calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-color-blue-filled);
+    border: calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-primary-color-filled);
 }
 
 .card {

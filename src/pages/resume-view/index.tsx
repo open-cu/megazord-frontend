@@ -50,19 +50,17 @@ export const ResumeView = () => {
        <Header variant={user?.role} />
        <Container>
        <Flex align="center" gap="md">
-            <Avatar w={100} h={100} />
-            <Box>
-                <h2>{profile?.name}</h2>
-                <Text>{profile?.email}</Text>
-            </Box>
+            <Avatar size={"xl"} name={profile?.name} />
+            <Flex direction={"column"} w={"calc(100% - 100px)"}>
+                <Text size={"24px"} fw={"600"} truncate>{profile?.name}</Text>
+                <Text size={"md"} truncate>{profile?.email}</Text>
+            </Flex>
         </Flex>
  
-        {resume?.bio && <Box mt="xl">
-            <h3>Обо мне</h3>
-            <Text>
-                {resume?.bio}
-            </Text>
-        </Box>}
+        {resume?.bio && <Flex mt="xl" direction={"column"}>
+            <Text size={"24px"} fw={"600"} truncate>Обо мне</Text>
+            <Text>{resume?.bio}</Text>
+        </Flex>}
 
         {contacts.length > 0 && <Box mt="xl">
             <h3>Контакты</h3>

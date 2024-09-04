@@ -6,6 +6,7 @@ import { AuthGuard } from "@/components/auth-guard";
 import { IHackathon } from "@/models/IHackathon";
 import fetchHackathonById from "@/api/fetch-hackathon";
 import createCustomResume from "@/api/create-custom-resume";
+import {toast} from "@/utils/toasts";
 
 export const CreateResume = () => {
     const params = useParams()
@@ -28,12 +29,23 @@ export const CreateResume = () => {
         if (hackathon && !customResumeLoading) {
             setCustomResumeLoading(true)
 
-            const success = await createCustomResume(hackathon.id)
-            if (success) {
-                navigate(`/hackathon/${ hackathon.id }/my-resume`)
-            } else {
-                console.error('error')
-            }
+            const status = await createCustomResume(hackathon.id)
+            if (status === 201) {
+                navigate(`/hackathon/${hackathon.id}/my-resume`)
+                toast({
+                    type: "success",
+                    message: "Резюме успешно создано!"
+                })
+            } else if (status === 409) {
+                navigate(`/hackathon/${hackathon.id}/my-resume`)
+                toast({
+                    type: "error",
+                    message: "У вас уже есть резюме"
+                })
+            } else toast({
+                type: "error",
+                message: "Произошла какая-то ошибка"
+            })
             setCustomResumeLoading(false)
         }
     }
@@ -54,21 +66,25 @@ export const CreateResume = () => {
                     <Button loading={ customResumeLoading } onClick={ onCreateCustomResume }>
                         Создать с нуля
                     </Button>
-                    <Button>
-                        <Link to={ `/hackathon/${ hackathon.id }/create-resume/github` }>
-                            Импорт из Github
-                        </Link>
+                    <Button component={Link} c={'var(--mantine-color-white)'} to={`/hackathon/${ hackathon.id }/create-resume/github`}>
+                        Импорт из Github
                     </Button>
-                    <Button>
-                        <Link to={ `/hackathon/${ hackathon.id }/create-resume/pdf` }>
-                            Импорт из резюме pdf
-                        </Link>
+                    <Button component={Link} c={'var(--mantine-color-white)'} to={ `/hackathon/${ hackathon.id }/create-resume/pdf` }>
+                        Импорт из резюме pdf
                     </Button>
-                    <Button>
-                        <Link to={ `/hackathon/${ hackathon.id }/create-resume/hh` }>
-                            Импорт из hh.ru
-                        </Link>
+                    <Button component={Link} c={'var(--mantine-color-white)'} to={ `/hackathon/${ hackathon.id }/create-resume/hh` }>
+                        Импорт из hh.ru
                     </Button>
+                    {/*<Button>*/}
+                    {/*    <Link to={ `/hackathon/${ hackathon.id }/create-resume/pdf` }>*/}
+                    {/*        Импорт из резюме pdf*/}
+                    {/*    </Link>*/}
+                    {/*</Button>*/}
+                    {/*<Button>*/}
+                    {/*    <Link to={ `/hackathon/${ hackathon.id }/create-resume/hh` }>*/}
+                    {/*        Импорт из hh.ru*/}
+                    {/*    </Link>*/}
+                    {/*</Button>*/}
                 </Flex>
             </Flex>
         </AuthGuard>

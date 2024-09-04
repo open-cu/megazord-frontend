@@ -20,7 +20,7 @@ export const HackathonStatsCard: FC<HackathonStatsCardProps> = memo(({ title, st
                 direction="column"
             >
                 <Text size={"md"} fw={500}>{ title }</Text>
-                <Text size={"2rem"} c={"blue"} fw={600}>{stat}</Text>
+                <Text size={"2rem"} c={"var(--mantine-primary-color-filled)"} fw={600}>{stat}</Text>
                 {linkTitle && link ?
                     <Button
                         size={"xs"}

@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased - 29.08.2024
+## Unreleased - 04.09.2024
 
 ### Features
 
@@ -9,6 +9,7 @@
 - *(change-hackathon)* Make uploading emails with csv - ([966faba](https://github.com/open-cu/megazord-frontend/commit/966faba6c5885ded6457313afe5d831cdacb36d5))
 - *(change-team-vacancy)* Make the input of stack more user friendly - ([3fefc3e](https://github.com/open-cu/megazord-frontend/commit/3fefc3ee6885c8f706f0f10bd857c1fe95896de1))
 - *(create and change hackathon forms)* Add tooltips to buttons - ([492d8e5](https://github.com/open-cu/megazord-frontend/commit/492d8e5c956913377d0366368d787d0998615eaa))
+- Add avatars - ([afd9efe](https://github.com/open-cu/megazord-frontend/commit/afd9efe52152cbe6f3e704808890f15198b94b72))
 - Finished panel for comand distribution - ([0482ceb](https://github.com/open-cu/megazord-frontend/commit/0482ceb977df605d4d69eea32edb0b75614c2dfb))
 - Make panel for comand distribution - ([f8937a6](https://github.com/open-cu/megazord-frontend/commit/f8937a66250c8800f55a28d1160fb5311bcf0b1b))
 - Add some stats - ([74c8c6f](https://github.com/open-cu/megazord-frontend/commit/74c8c6fe8e098e43cb9d8766dd130425b20d7179))
@@ -31,6 +32,7 @@
 
 ### Bug Fixes
 
+- Creating resume - ([e0696c1](https://github.com/open-cu/megazord-frontend/commit/e0696c19764cedae26e062f2cba992999acce1eb))
 - Export - ([e12327a](https://github.com/open-cu/megazord-frontend/commit/e12327a6a7de8a039b807f7b671fc5b66f137696))
 - Make links in team board card - ([a277d30](https://github.com/open-cu/megazord-frontend/commit/a277d3087385b95718287c3ae1016150c5b18850))
 - Sign up flow - ([8cb4158](https://github.com/open-cu/megazord-frontend/commit/8cb41582cfcbf2a4097bd68567de03e1a9a90880))

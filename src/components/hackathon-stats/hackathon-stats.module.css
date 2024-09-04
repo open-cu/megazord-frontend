@@ -1,9 +1,9 @@
-.link {
-    color: var(--mantine-color-blue-filled) !important;
+.link.link {
+    color: var(--mantine-primary-color-9);
     font-size: .9rem;
 }
 
 .stat {
     font-weight: 500;
-    color: var(--mantine-color-blue-filled);
+    color: var(--mantine-primary-color-filled);
 }

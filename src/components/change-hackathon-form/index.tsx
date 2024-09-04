@@ -130,7 +130,10 @@ export const ChangeHackathonForm = (
                                         <Flex
                                             justify='space-between' p={"10px 15px"}
                                             align={"center"}
-                                            style={ {borderRadius: 8, border: '1px solid var(--stroke-color)'} }
+                                            style={{
+                                                borderRadius: "8px",
+                                                border: 'calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-color-default-border)'
+                                            }}
                                         >
                                             <Text fw={ 500 } size={"sm"}>{ role }</Text>
                                         </Flex>

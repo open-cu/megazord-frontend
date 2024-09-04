@@ -6,6 +6,7 @@ import { Anchor } from "@mantine/core";
 import { AuthGuard } from "@/components/auth-guard";
 import importPDFResume from "@/api/import-pdf-resume.ts";
 import createCustomResume from "@/api/create-custom-resume.ts";
+import {toast} from "@/utils/toasts";
 
 export const ImportPdf = () => {
     const params = useParams()
@@ -30,15 +31,28 @@ export const ImportPdf = () => {
         const resume = await importPDFResume(file!)
 
         if (resume && hackathonId) {
-            const success = await createCustomResume(hackathonId, {
+            const status = await createCustomResume(hackathonId, {
                 bio: resume.bio,
                 soft: resume.softs,
                 tech: resume.hards,
             })
 
-            if (success) {
+            if (status === 201) {
                 navigate(`/hackathon/${hackathonId}/my-resume`)
-            }
+                toast({
+                    type: "success",
+                    message: "Резюме успешно создано!"
+                })
+            } else if (status === 409) {
+                navigate(`/hackathon/${hackathonId}/my-resume`)
+                toast({
+                    type: "error",
+                    message: "У вас уже есть резюме"
+                })
+            } else toast({
+                type: "error",
+                message: "Произошла какая-то ошибка"
+            })
         } else {
             setError('Не удалось распарсить. Попробуйте снова')
         }

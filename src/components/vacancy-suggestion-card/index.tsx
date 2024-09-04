@@ -22,7 +22,11 @@ export const VacancySuggestionCard: FC<VacancySuggestionCardProps> = memo(props 
         <Flex gap={ 8 } mt={ 16 }>
             {
                 new Array(props.suggestion.team.members.length).fill('').map((_, i) => {
-                    return <Avatar key={ `t-${ props.suggestion.id }-${ i }-1` }/>
+                    return <Avatar
+                        key={ `t-${ props.suggestion.id }-${ i }-1` }
+                        name={props.suggestion.team.members[i].name}
+                        color="initials"
+                    />
                 })
             }
             {
@@ -37,8 +41,8 @@ export const VacancySuggestionCard: FC<VacancySuggestionCardProps> = memo(props 
                 <Text fw={ 500 } mt={ 16 } size="md" truncate={"end"}>{ props.suggestion.name }</Text>
                 <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' wrap='wrap'>
                     {
-                        props.suggestion.keywords.map(skill => {
-                            return <Badge w='fit-content' miw={ 50 }>
+                        props.suggestion.keywords.map((skill, i) => {
+                            return <Badge w='fit-content' miw={ 50 } key={i}>
                                 <span>{ skill }</span>
                             </Badge>
                         })

@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import {FC, Fragment, useEffect, useState} from "react";
 import {IResume} from "@/models/IResume";
 import {Center, Loader, Text, Flex, ScrollArea, Button, Tooltip} from "@mantine/core";
 import {WithoutTeamBoardCard} from "@/components/without-team-board-card";
@@ -13,7 +13,7 @@ import {WithoutTeamBoardTeamCard} from "@/components/without-team-board-team-car
 export const WithoutTeamBoard: FC = ({ resumes, hackathon }: { resumes: IResume[], hackathon: IHackathon }) => {
     const [loadingJoinBtn, { toggle: toggleJoinBtn }] = useDisclosure();
     const [emails, setEmails] = useState<string[]>([]);
-    const [teams, setTeams] = useState<ICreatedTeam[] | null>(null);
+    const [teams, setTeams] = useState<ICreatedTeam[]>([]);
     useEffect(() => {
         getCreatedTeams(hackathon.id).then(res => {
             if(!res) {
@@ -21,10 +21,11 @@ export const WithoutTeamBoard: FC = ({ resumes, hackathon }: { resumes: IResume[
                     type: "error",
                     message: "Произошла ошибка при загрузке данных"
                 })
+                setTeams([])
                 return;
             }
-            setTeams(res)
-        })
+            else setTeams(res)
+        }).catch(() => setTeams([]))
     }, []);
 
 
@@ -33,6 +34,7 @@ export const WithoutTeamBoard: FC = ({ resumes, hackathon }: { resumes: IResume[
         else setEmails([...emails, email]);
     };
     const handleJoinTeam = async () => {
+        toggleJoinBtn()
         const joinTeamModal = toast({
             loading: true,
             message: "Формируем команду..."
@@ -51,11 +53,9 @@ export const WithoutTeamBoard: FC = ({ resumes, hackathon }: { resumes: IResume[
             type: "error",
             message: "Произошла ошибка при формировании команды"
         })
+        toggleJoinBtn()
     }
 
-    if(!teams) return <Center w='100vw' h='50vh'>
-        <Loader size="md"/>
-    </Center>
     return (
         <div>
             <div className={styles.joinBtn}>
@@ -103,12 +103,17 @@ export const WithoutTeamBoard: FC = ({ resumes, hackathon }: { resumes: IResume[
                     }) }
 
                     <div className={styles.column}>
-                        <Text fw={600} size={"lg"} ta={"center"}>Команды</Text>
+                        <Text fw={600} size={"lg"} ta={"center"}>Команды ({teams.length})</Text>
                         <ScrollArea scrollbars={"y"}>
                             <Flex direction={"column"} gap={"sm"} mt={"sm"}>
-                                { teams.map((team: ICreatedTeam) => {
-                                    return <WithoutTeamBoardTeamCard team={team} />
-                                }) }
+                                { (teams && teams.length > 0) ?
+                                    <>
+                                        { console.log("breakpoint", teams) }
+                                        { teams.map((team: ICreatedTeam) => <WithoutTeamBoardTeamCard team={team}/>)}
+                                    </>
+                                    :
+                                    <Text size={"sm"}>Нет вручную сформированных команд</Text>
+                                }
                             </Flex>
                         </ScrollArea>
                     </div>

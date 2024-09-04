@@ -45,7 +45,7 @@ export const SuitableCandidates = () => {
                     <div className={ classes["member-container"] }>
                         <Flex direction='row' justify='space-between'>
                             <div className={ classes["member-bio"] }>
-                                <Avatar/>
+                                <Avatar name={suggestion.user.name} color="initials"/>
                                 <div className={ classes["member-info"] }>
                                     <Text>{ suggestion.user.name }</Text>
                                 </div>

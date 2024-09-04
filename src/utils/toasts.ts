@@ -12,7 +12,7 @@ type toastProps = {
 
 export const toast = ({ type = "default", title, message, loading = false, id }: toastProps) => {
     const colors: Record<toastTypes, string> = {
-        "default": "blue",
+        "default": "var(--mantine-primary-color-filled)",
         "success": "green",
         "error": "red",
     };

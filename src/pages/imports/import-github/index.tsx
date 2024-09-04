@@ -9,6 +9,7 @@ import * as yup from 'yup';
 import importGithubResume from "@/api/import-github-resume.ts";
 import createCustomResume from "@/api/create-custom-resume.ts";
 import { FormInput } from "@/components/form-input/form-input.tsx";
+import {toast} from "@/utils/toasts";
 
 export const ImportGithub = () => {
     const params = useParams()
@@ -30,15 +31,28 @@ export const ImportGithub = () => {
             const resume = await importGithubResume(link)
             
             if (resume && hackathonId) {
-                const success = await createCustomResume(hackathonId, {
+                const status = await createCustomResume(hackathonId, {
                     bio: resume.bio,
                     soft: resume.softs,
                     tech: resume.hards,
                 })
-                
-                if (success) {
+
+                if (status === 201) {
                     navigate(`/hackathon/${hackathonId}/my-resume`)
-                }
+                    toast({
+                        type: "success",
+                        message: "Резюме успешно создано!"
+                    })
+                } else if (status === 409) {
+                    navigate(`/hackathon/${hackathonId}/my-resume`)
+                    toast({
+                        type: "error",
+                        message: "У вас уже есть резюме"
+                    })
+                } else toast({
+                    type: "error",
+                    message: "Произошла какая-то ошибка"
+                })
             } else {
                 formikHelpers.setFieldError('link', 'Не удалось импортировать ваш гитхаб')
             }

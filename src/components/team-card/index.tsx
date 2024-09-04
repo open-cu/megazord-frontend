@@ -22,7 +22,10 @@ export const TeamCard: FC<TeamCardProps> = memo(props => {
         <Flex gap={ 8 }>
             {
                 new Array(props.members).fill('').map((_, i) => {
-                    return <Avatar key={ `t-${ props.id }-${ i }-1` }/>
+                    return <Avatar
+                        key={ `t-${ props.id }-${ i }-1` }
+                        name={props.members[i].name} color="initials"
+                    />
                 })
             }
             {

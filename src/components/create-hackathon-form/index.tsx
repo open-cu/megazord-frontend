@@ -172,12 +172,15 @@ export const CreateHackathonForm = () => {
                                             <Flex
                                                 justify='space-between' p={"10px 15px"}
                                                 align={"center"}
-                                                style={ {borderRadius: 8, border: '1px solid var(--stroke-color)'} }
+                                                style={{
+                                                    borderRadius: "8px",
+                                                    border: 'calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-color-default-border)'
+                                                }}
                                             >
                                                 <Text fw={ 500 } size={"sm"}>{ role }</Text>
                                                 <IconTrash
-                                                    color='red'
-                                                    style={ {cursor: 'pointer'} }
+                                                    color='var(--mantine-color-red-text)'
+                                                    style={{ cursor: 'pointer' }}
                                                     onClick={ () => deleteRole(role) }/>
                                             </Flex>
                                         </AccordionPanel>
@@ -269,10 +272,14 @@ export const CreateHackathonForm = () => {
                                             <Flex
                                                 justify='space-between' p={"10px 15px"}
                                                 align={"center"}
-                                                style={ {borderRadius: 8, border: '1px solid var(--stroke-color)'} }>
+                                                style={{
+                                                    borderRadius: "8px",
+                                                    border: 'calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-color-default-border)'
+                                                }}
+                                            >
                                                 <Text fw={ 500 }>{ email }</Text>
                                                 <IconTrash
-                                                    color='red'
+                                                    color='var(--mantine-color-red-text)'
                                                     style={ {cursor: 'pointer'} }
                                                     onClick={ () => deleteParticipant(email) }/>
                                             </Flex>

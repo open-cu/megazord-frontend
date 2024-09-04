@@ -30,7 +30,6 @@ export const TeamsOrg = () => {
             if (!data) return null;
             setHackathon(data);
             console.log(data);
-            
         })
     }, [])
 
@@ -39,15 +38,18 @@ export const TeamsOrg = () => {
         const maxMembersAmount = hackathon?.max_participants;
         const membersAmount = team.members.length;
 
-        const avatarsItems = Array(maxMembersAmount).fill(0).map((_, index) => (
-            (index < membersAmount) ? (
-                <Avatar size="md" />
-            ) : (
-                <Avatar size="md" color="blue">
-                    <IconPlus color="#34b1c5" width={15} />
-                </Avatar>
+        const avatarsItems = Array(maxMembersAmount).fill(0).map((_, index) => {
+            console.log("breakpoint", team.members[index])
+            return (
+                (index < membersAmount) ? (
+                    <Avatar size="md" name={team.members[index].name} color="initials"/>
+                ) : (
+                    <Avatar size="md" color="blue">
+                        <IconPlus color="#34b1c5" width={15}/>
+                    </Avatar>
+                )
             )
-        ))
+        })
     
         return (
             <div 

@@ -22,7 +22,9 @@ export const VacancyReplyCard: FC<VacancyReplyCardProps> = memo(props => {
     }, [])
     return <div className={ styles.card }>
         <div className={ styles["member-container"] } onClick={ props.onResumeClick }>
-            <Avatar/>
+            <Avatar
+                name={candidate?.name} color="initials"
+            />
             <div className={ styles["member-info"] }>
                 <Text>{ candidate ? candidate.name : "Загрузка" }</Text>
                 <Text>{ candidate ? candidate.email : "Загрузка" }</Text>

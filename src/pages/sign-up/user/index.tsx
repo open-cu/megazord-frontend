@@ -5,12 +5,14 @@ import { useSignupForm } from "@/hooks/use-signup-form.ts";
 import { Form, Formik } from "formik";
 import { FormInput } from "@/components/form-input/form-input.tsx";
 import { FormPasswordInput } from "@/components/form-input/form-password-input.tsx";
+import {SwitchThemeBtn} from "@/components/switch-theme-btn";
 
 export const SignUpUser = () => {
     const {formik} = useSignupForm(false)
 
     return (
-        <Flex component={ Center } h={ "100vh" } direction={ "column" }>
+        <Flex component={ Center } h={ "100vh" } direction={ "column" } style={{ position: "relative" }}>
+            <SwitchThemeBtn style={{ position: "absolute", bottom: "5%", right: "5%" }} size={"lg"} />
             <h1 style={{ textAlign: 'center' }}>Регистрация участника</h1>
             <Formik { ...formik }>
                 <Form>

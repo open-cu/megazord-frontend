@@ -13,7 +13,7 @@ export default async function getTeam(id: number): Promise<ITeam | null> {
             name: response.data.name,
             members: response.data.team_members.map((member: any) => ({
                 id: member.id,
-                name: member.name,
+                name: member.username,
                 email: member.email,
                 role: member.is_organizator ? "organizer" : "user",
                 age: member.age,

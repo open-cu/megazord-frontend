@@ -107,7 +107,7 @@ const Content: FC<ContentProps> = (props) => {
                     data={skills}
                 />
                 <ActionIcon variant="transparent" aria-label="Удалить tech skill" onClick={ remove }>
-                    <IconTrash color='red'/>
+                    <IconTrash color='var(--mantine-color-red-text)'/>
                 </ActionIcon>
             </Flex>
         );
@@ -140,7 +140,7 @@ const Content: FC<ContentProps> = (props) => {
                     onChange={ e => change(e.target.value) }
                     placeholder="Введите soft skill"/>
                 <ActionIcon variant="transparent" aria-label="Удалить soft skill" onClick={ remove }>
-                    <IconTrash color='red'/>
+                    <IconTrash color='var(--mantine-color-red-text)'/>
                 </ActionIcon>
             </Flex>
         );

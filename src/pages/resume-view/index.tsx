@@ -1,28 +1,49 @@
-import { Container, Text, Badge, Box, Flex, Avatar } from "@mantine/core"
-import { Header } from "@/components/header";
-import { AuthGuard } from "@/components/auth-guard";
-import { useEffect, useState } from "react";
-import { fetchResume } from "@/api/fetch-resume";
-import { IResume } from "@/models/IResume";
-import { useParams } from "react-router-dom";
-import { IUser } from "@/models/IUser";
+import {Container, Text, Badge, Box, Flex, Avatar, Center} from "@mantine/core"
+import {Header} from "@/components/header";
+import {AuthGuard} from "@/components/auth-guard";
+import {useEffect, useState} from "react";
+import {fetchResume} from "@/api/fetch-resume";
+import {IResume} from "@/models/IResume";
+import {useParams} from "react-router-dom";
+import {IUser} from "@/models/IUser";
 import fetchProfileById from "@/api/fetch-profile-by-id";
 import useUserStore from "@/stores/user-store";
+import {ResumeViewCard} from "@/components/resume-view-card";
+import {copyClipboard} from "@/utils/copy-clipboard";
+
+interface IContact {
+    name: string,
+    data: string,
+    link: string,
+}
 
 export const ResumeView = () => {
     const {user} = useUserStore()
     const [resume, setResume] = useState<IResume | null>(null)
     const [profile, setProfile] = useState<IUser | null>(null)
-    const [contacts, setContacts] = useState<string[]>([])
+    const [contacts, setContacts] = useState<IContact[]>([])
 
-    const { hackathon_id, user_id } = useParams()
+    const {hackathon_id, user_id} = useParams()
 
     useEffect(() => {
         fetchResume(user_id as string, hackathon_id as string).then(data => {
             setResume(data)
-            const contacts = [data?.telegram, data?.githubLink, data?.hhLink].filter(contact => !!contact)
-            setContacts(contacts as string[])
-        })  
+            const contacts: IContact[] = [
+                {
+                    name: "Telegram",
+                    data: data?.telegram,
+                },
+                {
+                    name: "GitHub",
+                    data: data?.githubLink,
+                },
+                {
+                    name: "hh.ru",
+                    data: data?.hhLink,
+                }
+            ].filter((contact: IContact) => !!contact.data)
+            setContacts(contacts)
+        })
 
         fetchProfileById(user_id as string).then(data => {
             setProfile(data)
@@ -30,71 +51,68 @@ export const ResumeView = () => {
     }, [])
 
     const contactsItems = contacts.map(contact => (
-        <Text mt="md">{contact}</Text>
-    ))
-
-    const techSkillsItems = resume?.techStack.map(skill => (
-        <Badge p="sm" mr="xs" mb="xs">
-            <p>{skill}</p>
-        </Badge>
-    ))
-
-    const softSkillsItems = resume?.softSkills.map(skill => (
-        <Badge p="sm" mr="xs" mb="xs">
-            <p>{skill}</p>
-        </Badge>
-    ))
-
-  return (
-    <AuthGuard role='any'>
-       <Header variant={user?.role} />
-       <Container>
-       <Flex align="center" gap="md">
-            <Avatar w={100} h={100} />
-            <Box>
-                <h2>{profile?.name}</h2>
-                <Text>{profile?.email}</Text>
-            </Box>
+        <Flex gap={"5"}>
+            <Text fw={500}>{contact.name + ": "}</Text>
+            <Text truncate c={"blue"} style={{ cursor: "pointer" }} onClick={() => copyClipboard(contact.data)}>{contact.data}</Text>
         </Flex>
- 
-        {resume?.bio && <Box mt="xl">
-            <h3>Обо мне</h3>
-            <Text>
-                {resume?.bio}
-            </Text>
-        </Box>}
+    ))
 
-        {contacts.length > 0 && <Box mt="xl">
-            <h3>Контакты</h3>
-            <Text>{contactsItems}</Text>
-        </Box>}
+    const techSkillsItems = (
+        <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' wrap='wrap'>
+            {resume?.techStack.map(skill =>
+                <Center component={Badge} w='fit-content' miw={ 40 } size={"xs"}>
+                    { skill }
+                </Center>
+            )}
+        </Flex>
+    )
 
-       {resume?.role && <Box mt="xl">
-           <h3>Роль участника</h3>
-           <Text fw={"500"} mt="sm" pl={0}>
-               {resume.role}
-           </Text>
-       </Box>}
+    const softSkillsItems = (
+        <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' wrap='wrap'>
+            {resume?.softSkills.map(skill =>
+                <Center component={Badge} w='fit-content' miw={ 40 } size={"xs"}>
+                    { skill }
+                </Center>
+            )}
+        </Flex>
+    )
 
-        {resume?.techStack && resume.techStack.length > 0 && <Box mt="xl">
-            <h3>Tech Skills</h3>
-            <Container mt="sm" pl={0}>
-                {techSkillsItems}
+    return (
+        <AuthGuard role='any'>
+            <Header variant={user?.role}/>
+            <Container>
+                <Flex align="center" gap="md">
+                    <Avatar size={"xl"} name={profile?.name} color="initials" />
+                    <Flex direction={"column"} w={"calc(100% - 100px)"}>
+                        <Text size={"24px"} fw={"600"} truncate>{profile?.name}</Text>
+                        <Text truncate c={"blue"} style={{ cursor: "pointer" }} onClick={() => copyClipboard(profile?.email)}>{profile?.email}</Text>
+                    </Flex>
+                </Flex>
+
+                { resume?.role &&
+                    <ResumeViewCard title={`Роль участника — ${resume.role}`} />}
+
+                { resume?.bio &&
+                    <ResumeViewCard title={"Обо мне"} content={resume.bio} />}
+
+                { contacts.length > 0 &&
+                    <ResumeViewCard title={"Контакты"} content={contactsItems} />}
+
+
+                { resume?.techStack && resume.techStack.length > 0 &&
+                    <ResumeViewCard title={"Tech Skills"} content={techSkillsItems} />}
+
+                { resume?.softSkills && resume.softSkills.length > 0 &&
+                    <ResumeViewCard title={"Soft Skills"} content={softSkillsItems} />}
+
+                {
+                    (!resume?.softSkills || !resume.softSkills.length) &&
+                    (!resume?.techStack || !resume.techStack.length) &&
+                    (!contacts.length || !contacts.length) &&
+                    !resume?.bio &&
+                    ( <Text ta={"center"} mt={"md"} fw={"500"}>У пользователя пустое резюме</Text> )
+                }
             </Container>
-        </Box>}
-
-        {resume?.softSkills && resume.softSkills.length > 0 && <Box mt="xl">
-            <h3>Soft Skills</h3>
-            <Container mt="sm" pl={0}>
-                {softSkillsItems}
-            </Container>
-        </Box>}
-
-        {!resume?.softSkills && !resume?.bio && contacts.length === 0 && !resume?.techStack && (
-            <Text mt="xl">У пользователя пустое резюме</Text>
-        )}
-
-       </Container>
-    </AuthGuard>
-  );
+        </AuthGuard>
+    );
 };

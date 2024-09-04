@@ -4,12 +4,13 @@ import styles from "./current-team-card.module.css";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
 import { useMediaQuery } from "@mantine/hooks";
 import { useNavigate } from "react-router-dom";
+import {IUser} from "@/models/IUser";
 
 export type CurrentTeamCardProps = {
     hackathonId: string;
     id: number;
     name: string;
-    members: number;
+    members: IUser[];
     maxMembers: number;
 }
 
@@ -18,7 +19,6 @@ export const CurrentTeamCard: FC<CurrentTeamCardProps> = memo(props => {
     const navigate = useNavigate()
     
     const onClick = () => navigate(`/hackathon/${props.hackathonId}/teams/${props.id}`)
-
     return <Flex direction="column" gap={ 7 } onClick={onClick} mb="xl">
         <div className={ styles.titleContainer }>
             Вы состоите в команде
@@ -40,10 +40,16 @@ export const CurrentTeamCard: FC<CurrentTeamCardProps> = memo(props => {
             >
                 <Avatar.Group>
                     {
-                        new Array(props.members).fill('').map((_, i) => <Avatar key={ `avatar-${ i }` }/>)
+
+                        new Array(props.members.length).fill('').map((_, i) =>
+                            <Avatar
+                                key={ `avatar-${ i }` }
+                                name={props.members[i].username} color="initials"
+                            />
+                        )
                     }
                     {
-                        props.maxMembers != props.members && <Avatar>+{ props.maxMembers - props.members }</Avatar>
+                        props.maxMembers != props.members.length && <Avatar>+{ props.maxMembers - props.members.length }</Avatar>
                     }
                 </Avatar.Group>
 

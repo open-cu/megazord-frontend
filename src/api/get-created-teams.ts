@@ -1,5 +1,4 @@
-import { client } from "@/api-client.ts";
-import {IHackathonStats} from "@/models/IHackathonStats";
+import apiClient, { client } from "@/api-client.ts";
 import {IResume} from "@/models/IResume";
 
 export interface ICreatedTeam {
@@ -12,5 +11,13 @@ export interface ICreatedTeam {
 }
 
 export async function getCreatedTeams(hackathon_id: string): Promise<ICreatedTeam[] | null> {
-    return await client.get<ICreatedTeam[] | null>(`/hackathons/${hackathon_id}/hand_created_teams`).catch(() => null);
+    const response = await apiClient({
+        method: 'get',
+        url: `/hackathons/${hackathon_id}/hand_created_teams`,
+    })
+    if(response.status == 200) {
+        return response.data
+    } else {
+        return []
+    }
 }

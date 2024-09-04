@@ -76,7 +76,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
                 hackathonId={ hackathon.id }
                 id={ myTeam.id }
                 name={ myTeam.name }
-                members={ myTeam.members.length }
+                members={ myTeam.members }
                 maxMembers={ hackathon!.max_participants }
             /> }
 
@@ -95,6 +95,7 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
                             .filter(x => x.name.toLowerCase().includes(search))
                             .map(suggestion => {
                                 return <VacancySuggestionCard
+                                    key={suggestion.id}
                                     suggestion={suggestion}
                                     maxMembers={hackathon.max_participants}
                                     hackathonId={hackathon.id}

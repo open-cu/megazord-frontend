@@ -8,14 +8,14 @@
 
 .grid {
     display: grid;
+    height: 100%;
 }
 
 .column.column {
-    border-right: 1px solid var(--mantine-color-default-border);
-    padding: 0 10px;
+    margin: 0 5px;
+    border: 1px solid var(--mantine-color-default-border);
+    border-radius: 5px;
+    padding: 10px 5px;
     width: 305px;
-}
-
-.column:last-child {
-    border-right: none;
+    height: 100%;
 }

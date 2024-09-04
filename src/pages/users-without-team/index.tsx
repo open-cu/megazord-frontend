@@ -24,7 +24,7 @@ export const UsersWithoutTeam = memo(() => {
     return (
         <AuthGuard role={"organizer"}>
             <Header variant={"organizer"} />
-            <Container size={users && users.length && hackathon.roles.length ? "xl" : "md" }>
+            <Container size={users && users.length && hackathon.roles.length && hackathon.roles.length > 2 ? "xl" : "md" }>
                 <Flex justify={"space-between"} wrap={"wrap"} align={"center"}>
                     <h1>Участники без команды</h1>
                     <Link

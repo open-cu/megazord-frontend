@@ -20,10 +20,10 @@ export const WithoutTeamBoardCard: FC = ({resume, handleClick}: {resume: IResume
             onClick={toggleCard}
         >
             <Text truncate={"end"} size={"md"} fw={600}>{ resume.user.username }</Text>
-            <Text truncate={"end"} size={"sm"}>{ resume.user.email }</Text>
+            <Text truncate={"end"} size={"sm"} >{ resume.user.email }</Text>
             <Flex gap={ 6 } mt={ 4 } direction='row' maw='100%' wrap='wrap'>
                 {resume.tech.slice(0, 5).map(skill =>
-                    <Center component={Badge} w='fit-content' miw={ 40 } size={"xs"}>
+                    <Center component={Badge} w='fit-content' maw={"100%"} style={{ overflow: "hidden" }} miw={ 40 } size={"xs"}>
                         { skill }
                     </Center>
                 )}

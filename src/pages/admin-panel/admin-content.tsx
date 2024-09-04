@@ -10,17 +10,11 @@ import { useFetchHackathon } from '@/hooks/use-fetch-hackathon';
 import {invite_link} from "@/utils/constants";
 import {toast} from "@/utils/toasts";
 import {IconCopy} from "@tabler/icons-react";
+import {copyClipboard} from "@/utils/copy-clipboard";
 
 const handleCopyLink = (hackathon_id: string) => {
     const link = invite_link + `join-hackathon?hackathon_id=${hackathon_id}`;
-    navigator.clipboard.writeText(link).then(() => {
-        toast({
-            type: "success",
-            message: "Успешно скопировано!"
-        })
-    }).catch((error) => {
-        console.error("Ошибка при копировании ссылки: ", error);
-    });
+    copyClipboard(link)
 };
 
 const NotStartedComponent = (

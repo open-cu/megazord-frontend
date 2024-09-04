@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
     element: <SignUpUser />
   },
   {
-    path: "/sign-up/org",
+    path: "/admin/secret/reg",
     element: <SignUpOrg />
   },
   {

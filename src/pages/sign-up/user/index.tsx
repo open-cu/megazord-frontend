@@ -42,11 +42,11 @@ export const SignUpUser = () => {
                     </Flex>
                 </Form>
             </Formik>
-            <Link to={ "/sign-up/org" }>
-                <Anchor size={ "xs" } mt={ 8 }>
-                    Зарегистрироваться как организация
-                </Anchor>
-            </Link>
+            {/*<Link to={ "/sign-up/org" }>*/}
+            {/*    <Anchor size={ "xs" } mt={ 8 }>*/}
+            {/*        Зарегистрироваться как организация*/}
+            {/*    </Anchor>*/}
+            {/*</Link>*/}
             <Link to={ "/login" }>
                 <Anchor size={ "xs" } mt={ 8 }>
                     Есть аккаунт? Войти

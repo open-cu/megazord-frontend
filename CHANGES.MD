@@ -46,6 +46,7 @@
 - *(change-hackathon)* Api requests - ([8c4e150](https://github.com/open-cu/megazord-frontend/commit/8c4e1504623225120cfed87b8fa1ff8cd17c0339))
 - *(change-hackathon)* Api requests - ([4bf53bf](https://github.com/open-cu/megazord-frontend/commit/4bf53bf92a7541bb3b590d4683c43510fce732b5))
 - *(create hackathon form styles)* Remove the use of import - ([d972966](https://github.com/open-cu/megazord-frontend/commit/d972966c48456b8df1bc19f0597a2db0b402d343))
+- Moved registration for admins to another route - ([948c27d](https://github.com/open-cu/megazord-frontend/commit/948c27d025e6cd9d9d6d72145f03ab089f2a69a1))
 - Fix fetch hackathon stats rout - ([29f92c3](https://github.com/open-cu/megazord-frontend/commit/29f92c3e314f208cb7a856fef8ec3a2a5668f765))
 - Rename some routes - ([df40890](https://github.com/open-cu/megazord-frontend/commit/df40890b211fc89ab6138b15d0c43c65637956ed))
 - Uuid - ([f95945a](https://github.com/open-cu/megazord-frontend/commit/f95945a790c01727caa0a210a772aa02694f1b68))

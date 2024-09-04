@@ -180,7 +180,7 @@ export const CreateHackathonForm = () => {
                                                 <Text fw={ 500 } size={"sm"}>{ role }</Text>
                                                 <IconTrash
                                                     color='var(--mantine-color-red-text)'
-                                                    style={ {cursor: 'pointer'} }
+                                                    style={{ cursor: 'pointer' }}
                                                     onClick={ () => deleteRole(role) }/>
                                             </Flex>
                                         </AccordionPanel>

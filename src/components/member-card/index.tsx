@@ -17,10 +17,9 @@ export type MemberCardProps = {
 export const MemberCard: FC<MemberCardProps> = memo(props => {
 
     const {user} = useUser()
-
     return <div className={ classes["border-container"] } onClick={ props.onClick }>
         <div className={ classes["member-container"] }>
-            <Avatar/>
+            <Avatar name={props.name} color="initials"/>
             <div className={ classes["member-info"] }>
                 <Text truncate={"end"}>{ props.name }</Text>
                 <Text truncate={"end"}>{ props.email }</Text>

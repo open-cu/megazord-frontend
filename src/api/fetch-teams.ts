@@ -14,7 +14,15 @@ export default async function fetchTeams(hackathon_id: string): Promise<ITeam[]>
                 id: json.id,
                 hackathonId: json.hackathon,
                 name: json.name,
-                members: json.team_members,
+                members: json.team_members.map((member: any) => ({
+                    id: member.id,
+                    name: member.username,
+                    email: member.email,
+                    role: member.is_organizator ? "organizer" : "user",
+                    age: member.age,
+                    city: member.city,
+                    workExp: member.work_experience,
+                })),
                 creator: json.creator,
             }
         })

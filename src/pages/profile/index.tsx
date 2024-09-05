@@ -1,16 +1,16 @@
-import { Header } from "@/components/header";
-import { Button, Container, Flex, Select, TextInput, Anchor } from "@mantine/core";
-import { AuthGuard } from "@/components/auth-guard";
-import { createFormik } from "@/utils/create-formik.ts";
+import {Header} from "@/components/header";
+import {Anchor, Button, Container, Flex, Select, TextInput} from "@mantine/core";
+import {AuthGuard} from "@/components/auth-guard";
+import {createFormik} from "@/utils/create-formik.ts";
 import useUser from "@/hooks/use-user.ts";
-import { Form, Formik } from "formik";
-import { FormInput } from "@/components/form-input/form-input.tsx";
-import { FormNumberInput } from "@/components/form-input/form-number-input.tsx";
+import {Form, Formik} from "formik";
+import {FormInput} from "@/components/form-input/form-input.tsx";
+import {FormNumberInput} from "@/components/form-input/form-number-input.tsx";
 import updateProfile from "@/api/update-profile.ts";
-import { cities } from "@/utils/cities.ts"
+import {cities} from "@/utils/cities.ts"
 import {useEffect, useState} from "react";
 import * as yup from 'yup';
-import { useNavigate, Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {toast} from "@/utils/toasts";
 import getTelegramLink from "@/api/get-telegram-link";
 

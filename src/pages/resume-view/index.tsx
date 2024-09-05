@@ -1,4 +1,4 @@
-import {Container, Text, Badge, Box, Flex, Avatar, Center} from "@mantine/core"
+import {Avatar, Badge, Center, Container, Flex, Text} from "@mantine/core"
 import {Header} from "@/components/header";
 import {AuthGuard} from "@/components/auth-guard";
 import {useEffect, useState} from "react";

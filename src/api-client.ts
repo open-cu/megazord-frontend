@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
 
 // Инициализация axios экземпляра
 const apiClient = axios.create({

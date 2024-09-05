@@ -8,7 +8,6 @@ export default async function getTeamVacanciesResponses(teamId: string): Promise
     })
 
     if (response.status == 200) {
-        console.log('biba', response.data)
         return (response.data as any[]).map(json => {
             return {
                 id: json.app_id,

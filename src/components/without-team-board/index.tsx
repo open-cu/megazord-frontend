@@ -1,32 +1,19 @@
-import {FC, Fragment, useEffect, useState} from "react";
+import {FC, useState} from "react";
 import {IResume} from "@/models/IResume";
-import {Center, Loader, Text, Flex, ScrollArea, Button, Tooltip} from "@mantine/core";
+import {Button, Flex, ScrollArea, Text, Tooltip} from "@mantine/core";
 import {WithoutTeamBoardCard} from "@/components/without-team-board-card";
 import styles from './without-team-board.module.css'
 import {IHackathon} from "@/models/IHackathon";
 import {joinTeam} from "@/api/join-team";
 import {toast} from "@/utils/toasts";
 import {useDisclosure} from "@mantine/hooks";
-import {getCreatedTeams, ICreatedTeam} from "@/api/get-created-teams";
+import {ICreatedTeam} from "@/api/get-created-teams";
 import {WithoutTeamBoardTeamCard} from "@/components/without-team-board-team-card";
 
-export const WithoutTeamBoard: FC = ({ resumes, hackathon }: { resumes: IResume[], hackathon: IHackathon }) => {
+export const WithoutTeamBoard: FC = ({ resumes, hackathon, teams }: { resumes: IResume[], hackathon: IHackathon, teams: ICreatedTeam[] }) => {
     const [loadingJoinBtn, { toggle: toggleJoinBtn }] = useDisclosure();
     const [emails, setEmails] = useState<string[]>([]);
-    const [teams, setTeams] = useState<ICreatedTeam[]>([]);
-    useEffect(() => {
-        getCreatedTeams(hackathon.id).then(res => {
-            if(!res) {
-                toast({
-                    type: "error",
-                    message: "Произошла ошибка при загрузке данных"
-                })
-                setTeams([])
-                return;
-            }
-            else setTeams(res)
-        }).catch(() => setTeams([]))
-    }, []);
+
 
 
     const handleClick = (email: string) => {
@@ -107,10 +94,7 @@ export const WithoutTeamBoard: FC = ({ resumes, hackathon }: { resumes: IResume[
                         <ScrollArea scrollbars={"y"}>
                             <Flex direction={"column"} gap={"sm"} mt={"sm"}>
                                 { (teams && teams.length > 0) ?
-                                    <>
-                                        { console.log("breakpoint", teams) }
-                                        { teams.map((team: ICreatedTeam) => <WithoutTeamBoardTeamCard team={team}/>)}
-                                    </>
+                                    teams.map((team: ICreatedTeam) => <WithoutTeamBoardTeamCard team={team}/>)
                                     :
                                     <Text size={"sm"}>Нет вручную сформированных команд</Text>
                                 }

@@ -1,9 +1,9 @@
-import { Button, Center, Flex, Text } from "@mantine/core";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {Button, Center, Flex, Text} from "@mantine/core";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 import styles from './create-resume.module.css'
-import { AuthGuard } from "@/components/auth-guard";
-import { IHackathon } from "@/models/IHackathon";
+import {AuthGuard} from "@/components/auth-guard";
+import {IHackathon} from "@/models/IHackathon";
 import fetchHackathonById from "@/api/fetch-hackathon";
 import createCustomResume from "@/api/create-custom-resume";
 import {toast} from "@/utils/toasts";

@@ -1,9 +1,8 @@
-import {Container, Group, Flex, Divider, Burger, Drawer, UnstyledButton, useMantineColorScheme, ActionIcon} from "@mantine/core"
-import { Link, useNavigate, useParams } from "react-router-dom"
-import { useDisclosure, useMediaQuery } from "@mantine/hooks";
-import { FC } from "react";
+import {Burger, Container, Divider, Drawer, Flex, Group, UnstyledButton, useMantineColorScheme} from "@mantine/core"
+import {Link, useNavigate, useParams} from "react-router-dom"
+import {useDisclosure, useMediaQuery} from "@mantine/hooks";
+import {FC} from "react";
 import classes from "./styles.module.css"
-import {IconMoon, IconSun} from "@tabler/icons-react";
 import {SwitchThemeBtn} from "@/components/switch-theme-btn";
 
 const defaultLinks = [
@@ -38,9 +37,10 @@ const getDataActive = (link: string) => {
 
 interface Props {
     variant: "default" | "organizer" | "user";
+    size?: "md" | "xl"
 }
 
-export const Header = ({variant}: Props) => {
+export const Header = ({variant, size = "md"}: Props) => {
     const {hackathon_id} = useParams();
 
     const links = getLinks(variant, hackathon_id ?? '' ?? null);
@@ -63,7 +63,7 @@ export const Header = ({variant}: Props) => {
 
     return (
         <header className={ classes["header"] }>
-            <Container size="md">
+            <Container size={size}>
                 <Flex justify={ "space-between" } align={ "center" } py="md">
                     <Flex align={"center"} gap={"xs"}>
                         <Logo/>

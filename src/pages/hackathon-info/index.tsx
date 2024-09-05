@@ -1,12 +1,12 @@
-import { Container, Text, Image, Space } from "@mantine/core";
-import { Header } from "@/components/header"
-import { MembersList } from "@/components/members-list";
-import { AuthGuard } from "@/components/auth-guard";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { IUser } from "@/models/IUser";
+import {Container, Image, Space, Text} from "@mantine/core";
+import {Header} from "@/components/header"
+import {MembersList} from "@/components/members-list";
+import {AuthGuard} from "@/components/auth-guard";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {IUser} from "@/models/IUser";
 import fetchHackathon from "@/api/fetch-hackathon";
-import { SearchInput } from "@/components/search-input";
+import {SearchInput} from "@/components/search-input";
 import useUserStore from "@/stores/user-store";
 
 export const HackathonInfo = () => {

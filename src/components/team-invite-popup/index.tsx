@@ -1,9 +1,9 @@
-import { FC, memo } from "react";
-import { Button, Flex, Modal } from "@mantine/core";
-import { createFormik } from "@/utils/create-formik.ts";
+import {FC, memo} from "react";
+import {Button, Flex, Modal} from "@mantine/core";
+import {createFormik} from "@/utils/create-formik.ts";
 import * as yup from 'yup';
-import { Form, Formik } from "formik";
-import { FormInput } from "@/components/form-input/form-input.tsx";
+import {Form, Formik} from "formik";
+import {FormInput} from "@/components/form-input/form-input.tsx";
 import sendTeamInviteEmail from "@/api/send-team-invite-email";
 import {toast} from "@/utils/toasts";
 

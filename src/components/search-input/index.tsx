@@ -1,6 +1,6 @@
-import { ChangeEvent, FC, memo } from "react";
-import { Button, Flex, Input } from "@mantine/core";
-import { IconSearch } from "@tabler/icons-react";
+import {ChangeEvent, FC, memo} from "react";
+import {Button, Flex, Input} from "@mantine/core";
+import {IconSearch} from "@tabler/icons-react";
 import useQueryState from "@/hooks/use-query-state";
 
 export type SearchInputProps = {

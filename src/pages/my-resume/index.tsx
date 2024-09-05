@@ -30,7 +30,6 @@ export const MyResume = () => {
         if (userId && hackathon_id) {
             fetchResume(userId, hackathonId).then(data => {
                 if (data) {
-                    console.log("Resume role", data.role)
                     setResume(data)
                 } else {
                     navigate('/')

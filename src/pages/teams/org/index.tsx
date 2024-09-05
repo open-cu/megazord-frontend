@@ -1,12 +1,12 @@
-import { Header } from "@/components/header";
-import { Avatar, Container, Flex, SimpleGrid, Space, Text } from "@mantine/core";
-import { SearchInput } from "@/components/search-input";
-import { IconPlus } from "@tabler/icons-react";
-import { AuthGuard } from "@/components/auth-guard";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { ITeam } from "@/models/ITeam";
-import { IHackathon } from "@/models/IHackathon";
+import {Header} from "@/components/header";
+import {Avatar, Container, Flex, SimpleGrid, Space, Text} from "@mantine/core";
+import {SearchInput} from "@/components/search-input";
+import {IconPlus} from "@tabler/icons-react";
+import {AuthGuard} from "@/components/auth-guard";
+import {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {ITeam} from "@/models/ITeam";
+import {IHackathon} from "@/models/IHackathon";
 import fetchHackathon from "@/api/fetch-hackathon";
 import fetchTeams from "@/api/fetch-teams";
 import classes from "./teams-org.module.css";
@@ -23,13 +23,11 @@ export const TeamsOrg = () => {
             if (!data) return null;
             setTeams(data)
             setFilteredTeams(data)
-            console.log(data);
         });
 
         fetchHackathon(hackathon_id as string).then(data => {
             if (!data) return null;
             setHackathon(data);
-            console.log(data);
         })
     }, [])
 
@@ -39,7 +37,6 @@ export const TeamsOrg = () => {
         const membersAmount = team.members.length;
 
         const avatarsItems = Array(maxMembersAmount).fill(0).map((_, index) => {
-            console.log("breakpoint", team.members[index])
             return (
                 (index < membersAmount) ? (
                     <Avatar size="md" name={team.members[index].name} color="initials"/>

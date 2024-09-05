@@ -1,8 +1,8 @@
-import { FC, memo } from "react";
+import {FC, memo} from "react";
 import styles from "./vacancy-suggestion-card.module.css";
-import { Avatar, Badge, Flex, Text } from "@mantine/core";
-import { Link } from "react-router-dom";
-import { IVacancySuggestion } from "@/models/IVacancySuggestion.ts";
+import {Avatar, Badge, Flex, Text} from "@mantine/core";
+import {Link} from "react-router-dom";
+import {IVacancySuggestion} from "@/models/IVacancySuggestion.ts";
 import {HackathonStatus} from "@/models/IHackathon";
 
 export type VacancySuggestionCardProps = {

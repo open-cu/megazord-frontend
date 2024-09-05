@@ -1,15 +1,15 @@
-import { Header } from "@/components/header";
-import { Container, Flex, TextInput, Text, UnstyledButton, Button, Loader, Center } from "@mantine/core";
+import {Header} from "@/components/header";
+import {Button, Center, Container, Flex, Loader, Text, TextInput, UnstyledButton} from "@mantine/core";
 import styles from './change-team.module.css'
-import { ITeamVacancy } from "@/models/ITeamVacancy";
-import { ChangeTeamVacancy } from "@/components/change-team-vacancy";
-import { ITeam } from "@/models/ITeam.ts";
-import { FC, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {ITeamVacancy} from "@/models/ITeamVacancy";
+import {ChangeTeamVacancy} from "@/components/change-team-vacancy";
+import {ITeam} from "@/models/ITeam.ts";
+import {FC, useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import getTeam from "@/api/get-team.ts";
 import getTeamVacancies from "@/api/get-team-vacancies.ts";
 import useUser from "@/hooks/use-user.ts";
-import { editTeam } from "@/api/edit-team.ts";
+import {editTeam} from "@/api/edit-team.ts";
 
 export const ChangeTeam = () => {
     const {hackathon_id, team_id} = useParams()
@@ -102,7 +102,6 @@ const Content: FC<ContentProps> = (props) => {
         if (loading) return
         setLoading(true)
         const newVacancies = vacancies.filter(vacancy => vacancy.name)
-        console.log(newVacancies);
         
         const success = await editTeam(
             props.team.id,

@@ -1,4 +1,4 @@
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 export default function parseJwt(token: string, field: string): string | undefined  {
     try {

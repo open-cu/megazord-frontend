@@ -1,5 +1,5 @@
-import {UnstyledButton, MultiSelect, Text} from "@mantine/core";
-import {useEffect, useState} from "react";
+import {MultiSelect, Text, UnstyledButton} from "@mantine/core";
+import {useState} from "react";
 
 interface Props {
     state: string,

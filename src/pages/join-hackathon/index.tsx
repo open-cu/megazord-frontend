@@ -1,10 +1,10 @@
 import {Button, Center, Flex, Loader, Select, Text} from "@mantine/core";
 import styles from './join-hackathon.module.css';
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { AuthGuard } from "@/components/auth-guard";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {AuthGuard} from "@/components/auth-guard";
 import joinHackathon from "@/api/join-hackathon.ts";
-import { IHackathon } from "@/models/IHackathon.ts";
+import {IHackathon} from "@/models/IHackathon.ts";
 import fetchHackathon from "@/api/fetch-hackathon.ts";
 import useUser from "@/hooks/use-user.ts";
 

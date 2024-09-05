@@ -1,10 +1,10 @@
-import { Anchor, Button, Center, Flex } from "@mantine/core";
-import { IconAt } from "@tabler/icons-react";
-import { Link } from "react-router-dom";
-import { useSignupForm } from "@/hooks/use-signup-form.ts";
-import { Form, Formik } from "formik";
-import { FormInput } from "@/components/form-input/form-input.tsx";
-import { FormPasswordInput } from "@/components/form-input/form-password-input.tsx";
+import {Anchor, Button, Center, Flex} from "@mantine/core";
+import {IconAt} from "@tabler/icons-react";
+import {Link} from "react-router-dom";
+import {useSignupForm} from "@/hooks/use-signup-form.ts";
+import {Form, Formik} from "formik";
+import {FormInput} from "@/components/form-input/form-input.tsx";
+import {FormPasswordInput} from "@/components/form-input/form-password-input.tsx";
 import {SwitchThemeBtn} from "@/components/switch-theme-btn";
 
 export const SignUpOrg = () => {

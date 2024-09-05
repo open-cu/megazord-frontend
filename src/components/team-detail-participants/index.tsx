@@ -15,7 +15,6 @@ export const TeamDetailParticipants = ({ team_id, members, creator, hackathon_id
         <>
             <SimpleGrid cols={ {base: 1, xs: 2, md: 3} } spacing="md" mt={ 12 } mb={ 36 }>
                 { members.map((member: IUser) => {
-                    console.log(members)
                     return <MemberCard team_id={team_id} creator={creator}
                                        key={member.id} name={member.name} 
                                        email={member.email}

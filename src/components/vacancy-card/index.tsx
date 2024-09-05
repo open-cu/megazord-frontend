@@ -1,6 +1,6 @@
 import {FC, memo, useEffect, useState} from "react";
 import styles from './vacancy-card.module.css';
-import { Text, Button } from "@mantine/core";
+import {Button, Text} from "@mantine/core";
 import applyForJob from "@/api/apply-for-job";
 import {IVacancyResponse} from "@/models/IVacancyResponse";
 import useUser from "@/hooks/use-user";

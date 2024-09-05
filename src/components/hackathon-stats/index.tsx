@@ -1,13 +1,12 @@
-import {FC, memo, ReactNode, useEffect, useState} from 'react';
+import {memo, useEffect, useState} from 'react';
 import {IHackathonStats} from "@/models/IHackathonStats";
-import {Center, Loader, Space, Text, Flex, Container, Card, Button, Group, Grid, SimpleGrid, ActionIcon} from '@mantine/core'
-import {Link, useNavigate} from "react-router-dom";
+import {ActionIcon, Button, Card, Center, Flex, Loader, SimpleGrid, Text} from '@mantine/core'
+import {useNavigate, useParams} from "react-router-dom";
 import {fetchHackathonStats} from "@/api/fetch-hackathon-stats";
-import { useParams } from "react-router-dom";
 import {HackathonStatsCard} from "@/components/hackathon-stats-card";
 import {IconDownload} from "@tabler/icons-react";
 import {getParticipantsCsv} from "@/api/get-participants-csv";
-import { downloadCsv } from '@/utils/download-csv'
+import {downloadCsv} from '@/utils/download-csv'
 
 export const HackathonStats = memo(() => {
 

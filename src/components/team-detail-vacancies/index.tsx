@@ -1,8 +1,8 @@
-import { VacancyCard } from "@/components/vacancy-card";
-import { SimpleGrid, Text } from "@mantine/core";
-import { ITeamVacancy } from "@/models/ITeamVacancy";
-import { ITeam } from "@/models/ITeam";
-import { useNavigate, useParams } from "react-router-dom";
+import {VacancyCard} from "@/components/vacancy-card";
+import {SimpleGrid, Text} from "@mantine/core";
+import {ITeamVacancy} from "@/models/ITeamVacancy";
+import {ITeam} from "@/models/ITeam";
+import {useNavigate, useParams} from "react-router-dom";
 import {IVacancyResponse} from "@/models/IVacancyResponse";
 
 export const TeamDetailVacancies = ({vacancy_responses, listVacancies, myTeam, currentTeam}: {

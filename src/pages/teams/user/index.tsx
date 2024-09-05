@@ -1,20 +1,20 @@
-import { FC, memo, useState, useEffect } from "react";
-import { Button, Container, Flex, SimpleGrid, Text } from "@mantine/core";
-import { Header } from "@/components/header";
-import { IconPlus } from "@tabler/icons-react";
-import { CurrentTeamCard } from "@/components/current-team-card";
-import { SearchInput } from "@/components/search-input";
-import { useMediaQuery } from "@mantine/hooks";
-import { AuthGuard } from "@/components/auth-guard";
-import { ITeam } from "@/models/ITeam";
-import { useNavigate, useParams } from "react-router-dom"
+import {FC, memo, useEffect, useState} from "react";
+import {Button, Container, Flex, SimpleGrid, Text} from "@mantine/core";
+import {Header} from "@/components/header";
+import {IconPlus} from "@tabler/icons-react";
+import {CurrentTeamCard} from "@/components/current-team-card";
+import {SearchInput} from "@/components/search-input";
+import {useMediaQuery} from "@mantine/hooks";
+import {AuthGuard} from "@/components/auth-guard";
+import {ITeam} from "@/models/ITeam";
+import {useNavigate, useParams} from "react-router-dom"
 import fetchHackathon from "@/api/fetch-hackathon";
 import {HackathonStatus, IHackathon} from "@/models/IHackathon";
 import fetchMyTeam from "@/api/fetch-my-team";
-import { IVacancySuggestion } from "@/models/IVacancySuggestion.ts";
-import { fetchResume } from "@/api/fetch-resume.ts";
+import {IVacancySuggestion} from "@/models/IVacancySuggestion.ts";
+import {fetchResume} from "@/api/fetch-resume.ts";
 import getVacanciesSuggestions from "@/api/get-vacancies-suggestions.ts";
-import { VacancySuggestionCard } from "@/components/vacancy-suggestion-card";
+import {VacancySuggestionCard} from "@/components/vacancy-suggestion-card";
 
 export type TeamUserPageProps = {}
 

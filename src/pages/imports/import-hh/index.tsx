@@ -1,14 +1,13 @@
-import {Button, Center, Flex, Text} from "@mantine/core";
+import {Anchor, Button, Center, Flex, Text} from "@mantine/core";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {IconChevronLeft} from "@tabler/icons-react";
-import {Anchor} from "@mantine/core";
-import { AuthGuard } from "@/components/auth-guard";
-import { createFormik } from "@/utils/create-formik.ts";
+import {AuthGuard} from "@/components/auth-guard";
+import {createFormik} from "@/utils/create-formik.ts";
 import * as yup from "yup";
 import createCustomResume from "@/api/create-custom-resume.ts";
-import { Form, Formik } from "formik";
-import { FormInput } from "@/components/form-input/form-input.tsx";
+import {Form, Formik} from "formik";
+import {FormInput} from "@/components/form-input/form-input.tsx";
 import importHHResume from "@/api/import-hh-resume.ts";
 
 export const ImportHh = () => {

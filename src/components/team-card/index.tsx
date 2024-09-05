@@ -1,7 +1,7 @@
-import { FC, memo } from "react";
+import {FC, memo} from "react";
 import styles from "./team-card.module.css";
-import { Avatar, Flex, Text } from "@mantine/core";
-import { Link } from "react-router-dom";
+import {Avatar, Flex, Text} from "@mantine/core";
+import {Link} from "react-router-dom";
 
 export type TeamCardProps = {
     hackathonId: string;

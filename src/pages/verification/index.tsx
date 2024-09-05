@@ -1,6 +1,6 @@
-import { Anchor, Button, UnstyledButton, Center, Flex, Text } from "@mantine/core";
-import { Link, useParams } from "react-router-dom";
-import { Form, Formik } from "formik";
+import {Anchor, Button, Center, Flex, Text, UnstyledButton} from "@mantine/core";
+import {Link, useParams} from "react-router-dom";
+import {Form, Formik} from "formik";
 import {useVerificationForm} from "@/hooks/use-verification-form";
 import {FormPinInput} from "@/components/form-input/form-pin-input";
 import {useEffect, useState} from "react";

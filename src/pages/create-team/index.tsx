@@ -1,10 +1,10 @@
-import { Header } from "@/components/header";
-import { Container, Flex, TextInput, Text, UnstyledButton, Button } from "@mantine/core";
+import {Header} from "@/components/header";
+import {Button, Container, Flex, Text, TextInput, UnstyledButton} from "@mantine/core";
 import styles from '@/pages/change-team/change-team.module.css'
-import { FC, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { createTeam } from "@/api/create-team";
-import { ChangeTeamVacancy } from "@/components/change-team-vacancy";
+import {FC, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+import {createTeam} from "@/api/create-team";
+import {ChangeTeamVacancy} from "@/components/change-team-vacancy";
 import {toast} from "@/utils/toasts";
 
 export const CreateTeam = () => {

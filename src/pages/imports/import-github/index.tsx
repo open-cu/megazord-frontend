@@ -1,14 +1,14 @@
-import { Button, Center, Flex, Text, Anchor } from "@mantine/core";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { IconBrandGithub, IconChevronLeft } from "@tabler/icons-react";
-import { AuthGuard } from "@/components/auth-guard";
-import { createFormik } from "@/utils/create-formik.ts";
-import { Form, Formik } from "formik";
+import {Anchor, Button, Center, Flex, Text} from "@mantine/core";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {IconBrandGithub, IconChevronLeft} from "@tabler/icons-react";
+import {AuthGuard} from "@/components/auth-guard";
+import {createFormik} from "@/utils/create-formik.ts";
+import {Form, Formik} from "formik";
 import * as yup from 'yup';
 import importGithubResume from "@/api/import-github-resume.ts";
 import createCustomResume from "@/api/create-custom-resume.ts";
-import { FormInput } from "@/components/form-input/form-input.tsx";
+import {FormInput} from "@/components/form-input/form-input.tsx";
 import {toast} from "@/utils/toasts";
 
 export const ImportGithub = () => {

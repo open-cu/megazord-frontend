@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 import useUser from "@/hooks/use-user.ts";
-import { Center, Loader } from "@mantine/core";
+import {Center, Loader} from "@mantine/core";
 
 export const Home = () => {
     const navigate = useNavigate()

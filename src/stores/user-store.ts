@@ -1,5 +1,5 @@
-import { create } from "zustand";
-import { IUser } from "@/models/IUser.ts";
+import {create} from "zustand";
+import {IUser} from "@/models/IUser.ts";
 
 interface UserState {
     user: IUser | null,

@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom"
+import {useParams} from "react-router-dom"
 import {AuthGuard} from "@/components/auth-guard";
 import {Header} from "@/components/header";
-import {Card, Container, Flex, Button, Text, SegmentedControl, Tooltip} from "@mantine/core";
+import {Button, Container, Flex, SegmentedControl, Text} from "@mantine/core";
 import {useEffect, useState} from "react";
 import getNotAcceptedInvite, {NotAcceptedInviteUnit} from "@/api/get-not-accepted-invite";
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";

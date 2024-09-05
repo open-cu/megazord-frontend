@@ -1,7 +1,7 @@
-import { VacancyReplyCard } from "@/components/vacancy-reply-card";
-import { SimpleGrid } from "@mantine/core";
-import { IVacancyResponse } from "@/models/IVacancyResponse";
-import { useNavigate } from "react-router-dom";
+import {VacancyReplyCard} from "@/components/vacancy-reply-card";
+import {SimpleGrid} from "@mantine/core";
+import {IVacancyResponse} from "@/models/IVacancyResponse";
+import {useNavigate} from "react-router-dom";
 import declineApplication from "@/api/decline-application";
 import acceptApplication from "@/api/accept-application";
 import {toast} from "@/utils/toasts";

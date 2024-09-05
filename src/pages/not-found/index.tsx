@@ -1,5 +1,5 @@
-import { Flex, Text, Button } from "@mantine/core"
-import { useNavigate } from "react-router-dom"
+import {Button, Flex, Text} from "@mantine/core"
+import {useNavigate} from "react-router-dom"
 import classes from './not-found.module.css'
 
 export const NotFound = () => {

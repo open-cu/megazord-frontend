@@ -1,6 +1,6 @@
 import {Header} from "@/components/header";
 import {Container, Space} from "@mantine/core";
-import { AuthGuard } from "@/components/auth-guard";
+import {AuthGuard} from "@/components/auth-guard";
 import {CreateHackathonForm} from "@/components/create-hackathon-form";
 
 export const CreateHackathon = () => {

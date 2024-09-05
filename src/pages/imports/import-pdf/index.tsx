@@ -1,9 +1,8 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { Button, Center, FileInput, Flex, Text } from "@mantine/core";
-import { IconChevronLeft, IconFileTypePdf } from "@tabler/icons-react";
-import { Anchor } from "@mantine/core";
-import { AuthGuard } from "@/components/auth-guard";
+import {Link, useNavigate, useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {Anchor, Button, Center, FileInput, Flex, Text} from "@mantine/core";
+import {IconChevronLeft, IconFileTypePdf} from "@tabler/icons-react";
+import {AuthGuard} from "@/components/auth-guard";
 import importPDFResume from "@/api/import-pdf-resume.ts";
 import createCustomResume from "@/api/create-custom-resume.ts";
 import {toast} from "@/utils/toasts";

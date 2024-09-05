@@ -1,7 +1,7 @@
-import { Flex, Text, Textarea, TextInput, UnstyledButton } from "@mantine/core";
+import {Flex, Text, TextInput, UnstyledButton} from "@mantine/core";
 import styles from "@/pages/change-team/change-team.module.css";
-import { EditableVacancy } from "@/pages/change-team";
-import { FC } from "react";
+import {EditableVacancy} from "@/pages/change-team";
+import {FC} from "react";
 import {MultiSelectInput} from "@/components/multi-select-input";
 import {skills} from "@/utils/skills";
 

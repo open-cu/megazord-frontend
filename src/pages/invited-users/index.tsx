@@ -1,7 +1,7 @@
-import {useParams, useNavigate, Link} from "react-router-dom"
+import {Link, useNavigate, useParams} from "react-router-dom"
 import {AuthGuard} from "@/components/auth-guard";
 import {Header} from "@/components/header";
-import {Card, Container, Flex, Button, Text, Center, Loader} from "@mantine/core";
+import {Button, Card, Center, Container, Flex, Loader, Text} from "@mantine/core";
 import {useEffect, useState} from "react";
 import {IconMailForward} from "@tabler/icons-react";
 import {useFetchHackathon} from "@/hooks/use-fetch-hackathon";

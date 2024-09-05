@@ -1,13 +1,13 @@
-import { Header } from "@/components/header";
-import { SearchInput } from "@/components/search-input";
-import { Avatar, Badge, Button, Container, Flex, SimpleGrid, Space, Text } from "@mantine/core";
+import {Header} from "@/components/header";
+import {SearchInput} from "@/components/search-input";
+import {Avatar, Badge, Button, Container, Flex, SimpleGrid, Space, Text} from "@mantine/core";
 import classes from "./suitable-candidates.module.css"
-import { AuthGuard } from "@/components/auth-guard";
-import { useMediaQuery } from "@mantine/hooks";
-import { IconPlus } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
-import { IMemberSuggestion } from "@/models/IMemberSuggestion.ts";
-import { useNavigate, useParams } from "react-router-dom";
+import {AuthGuard} from "@/components/auth-guard";
+import {useMediaQuery} from "@mantine/hooks";
+import {IconPlus} from "@tabler/icons-react";
+import {useEffect, useState} from "react";
+import {IMemberSuggestion} from "@/models/IMemberSuggestion.ts";
+import {useNavigate, useParams} from "react-router-dom";
 import getSuitableCandidates from "@/api/get-suitable-candidates.ts";
 import sendTeamInviteEmail from "@/api/send-team-invite-email.ts";
 

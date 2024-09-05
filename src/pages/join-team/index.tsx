@@ -1,12 +1,12 @@
-import { Button, Center, Flex, Text } from "@mantine/core";
+import {Button, Center, Flex, Text} from "@mantine/core";
 import styles from './join-team.module.css';
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
+import {useEffect, useState} from "react";
 import parseJwt from "@/utils/parse-jwt.ts";
-import { AuthGuard } from "@/components/auth-guard";
+import {AuthGuard} from "@/components/auth-guard";
 import joinTeamById from "@/api/join-team-by-id";
 import getTeam from "@/api/get-team";
-import { ITeam } from "@/models/ITeam";
+import {ITeam} from "@/models/ITeam";
 import useUser from "@/hooks/use-user.ts";
 import {toast} from "@/utils/toasts";
 

@@ -12,7 +12,7 @@ type HackathonStatsCardProps = {
 export const HackathonStatsCard: FC<HackathonStatsCardProps> = memo(({ title, stat, link, linkTitle }: HackathonStatsCardProps) => {
     const navigate = useNavigate()
     return (
-        <Card padding="md" radius="sm" withBorder>
+        <Card padding="md" radius="sm">
             <Flex
                 gap="sm"
                 justify="center"

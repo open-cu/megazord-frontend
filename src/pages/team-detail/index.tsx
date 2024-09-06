@@ -73,7 +73,9 @@ export const TeamDetailPage = memo(() => {
                         <Button
                             onClick={() => navigate(`/hackathon/${params.hackathon_id}/teams/${teamDetail!.id}/change`)}
                             variant='transparent'
-                            px={0}>
+                            px={0}
+                            color={"var(--mantine-color-anchor)"}
+                        >
                             Редактировать
                         </Button> : <></>
                     }

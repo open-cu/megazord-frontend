@@ -43,7 +43,10 @@ export const HackathonInfo = () => {
             <Text mt="xs" mb="md">Количество участников в команде: от {minMembersAmount} до {maxMembersAmount}</Text>
             <h2>Участники</h2>
             <Space h="md" />
-            <SearchInput onChange={(search) => setFilteredMembers(members.filter(member => member.email.includes(search) || member.name.includes(search)))} />
+            <SearchInput
+                onChange={(search) => setFilteredMembers(members.filter(member => member.email.includes(search) || member.name.includes(search)))}
+                placeholder={"Найти участника"}
+            />
             <Space h="md" />
             <MembersList hackathon_id={hackathon_id as string} members={filteredMembers} />
        </Container>

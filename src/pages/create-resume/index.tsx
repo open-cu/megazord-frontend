@@ -7,6 +7,7 @@ import {IHackathon} from "@/models/IHackathon";
 import fetchHackathonById from "@/api/fetch-hackathon";
 import createCustomResume from "@/api/create-custom-resume";
 import {toast} from "@/utils/toasts";
+import {SwitchThemeBtn} from "@/components/switch-theme-btn";
 
 export const CreateResume = () => {
     const params = useParams()
@@ -50,13 +51,11 @@ export const CreateResume = () => {
         }
     }
 
-    if (!hackathon) {
-        return <AuthGuard role='user'/>
-    }
-
+    if (!hackathon) return <AuthGuard role='user'/>
     return (
         <AuthGuard role='user'>
-            <Flex component={ Center } h={ "100vh" } direction={ "column" }>
+            <Flex component={ Center } h={ "100vh" } direction={ "column" } style={{ position: "relative" }}>
+                <SwitchThemeBtn style={{ position: "absolute", bottom: "5%", right: "5%" }} size={"lg"} />
                 <Text size={ "xl" } mb="md" className={ styles.title }>
                     Создание резюме
                     <br/>
@@ -66,25 +65,15 @@ export const CreateResume = () => {
                     <Button loading={ customResumeLoading } onClick={ onCreateCustomResume }>
                         Создать с нуля
                     </Button>
-                    <Button component={Link} c={'var(--mantine-color-white)'} to={`/hackathon/${ hackathon.id }/create-resume/github`}>
+                    <Button onClick={() => navigate(`/hackathon/${ hackathon?.id }/create-resume/github`)}>
                         Импорт из Github
                     </Button>
-                    <Button component={Link} c={'var(--mantine-color-white)'} to={ `/hackathon/${ hackathon.id }/create-resume/pdf` }>
+                    <Button onClick={() => navigate(`/hackathon/${ hackathon?.id }/create-resume/pdf`)}>
                         Импорт из резюме pdf
                     </Button>
-                    <Button component={Link} c={'var(--mantine-color-white)'} to={ `/hackathon/${ hackathon.id }/create-resume/hh` }>
+                    <Button onClick={() => navigate(`/hackathon/${ hackathon?.id }/create-resume/hh` )}>
                         Импорт из hh.ru
                     </Button>
-                    {/*<Button>*/}
-                    {/*    <Link to={ `/hackathon/${ hackathon.id }/create-resume/pdf` }>*/}
-                    {/*        Импорт из резюме pdf*/}
-                    {/*    </Link>*/}
-                    {/*</Button>*/}
-                    {/*<Button>*/}
-                    {/*    <Link to={ `/hackathon/${ hackathon.id }/create-resume/hh` }>*/}
-                    {/*        Импорт из hh.ru*/}
-                    {/*    </Link>*/}
-                    {/*</Button>*/}
                 </Flex>
             </Flex>
         </AuthGuard>

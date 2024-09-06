@@ -52,7 +52,8 @@ export const TeamsOrg = () => {
             <div 
                 key={index}
                 className={classes["border-container"]}
-                onClick={() => navigate(`/hackathon/${hackathon_id}/teams/${team.id}`)}>
+                onClick={() => navigate(`/hackathon/${hackathon_id}/teams/${team.id}`)}
+            >
                 <Flex gap="xs" wrap='wrap'>
                     {avatarsItems}
                 </Flex>

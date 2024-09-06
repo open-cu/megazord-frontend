@@ -18,11 +18,11 @@ export const TeamDetailParticipants = ({ team_id, members, creator, hackathon_id
                     return <MemberCard team_id={team_id} creator={creator}
                                        key={member.id} name={member.name} 
                                        email={member.email}
-                                       onClick={() => navigate(`/hackathon/${hackathon_id}/resume/${user?.id}`)} />
+                                       onClick={() => navigate(`/hackathon/${hackathon_id}/resume/${member?.id}`)} />
                 }) }
                 {
                     user && user.id == creator && hackathon.status != HackathonStatus.Ended
-                        ? <Button variant='outline' h="100%" mih='50px' onClick={ open }>Добавить</Button>
+                        ? <Button variant='outline' color={"var(--mantine-color-anchor)"} h="100%" mih='50px' onClick={ open }>Добавить</Button>
                         : <div/>
                 }
             </SimpleGrid>
@@ -33,7 +33,6 @@ export const TeamDetailParticipants = ({ team_id, members, creator, hackathon_id
                 opened={ opened }
                 close={ close }
                 onClose={ close }
-
             />
         </>
 

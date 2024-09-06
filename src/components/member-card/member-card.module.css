@@ -1,11 +1,17 @@
 .border-container {
-    border: 1px solid var(--stroke-color);
+    background-color: var(--mantine-card-bg);
+    border: 1px solid var(--mantine-card-border);
     padding: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
     border-radius: 5px;
+    transition: .2s ease-in-out background-color;
+}
+
+.border-container:hover {
+    background-color: var(--mantine-card-hover);
 }
 
 .member-container {

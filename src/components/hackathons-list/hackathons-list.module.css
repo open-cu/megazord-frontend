@@ -1,5 +1,6 @@
 .card {
     cursor: pointer;
+    border: 1px solid var(--mantine-card-border)
 }
 
 .card:hover {

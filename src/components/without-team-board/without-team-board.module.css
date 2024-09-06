@@ -13,7 +13,7 @@
 
 .column.column {
     margin: 0 5px;
-    border: 1px solid var(--mantine-color-default-border);
+    border: 1px solid var(--mantine-color-gray-light);
     border-radius: 5px;
     padding: 10px 5px;
     width: 305px;

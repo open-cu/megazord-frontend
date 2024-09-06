@@ -25,8 +25,8 @@ export const VacancyReplyCard: FC<VacancyReplyCardProps> = memo(props => {
                 name={candidate?.name} color="initials"
             />
             <div className={ styles["member-info"] }>
-                <Text>{ candidate ? candidate.name : "Загрузка" }</Text>
-                <Text>{ candidate ? candidate.email : "Загрузка" }</Text>
+                <Text fw={500} truncate>{ candidate ? candidate.name : "Загрузка" }</Text>
+                <Text size={"sm"} truncate>{ candidate ? candidate.email : "Загрузка" }</Text>
             </div>
         </div>
 

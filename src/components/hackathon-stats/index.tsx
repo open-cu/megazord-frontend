@@ -26,7 +26,7 @@ export const HackathonStats = memo(() => {
             cols={{ base: 1, sm: 2 }}
             mt={"md"}
         >
-            <Card padding="md" radius="sm" withBorder>
+            <Card padding="md" radius="sm">
                 <Flex
                     gap="sm"
                     justify="center"

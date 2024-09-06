@@ -31,7 +31,7 @@ export const HackathonsList: FC<HackathonsListProps> = (props) => {
                 padding="lg"
                 radius="md"
                 w={"auto"}
-                withBorder>
+            >
                 <Card.Section>
                     <Image
                         src={imageSrc}

@@ -10,6 +10,7 @@ import {IMemberSuggestion} from "@/models/IMemberSuggestion.ts";
 import {useNavigate, useParams} from "react-router-dom";
 import getSuitableCandidates from "@/api/get-suitable-candidates.ts";
 import sendTeamInviteEmail from "@/api/send-team-invite-email.ts";
+import {toast} from "@/utils/toasts";
 
 export const SuitableCandidates = () => {
     const isPhone = useMediaQuery('(max-width: 450px)')
@@ -34,7 +35,10 @@ export const SuitableCandidates = () => {
                 sendTeamInviteEmail(
                     team_id ?? '',
                     {email: suggestion.user.email},
-                )
+                ).then(toast({
+                    type: "success",
+                    message: "Вы успешно пригласили кандидата!"
+                }))
                 navigate(`/hackathon/${ hackathon_id }/teams/${ team_id }`)
             }
 
@@ -43,7 +47,7 @@ export const SuitableCandidates = () => {
                      className={ classes["border-container"] }
                      key={ index }>
                     <div className={ classes["member-container"] }>
-                        <Flex direction='row' justify='space-between'>
+                        <Flex direction='row' justify='space-between' align={"center"}>
                             <div className={ classes["member-bio"] }>
                                 <Avatar name={suggestion.user.name} color="initials"/>
                                 <div className={ classes["member-info"] }>
@@ -52,8 +56,9 @@ export const SuitableCandidates = () => {
                             </div>
 
                             <Button
-                                size="lg"
+                                size="mds"
                                 variant="subtle"
+                                color={"var(--mantine-color-anchor)"}
                                 px={ 10 }
                                 onClick={ e => {
                                     e.stopPropagation()
@@ -66,12 +71,12 @@ export const SuitableCandidates = () => {
                                 }
                             </Button>
                         </Flex>
-                        {
-                            suggestion.bio && <Text mb="xs">{ suggestion.bio }</Text>
-                        }
-                        {
-                            badges && <Flex gap="xs">{ badges }</Flex>
-                        }
+                        {/*{*/}
+                        {/*    suggestion.bio && <Text mb="xs">{ suggestion.bio }</Text>*/}
+                        {/*}*/}
+                        {/*{*/}
+                        {/*    badges && <Flex gap="xs">{ badges }</Flex>*/}
+                        {/*}*/}
                     </div>
                 </div>
             )

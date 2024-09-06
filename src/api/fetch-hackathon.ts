@@ -18,7 +18,7 @@ export default async function fetchHackathon(hackathon_id: string): Promise<IHac
             participants: response.data.participants.map((e: any) => ({
                 id: e.id,
                 name: e.username,
-                email: e.email,
+                email: e.email.toLowerCase(),
                 role: e.is_organizator ? 'organizer' : 'user',
                 age: e.age,
                 city: e.city,

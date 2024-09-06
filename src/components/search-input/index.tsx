@@ -16,16 +16,11 @@ export const SearchInput: FC<SearchInputProps> = memo(props => {
         props.onChange(e.target.value)
     }
 
-    return <Flex gap={ 10 }>
-        <Input
-            flex="max-content"
-            value={ query }
-            placeholder={ props.placeholder }
-            onChange={ onChange }
-            size="md"
-        />
-        <Button size="md">
-            <IconSearch size={ 18 }/>
-        </Button>
-    </Flex>
+    return <Input
+        flex="max-content"
+        value={ query }
+        placeholder={ props.placeholder }
+        onChange={ onChange }
+        size="md"
+    />
 })

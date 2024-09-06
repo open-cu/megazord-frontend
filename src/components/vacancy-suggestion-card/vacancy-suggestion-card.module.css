@@ -1,12 +1,18 @@
 .teamCard {
-    border: 1px solid var(--stroke-color);
+    background-color: var(--mantine-card-bg);
+    border: 1px solid var(--mantine-card-border);
     border-radius: 8px;
     padding: 16px;
     cursor: pointer;
+    transition: .2s ease-in-out background-color;
+}
+
+.teamCard:hover {
+    background-color: var(--mantine-card-hover);
 }
 
 .link {
-    color: var(--mantine-primary-color-9);
+    color: var(--link-color);
     cursor: pointer;
 }
 

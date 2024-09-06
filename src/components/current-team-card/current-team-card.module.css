@@ -7,11 +7,12 @@
 
 .card {
     border-radius: 8px;
-    border: 1px solid var(--stroke-color);
+    background-color: var(--mantine-card-bg);
+    border: 1px solid var(--mantine-card-border);
     cursor: pointer;
-    transition: background-color 300ms;
+    transition: .2s ease-in-out background-color;
 }   
 
 .card:hover {
-    background-color: #f4f5f8;
+    background-color: var(--mantine-card-hover);
 }

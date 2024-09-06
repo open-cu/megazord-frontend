@@ -65,7 +65,9 @@ export const TeamUserPage: FC<TeamUserPageProps> = memo(() => {
                     (!myTeam && hackathon?.status != HackathonStatus.Ended) ? <Button
                         onClick={ () => navigate(`/hackathon/${ hackathon_id }/teams/create`) }
                         variant="outline"
-                        rightSection={ <IconPlus size={ 14 }/> }>
+                        color={"var(--mantine-color-anchor)"}
+                        rightSection={ <IconPlus size={ 14 }/> }
+                    >
                         Создать команду
                     </Button> : <></>
                 }

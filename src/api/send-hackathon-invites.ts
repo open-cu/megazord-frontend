@@ -4,7 +4,7 @@ export default async function sendHackathonInvites(hackathon_id: string, emails:
     const response = await apiClient({
         method: "post",
         url: `/hackathons/${hackathon_id}/send_invites`,
-        data: { emails: emails }
+        data: { emails: emails.map(email => email.toLowerCase()) }
     })
     return response.status === 200
 }

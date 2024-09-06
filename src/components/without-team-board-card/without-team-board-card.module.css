@@ -1,9 +1,15 @@
 .card.card {
     cursor: pointer;
     user-select: none;
-    border: 1px solid var(--mantine-color-dimmed)
+    transition: .2s ease-in-out background-color;
+    background-color: var(--mantine-card-bg);
+    border: 2px solid transparent;
+}
+
+.card.card:hover {
+    background-color: var(--mantine-card-hover);
 }
 
 .active.active {
-    border: calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-primary-color-filled);
+    border: 2px solid var(--mantine-color-myYellow-filled);
 }

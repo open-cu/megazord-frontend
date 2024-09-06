@@ -1,13 +1,22 @@
 :root {
     --stroke-color: var(--mantine-color-dark-4);
+    --link-color: rgb(66, 139, 249);
+    --mantine-color-anchor: var(--mantine-color-myYellow-6);
+    --mantine-card-hover: var(--mantine-color-myYellow-light-hover);
+    --mantine-card-bg: var(--mantine-color-white);
+    --mantine-card-border: var(--mantine-color-default-border);
 }
 
 :root[data-mantine-color-scheme="light"] body {
     --mantine-color-body: var(--mantine-color-bgColor-1);
+    --mantine-card-hover: var(--mantine-color-blue-light-hover);
+    --mantine-color-anchor: var(--mantine-color-blue-6);
 }
 /* For dark mode */
 :root[data-mantine-color-scheme="dark"] body {
     --mantine-color-body: var(--mantine-color-bgColor-3);
+    --mantine-card-bg: var(--mantine-color-dark-6);
+    --mantine-card-border: transparent;
 }
 
 h1 {

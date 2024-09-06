@@ -17,8 +17,8 @@ export const SwitchThemeBtn: FC = (
                 onClick={() => { setColorScheme(colorScheme== "light" ? "dark" : "light" ) }}
             >
                 { colorScheme == "light" ?
-                    <IconSun size={20} stroke={2} /> :
-                    <IconMoon size={20} stroke={2} />
+                    <IconSun style={{ width: '75%', height: '75%' }} stroke={1.8} /> :
+                    <IconMoon style={{ width: '75%', height: '75%' }} stroke={1.6} />
                 }
             </ActionIcon>
         </>

@@ -41,8 +41,8 @@ export const TeamsOrg = () => {
                 (index < membersAmount) ? (
                     <Avatar size="md" name={team.members[index].name} color="initials"/>
                 ) : (
-                    <Avatar size="md" color="blue">
-                        <IconPlus color="#34b1c5" width={15}/>
+                    <Avatar size="md" color="var(--mantine-color-anchor)">
+                        <IconPlus color="var(--mantine-color-anchor)" style={{ width: "65%", height: "65%" }} stroke={2}/>
                     </Avatar>
                 )
             )
@@ -52,7 +52,8 @@ export const TeamsOrg = () => {
             <div 
                 key={index}
                 className={classes["border-container"]}
-                onClick={() => navigate(`/hackathon/${hackathon_id}/teams/${team.id}`)}>
+                onClick={() => navigate(`/hackathon/${hackathon_id}/teams/${team.id}`)}
+            >
                 <Flex gap="xs" wrap='wrap'>
                     {avatarsItems}
                 </Flex>

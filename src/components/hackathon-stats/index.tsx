@@ -26,7 +26,7 @@ export const HackathonStats = memo(() => {
             cols={{ base: 1, sm: 2 }}
             mt={"md"}
         >
-            <Card padding="md" radius="sm" withBorder>
+            <Card padding="md" radius="sm">
                 <Flex
                     gap="sm"
                     justify="center"
@@ -40,8 +40,15 @@ export const HackathonStats = memo(() => {
                             size={"xs"}
                             variant={"light"}
                             onClick={() => navigate(`/hackathon/${hackathon_id}`)}
+                            color={"var(--mantine-color-anchor)"}
                         >Список всех участников</Button>
-                        <ActionIcon size={"bg"} variant="light" aria-label="Download" onClick={() => getParticipantsCsv(hackathon_id).then(res => downloadCsv(res))}>
+                        <ActionIcon
+                            size={"bg"}
+                            variant="light"
+                            aria-label="Download"
+                            color={"var(--mantine-color-anchor)"}
+                            onClick={() => getParticipantsCsv(hackathon_id).then(res => downloadCsv(res))}
+                        >
                             <IconDownload style={{ height: "60%" }} stroke={2}/>
                         </ActionIcon>
                     </Flex>

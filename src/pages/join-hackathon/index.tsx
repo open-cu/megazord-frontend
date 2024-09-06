@@ -7,6 +7,7 @@ import joinHackathon from "@/api/join-hackathon.ts";
 import {IHackathon} from "@/models/IHackathon.ts";
 import fetchHackathon from "@/api/fetch-hackathon.ts";
 import useUser from "@/hooks/use-user.ts";
+import {SwitchThemeBtn} from "@/components/switch-theme-btn";
 
 export const JoinHackathon = () => {
     const [searchParams] = useSearchParams();
@@ -61,7 +62,8 @@ export const JoinHackathon = () => {
 
     return (
         <AuthGuard role='user'>
-            <Flex component={ Center } h={ "100vh" } direction={ "column" } gap={"sm"}>
+            <Flex component={ Center } h={ "100vh" } direction={ "column" } gap={"sm"} style={{ position: "relative" }}>
+                <SwitchThemeBtn style={{ position: "absolute", bottom: "5%", right: "5%" }} size={"lg"} />
                 <Text fw="500" size={ "xl" } className={ styles.title } truncate={"end"} px={"md"}>
                     Привет!
                     <br/>

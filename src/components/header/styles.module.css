@@ -10,7 +10,7 @@
   border-radius: 5px;
 }
 
-a[data-active] {
+.link.link[data-active] {
   background-color: var(--mantine-primary-color-filled);
-  color: var(--mantine-color-white) !important;
+  color: var(--mantine-color-black);
 }

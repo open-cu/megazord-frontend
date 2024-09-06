@@ -9,6 +9,7 @@ import getTeam from "@/api/get-team";
 import {ITeam} from "@/models/ITeam";
 import useUser from "@/hooks/use-user.ts";
 import {toast} from "@/utils/toasts";
+import {SwitchThemeBtn} from "@/components/switch-theme-btn";
 
 export const JoinTeam = () => {
     const [searchParams] = useSearchParams();
@@ -65,7 +66,8 @@ export const JoinTeam = () => {
 
     return (
         <AuthGuard role='user'>
-            <Flex component={ Center } h={ "100vh" } direction={ "column" }>
+            <Flex component={ Center } h={ "100vh" } direction={ "column" } style={{ position: "relative" }}>
+                <SwitchThemeBtn style={{ position: "absolute", bottom: "5%", right: "5%" }} size={"lg"} />
                 <Text fw="500" size={ "xl" } mb={ "sm" } className={ styles.title }>
                     Привет!
                     <br/>

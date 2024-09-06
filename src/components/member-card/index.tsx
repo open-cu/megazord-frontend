@@ -21,8 +21,12 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
         <div className={ classes["member-container"] }>
             <Avatar name={props.name} color="initials"/>
             <div className={ classes["member-info"] }>
-                <Text truncate={"end"}>{ props.name }</Text>
-                <Text truncate={"end"}>{ props.email }</Text>
+                <Text truncate={"end"} fw={"500"}>{ props.name }</Text>
+                <Text
+                    truncate={"end"}
+                    size={"sm"}
+                    style={{ color: "var(--link-color)" }}
+                >{ props.email }</Text>
             </div>
         </div>
         {user && (props.email !== user.email) && props.creator && props.team_id && props.creator === user.id && (
@@ -45,7 +49,10 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
                     message: "Не удалось исключить участника"
                 }))
             }} variant="transparent">
-                <IconTrash color='var(--mantine-color-red-text)' />
+                <IconTrash
+                    stroke={ 2 } size={ 24 }
+                    color='var(--mantine-color-red-text)'
+                />
             </ActionIcon>)}
         </div>
     

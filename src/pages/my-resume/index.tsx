@@ -106,7 +106,11 @@ const Content: FC<ContentProps> = (props) => {
                     data={skills}
                 />
                 <ActionIcon variant="transparent" aria-label="Удалить tech skill" onClick={ remove }>
-                    <IconTrash color='var(--mantine-color-red-text)'/>
+                    <IconTrash
+                        color='var(--mantine-color-red-text)'
+                        stroke={ 1.8 }
+                        size={ 26 }
+                    />
                 </ActionIcon>
             </Flex>
         );
@@ -139,7 +143,11 @@ const Content: FC<ContentProps> = (props) => {
                     onChange={ e => change(e.target.value) }
                     placeholder="Введите soft skill"/>
                 <ActionIcon variant="transparent" aria-label="Удалить soft skill" onClick={ remove }>
-                    <IconTrash color='var(--mantine-color-red-text)'/>
+                    <IconTrash
+                        color='var(--mantine-color-red-text)'
+                        stroke={ 1.8 }
+                        size={ 26 }
+                    />
                 </ActionIcon>
             </Flex>
         );
@@ -226,7 +234,7 @@ const Content: FC<ContentProps> = (props) => {
                     <Flex direction="column" gap="sm" mt="xs">
                         { techSkillsItems }
                     </Flex>
-                    <Button variant="subtle" mt="xs" onClick={ addTechSkill } disabled={hackathon?.status == HackathonStatus.Ended}>
+                    <Button variant="subtle" color={"var(--mantine-color-anchor)"} mt="xs" onClick={ addTechSkill } disabled={hackathon?.status == HackathonStatus.Ended}>
                         Добавить
                     </Button>
                 </Container>
@@ -236,7 +244,7 @@ const Content: FC<ContentProps> = (props) => {
                     <Flex direction="column" gap="sm" mt="xs">
                         { softSkillsItems }
                     </Flex>
-                    <Button variant="subtle" mt="xs" onClick={ addSoftSkill } disabled={hackathon?.status == HackathonStatus.Ended}>
+                    <Button variant="subtle" color={"var(--mantine-color-anchor)"} mt="xs" onClick={ addSoftSkill } disabled={hackathon?.status == HackathonStatus.Ended}>
                         Добавить
                     </Button>
                 </Container>

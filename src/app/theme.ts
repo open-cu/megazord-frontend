@@ -1,8 +1,8 @@
 import {createTheme} from "@mantine/core";
 
 export const theme = createTheme({
-    // autoContrast: true,
     primaryColor: "myYellow",
+    autoContrast: true,
     fontFamily: 'Segoe UI, Roboto, Helvetica Neue, sans-serif',
     headings: { fontFamily: 'Segoe UI, Roboto, Helvetica Neue, sans-serif' },
     colors: {
@@ -11,8 +11,8 @@ export const theme = createTheme({
             '#FFFFFF',
             '#F6F7F8',
             // dark variants
-            '#202020',
             '#333333',
+            '#202020',
         ],
         myYellow: [
             '#fff6e6',
@@ -25,6 +25,18 @@ export const theme = createTheme({
             '#f9b12a',
             '#FAB619',
             '#d99714',
+        ],
+        myOrange: [
+            "#fff8e1",
+            "#ffefcc",
+            "#ffdd9b",
+            "#ffca64",
+            "#ffba38",
+            "#ffb01b",
+            "#ffab09",
+            "#e39500",
+            "#ca8500",
+            "#af7100"
         ],
         prodGreen: [
             '#e6f3ef',

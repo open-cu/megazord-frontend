@@ -58,6 +58,7 @@ export const CurrentTeamCard: FC<CurrentTeamCardProps> = memo(props => {
 
             <Button
                 px={ isPhoneCard ? 0 : 5 }
+                color={"var(--link-color)"}
                 variant='transparent'
                 rightSection={ <IconArrowNarrowRight size={ 20 }/> }>
                 Перейти в команду

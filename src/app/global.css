@@ -1,9 +1,12 @@
 :root {
     --stroke-color: var(--mantine-color-dark-4);
+    --link-color: rgb(66, 139, 249);
+    --mantine-color-anchor: var(--mantine-color-myYellow-6);
 }
 
 :root[data-mantine-color-scheme="light"] body {
     --mantine-color-body: var(--mantine-color-bgColor-1);
+    --mantine-color-anchor: var(--mantine-color-blue-6);
 }
 /* For dark mode */
 :root[data-mantine-color-scheme="dark"] body {

@@ -42,6 +42,7 @@ export const InvitedUsers = () => {
                             <Button
                                 size={"xs"}
                                 variant={"light"}
+                                color={"var(--mantine-color-anchor)"}
                                 onClick={() => sendEmailInvitesFunc(unit.email, hackathon_id)}
                             >
                                 <IconMailForward stroke={1} />

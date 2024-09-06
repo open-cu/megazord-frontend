@@ -24,6 +24,7 @@ export const HackathonStatsCard: FC<HackathonStatsCardProps> = memo(({ title, st
                 {linkTitle && link ?
                     <Button
                         size={"xs"}
+                        color={"var(--mantine-color-anchor)"}
                         variant={"light"}
                         onClick={() => navigate(link)}
                     >{linkTitle}</Button> :

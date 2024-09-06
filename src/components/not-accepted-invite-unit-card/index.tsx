@@ -35,7 +35,7 @@ export const NotAcceptedInviteUnitCard = ({ hackathon, unit }: { hackathon: IHac
                     }
                     {
                         (hackathon && hackathon?.status != HackathonStatus.Ended) ?
-                            <Button size={"xs"} variant={"light"} onClick={() => sendEmailInvitesFunc(unit.email, hackathon.id)}>
+                            <Button size={"xs"} variant={"light"} color={"var(--mantine-color-anchor)"} onClick={() => sendEmailInvitesFunc(unit.email, hackathon.id)}>
                                 <IconMailForward stroke={1} />
                             </Button> :
                             <></>

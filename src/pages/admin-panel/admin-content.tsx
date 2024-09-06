@@ -64,6 +64,7 @@ const NotStartedComponent = (
                 <Button
                     size="xs"
                     variant="light"
+                    color={"var(--mantine-color-anchor)"}
                     onClick={() => navigate(`/admin-panel/${hackathon.id}/invited-users`)}
                 >
                     Приглашенные участники
@@ -108,6 +109,7 @@ const StartedComponent = (
                     size={"sm"}
                     variant={"subtle"}
                     fw={"600"}
+                    color={"var(--mantine-color-anchor)"}
                     rightSection={<IconCopy stroke={ 3 } size={ 18 } />}
                     onClick={() => handleCopyLink(hackathon.id)}
                 >

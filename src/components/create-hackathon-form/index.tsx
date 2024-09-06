@@ -159,7 +159,7 @@ export const CreateHackathonForm = () => {
                                     if(roleInputValue === "") setRoleInputError("Значение не может быть пустым")
                                     else addRole(roleInputValue)
                                 } }>
-                                    <IconPlus stroke={ 2 } size={ 20 }/>
+                                    <IconPlus stroke={ 1.8 } size={ 20 } />
                                 </Button>
                             </Tooltip>
                         </Flex>
@@ -180,6 +180,7 @@ export const CreateHackathonForm = () => {
                                                 <Text fw={ 500 } size={"sm"}>{ role }</Text>
                                                 <IconTrash
                                                     color='var(--mantine-color-red-text)'
+                                                    stroke={ 1.8 } size={ 20 }
                                                     style={{ cursor: 'pointer' }}
                                                     onClick={ () => deleteRole(role) }/>
                                             </Flex>
@@ -277,10 +278,11 @@ export const CreateHackathonForm = () => {
                                                     border: 'calc(0.0625rem* var(--mantine-scale)) solid var(--mantine-color-default-border)'
                                                 }}
                                             >
-                                                <Text fw={ 500 }>{ email }</Text>
+                                                <Text fw={ 500 } size={"sm"}>{ email }</Text>
                                                 <IconTrash
                                                     color='var(--mantine-color-red-text)'
                                                     style={ {cursor: 'pointer'} }
+                                                    stroke={ 1.8 } size={ 20 }
                                                     onClick={ () => deleteParticipant(email) }/>
                                             </Flex>
                                         </AccordionPanel>

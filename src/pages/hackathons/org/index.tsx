@@ -1,4 +1,4 @@
-import {Button, Container, Flex, Text} from "@mantine/core";
+import {Button, Container, Flex, Text, ActionIcon, Tooltip} from "@mantine/core";
 import {IconPlus} from "@tabler/icons-react";
 import {useNavigate} from "react-router-dom"
 import {HackathonsList} from "@/components/hackathons-list";
@@ -25,9 +25,11 @@ export const HackathonsOrg = () => {
                     <Text size="xl" mb="md">
                         Ваши хакатоны
                     </Text>
-                    <Button onClick={ () => navigate("/create-hackathon") }>
-                        <IconPlus/>
-                    </Button>
+                    <Tooltip label={"Создать новый хакатон"} withArrow>
+                        <ActionIcon onClick={ () => navigate("/create-hackathon") } radius="sm">
+                            <IconPlus style={{ width: '80%', height: '80%' }} stroke={1.6} />
+                        </ActionIcon>
+                    </Tooltip>
                 </Flex>
                 {hackathons.length > 0 ?
                     <HackathonsList role='organizer' hackathons={ hackathons }/> :

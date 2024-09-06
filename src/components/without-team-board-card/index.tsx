@@ -14,8 +14,6 @@ export const WithoutTeamBoardCard: FC = ({resume, handleClick}: {resume: IResume
         <Card
             padding="xs"
             radius="sm"
-            withBorder
-            shadow="sm"
             className={`${active ? styles.active : ""} ${styles.card}`}
             onClick={toggleCard}
         >

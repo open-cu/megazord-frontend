@@ -45,7 +45,10 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
                     message: "Не удалось исключить участника"
                 }))
             }} variant="transparent">
-                <IconTrash color='var(--mantine-color-red-text)' />
+                <IconTrash
+                    stroke={ 2 } size={ 24 }
+                    color='var(--mantine-color-red-text)'
+                />
             </ActionIcon>)}
         </div>
     

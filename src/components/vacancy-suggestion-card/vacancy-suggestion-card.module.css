@@ -6,7 +6,7 @@
 }
 
 .link {
-    color: var(--mantine-primary-color-9);
+    color: var(--link-color);
     cursor: pointer;
 }
 

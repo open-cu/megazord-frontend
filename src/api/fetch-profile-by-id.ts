@@ -13,7 +13,7 @@ export default async function fetchProfileById(id: number): Promise<IUser | null
         return { 
             id: id,
             name: json.username,
-            email: json.email,
+            email: json.email.toLowerCase(),
             role: json.is_organizator ? "organizer" : "user",
             age: json.age,
             city: json.city,

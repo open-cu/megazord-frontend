@@ -14,7 +14,7 @@ export default async function signup(payload: SignupPayload, isOrganization: boo
         url: '/auth/signup',
         data: {
             username: payload.name,
-            email: payload.email,
+            email: payload.email.toLowerCase(),
             password: payload.password,
             is_organizator: isOrganization,
         }

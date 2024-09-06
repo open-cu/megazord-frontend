@@ -5,7 +5,7 @@ export default function deleteParticipant(team_id: string, email: string): Promi
     return client.delete<void>(
         `/teams/${team_id}/remove_user`,
         {
-            email: email
+            email: email.toLowerCase()
         },
         true
     ).then((response: AxiosResponse<void>) => response.status === 202).catch(() => false);

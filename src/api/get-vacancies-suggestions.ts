@@ -20,7 +20,7 @@ export default async function getVacanciesSuggestions(resumeId: number): Promise
                     members: item.team.team_members.map((member: any) => ({
                         id: member.id,
                         name: member.username,
-                        email: member.email,
+                        email: member.email.toLowerCase(),
                         role: member.is_organizator ? "organizer" : "user",
                         age: member.age,
                         city: member.city,

@@ -12,7 +12,7 @@ export default async function getSuitableCandidates(vacationId: number): Promise
             user: {
                 id: item.id,
                 name: item.username,
-                email: item.email,
+                email: item.email.toLowerCase(),
                 role: item.is_organizator ? "organizer" : "user",
                 age: item.age,
                 city: item.city,

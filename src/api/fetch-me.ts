@@ -11,7 +11,7 @@ export default async function fetchMe(): Promise<IUser | null> {
         return {
             id: response.data.id,
             name: response.data.username,
-            email: response.data.email,
+            email: response.data.email.toLowerCase(),
             role: response.data.is_organizator ? 'organizer' : 'user',
             age: response.data.age,
             city: response.data.city,

@@ -5,7 +5,7 @@ export default async function resendCode(email: string): Promise<boolean> {
         method: 'post',
         url: '/auth/resend_code',
         data: {
-            email: email,
+            email: email.toLowerCase(),
         },
     });
     return response.status === 200

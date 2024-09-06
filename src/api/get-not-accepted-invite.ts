@@ -15,7 +15,7 @@ export default async function getNotAcceptedInvite(hackathon_id: string): Promis
     if (response.status == 200) {
         return (response.data as NotAcceptedInviteUnit[]).map(unit => {
             return {
-                email: unit.email,
+                email: unit.email.toLowerCase(),
                 send_email_status: unit.send_email_status,
                 send_tg_status: unit.send_tg_status
             }

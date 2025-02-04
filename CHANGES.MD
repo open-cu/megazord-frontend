@@ -1,5 +1,5 @@
 # Changelog
-## Unreleased - 06.09.2024
+## Unreleased - 04.02.2025
 
 ### Features
 
@@ -32,6 +32,7 @@
 
 ### Bug Fixes
 
+- Min_participants, search, creating resume, regexes - ([2e690c5](https://github.com/open-cu/megazord-frontend/commit/2e690c519ca85ef9e7316128212a502ad4e15e04))
 - Creating resume - ([e0696c1](https://github.com/open-cu/megazord-frontend/commit/e0696c19764cedae26e062f2cba992999acce1eb))
 - Export - ([e12327a](https://github.com/open-cu/megazord-frontend/commit/e12327a6a7de8a039b807f7b671fc5b66f137696))
 - Make links in team board card - ([a277d30](https://github.com/open-cu/megazord-frontend/commit/a277d3087385b95718287c3ae1016150c5b18850))

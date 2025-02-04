@@ -10,8 +10,8 @@ const validationSchema = yup.object({
     email: yup
         .string()
         .required('Введите email')
-        .matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/, 'Неверный email')
-        .max(30, 'Email слишком длинный'),
+        .email('Неверный email')
+        .max(255, 'Email слишком длинный'),
     password: yup.string().required('Введите пароль').min(6, 'Пароль слишком простой').max(100, 'Пароль слишком длинный'),
     passwordConfirm: yup.string().required('Подтвердите пароль').oneOf([yup.ref('password')], 'Пароли должны совпадать')
 })

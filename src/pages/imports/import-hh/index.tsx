@@ -24,7 +24,7 @@ export const ImportHh = () => {
             link: ''
         },
         validationSchema: yup.object({
-            link: yup.string().required('Введите ссылку'),
+            link: yup.string().required('Введите ссылку').url('Неверная ссылка'),
         }),
         onSubmit: async ({link}, formikHelpers) => {
             const resume = await importHHResume(link)

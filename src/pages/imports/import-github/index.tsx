@@ -25,7 +25,7 @@ export const ImportGithub = () => {
             link: ''
         },
         validationSchema: yup.object({
-            link: yup.string().required('Введите ссылку').matches(/^(https?:\/\/)?(www\.)?github\.com\/[a-zA-Z0-9_-]{1,25}$/igm, 'Неверная ссылка')
+            link: yup.string().required('Введите ссылку').url('Неверная ссылка')
         }),
         onSubmit: async ({link}, formikHelpers) => {
             const resume = await importGithubResume(link)

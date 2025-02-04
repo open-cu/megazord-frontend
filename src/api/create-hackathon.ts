@@ -16,7 +16,7 @@ export default async function createHackathon(file: File, csvFile: File, data: C
     if (csvFile) form.append('csv_emails', csvFile);
     form.append('body', JSON.stringify({
         ...data,
-        min_participants: 1,
+        min_participants: 3,
     }));
 
     return await client.post(`/hackathons/`, form).then(() => true).catch(() => false);

@@ -25,7 +25,7 @@ export const SuitableCandidates = () => {
     }, [])
 
     const items = suggestions
-        .filter(s => s.user.name.includes(search) || s.user.email.includes(search) || s.bio.includes(search))
+        .filter(s => s.user?.name?.includes(search) || s.user?.email?.includes(search) || s.bio?.includes(search))
         .map((suggestion, index) => {
             const badges = suggestion.matches.map((skill, index) => (
                 <Badge key={ `${ suggestion.user.id }-${ index }` }>{ skill }</Badge>

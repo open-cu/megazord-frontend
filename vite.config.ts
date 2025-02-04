@@ -10,4 +10,7 @@ export default defineConfig({
       { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
     ],
   },
+  server: {
+    allowedHosts: ['megazord.lysmux.dev', 'sh-ad.ru', 'megazord.sh-ad.ru'],
+  },
 });

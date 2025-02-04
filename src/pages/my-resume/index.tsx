@@ -162,20 +162,11 @@ const Content: FC<ContentProps> = (props) => {
             personalWebsite: props.resume.personalWebsite ?? '',
         },
         validationSchema: yup.object({
-            bio: yup.string().max(1000, 'Максимум 1000 символов'),
-            telegram: yup.string().max(100, 'Максимум 100 символов'),
-            githubLink: yup.string().max(100, 'Максимум 100 символов').matches(
-                /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-                'Неверный url'
-            ),
-            hhLink: yup.string().max(100, 'Максимум 100 символов').matches(
-                /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-                'Неверный url'
-            ),
-            personalWebsite: yup.string().max(100, 'Максимум 100 символов').matches(
-                /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
-                'Неверный url'
-            ),
+            bio: yup.string().max(10000, 'Максимум 10000 символов'),
+            telegram: yup.string().max(255, 'Максимум 255 символов'),
+            githubLink: yup.string().url('Неверная ссылка').max(255, 'Максимум 255 символов'),
+            hhLink: yup.string().url('Неверная ссылка').max(255, 'Максимум 255 символов'),
+            personalWebsite: yup.string().url('Неверная ссылка').max(255, 'Максимум 255 символов'),
         }),
         onSubmit: async (values, formikHelpers) => {
             const success = await editResume(

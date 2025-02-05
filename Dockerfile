@@ -6,7 +6,7 @@ COPY . /app
 
 ENV NODE_ENV=production
 
-RUN npm install serve tsc -g
+RUN npm install serve typescript -g
 
 RUN npm install
 

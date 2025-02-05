@@ -17,6 +17,7 @@ services:
       - "traefik.http.services.megazord_frontend.loadbalancer.server.port=3000"
       - "traefik.http.routers.megazord_frontend.tls=true"
       # - "traefik.http.routers.megazord_frontend.tls.certresolver=letsEncrypt"
+      - "traefik.docker.network=proxy"
 
     environment:
       - VITE_API_CLIENT=${API_URL:?error}

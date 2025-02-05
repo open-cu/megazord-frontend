@@ -8,7 +8,7 @@ ENV NODE_ENV=production
 
 RUN npm install serve vite typescript -g
 
-RUN npm install
+RUN npm install --include=dev
 
 RUN npm run build
 

@@ -85,7 +85,7 @@ export const ResumeView = () => {
                     <Avatar size={"xl"} name={profile?.name} color="initials" />
                     <Flex direction={"column"} w={"calc(100% - 100px)"}>
                         <Text size={"24px"} fw={"600"} truncate>{profile?.name}</Text>
-                        <Text truncate c={"blue"} style={{ cursor: "pointer" }} onClick={() => copyClipboard(profile?.email)}>{profile?.email}</Text>
+                        {/*<Text truncate c={"blue"} style={{ cursor: "pointer" }} onClick={() => copyClipboard(profile?.email)}>{profile?.email}</Text>*/}
                     </Flex>
                 </Flex>
 

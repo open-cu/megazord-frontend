@@ -12,7 +12,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.megazord_frontend.entrypoints=https"
-      - "traefik.http.routers.megazord_frontend.rule=Host(`$DEPLOY_DOMAIN`)"
+      - "traefik.http.routers.megazord_frontend.rule=Host(`$DEPLOY_DOMAIN`) && !PathPrefix(`/api`)"
       - "traefik.http.routers.megazord_frontend.priority=2"
       - "traefik.http.services.megazord_frontend.loadbalancer.server.port=3000"
       - "traefik.http.routers.megazord_frontend.tls=true"

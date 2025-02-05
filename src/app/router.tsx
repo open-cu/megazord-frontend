@@ -29,123 +29,128 @@ import {UsersWithoutTeam} from "@/pages/users-without-team";
 import {NotAcceptedInvite} from "@/pages/not-accepted-invite";
 import {InvitedUsers} from "@/pages/invited-users";
 import {Verification} from "@/pages/verification";
+import {ServiceNotAvailable} from "@/pages/service-not-available";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
-    errorElement: <NotFound />
-  },
-  {
-    path: "/hackathons/org",
-    element: <HackathonsOrg />
-  },
-  {
-    path: "/hackathons/user",
-    element: <HackathonsUser />
-  },
-  {
-    path: "/sign-up/user",
-    element: <SignUpUser />
-  },
-  {
-    path: "/admin/secret/reg",
-    element: <SignUpOrg />
-  },
-  {
-    path: "/verification/:email",
-    element: <Verification />
-  },
-  {
-    path: "/hackathon/:hackathon_id",
-    element: <HackathonInfo />
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/join-hackathon",
-    element: <JoinHackathon />,
-  },
-  {
-    path: "/hackathon/:hackathon_id/create-resume",
-    element: <CreateResume />,
-  },
-  {
-    path: "/hackathon/:hackathon_id/create-resume/github",
-    element: <ImportGithub />,
-  },
-  {
-    path: "/hackathon/:hackathon_id/create-resume/hh",
-    element: <ImportHh />,
-  },
-  {
-    path: "/hackathon/:hackathon_id/create-resume/pdf",
-    element: <ImportPdf />,
-  },
-  {
-    path: "/hackathon/:hackathon_id/teams",
-    element: <TeamUserPage/>,
-  },
-  {
-    path: "/hackathon/:hackathon_id/resume/:user_id",
-    element: <ResumeView />
-  },
-  {
-    path: "/profile",
-    element: <Profile />
-  },
-  {
-    path: "/create-hackathon",
-    element: <CreateHackathon />
-  },
-  {
-    path: "/change-hackathon/:hackathon_id/",
-    element: <ChangeHackathon />
-  },
-  {
-    path: "/hackathon/:hackathon_id/my-resume",
-    element: <MyResume />
-  },
-  {
-    path: "hackathon/:hackathon_id/teams/:team_id/change",
-    element: <ChangeTeam />
-  },
-  {
-    path:  "hackathon/:hackathon_id/teams/:team_id/vacancy/:vacancy_id/candidates",
-    element: <SuitableCandidates />
-  },
-  {
-    path: "hackathon/:hackathon_id/org/teams",
-    element: <TeamsOrg />
-  },
-  {
-    path: "hackathon/:hackathon_id/teams/:team_id",
-    element: <TeamDetailPage/>
-  },
-  {
-    path: 'hackathon/:hackathon_id/teams/create',
-    element: <CreateTeam/>,
-  },
-  {
-    path: '/join-team',
-    element: <JoinTeam />
-  },
-  {
-    path: 'admin-panel/:hackathon_id',
-    element: <AdminPanel />
-  },
-  {
-    path: 'admin-panel/:hackathon_id/without-team',
-    element: <UsersWithoutTeam />
-  },
-  {
-    path: 'admin-panel/:hackathon_id/not-accept-invite',
-    element: <NotAcceptedInvite />
-  },
-  {
-    path: 'admin-panel/:hackathon_id/invited-users',
-    element: <InvitedUsers />
-  },
+    element: <ServiceNotAvailable/>,
+  }
+  // {
+  //   path: "/",
+  //   element: <Home />,
+  //   errorElement: <NotFound />
+  // },
+  // {
+  //   path: "/hackathons/org",
+  //   element: <HackathonsOrg />
+  // },
+  // {
+  //   path: "/hackathons/user",
+  //   element: <HackathonsUser />
+  // },
+  // {
+  //   path: "/sign-up/user",
+  //   element: <SignUpUser />
+  // },
+  // {
+  //   path: "/admin/secret/reg",
+  //   element: <SignUpOrg />
+  // },
+  // {
+  //   path: "/verification/:email",
+  //   element: <Verification />
+  // },
+  // {
+  //   path: "/hackathon/:hackathon_id",
+  //   element: <HackathonInfo />
+  // },
+  // {
+  //   path: "/login",
+  //   element: <Login />,
+  // },
+  // {
+  //   path: "/join-hackathon",
+  //   element: <JoinHackathon />,
+  // },
+  // {
+  //   path: "/hackathon/:hackathon_id/create-resume",
+  //   element: <CreateResume />,
+  // },
+  // {
+  //   path: "/hackathon/:hackathon_id/create-resume/github",
+  //   element: <ImportGithub />,
+  // },
+  // {
+  //   path: "/hackathon/:hackathon_id/create-resume/hh",
+  //   element: <ImportHh />,
+  // },
+  // {
+  //   path: "/hackathon/:hackathon_id/create-resume/pdf",
+  //   element: <ImportPdf />,
+  // },
+  // {
+  //   path: "/hackathon/:hackathon_id/teams",
+  //   element: <TeamUserPage/>,
+  // },
+  // {
+  //   path: "/hackathon/:hackathon_id/resume/:user_id",
+  //   element: <ResumeView />
+  // },
+  // {
+  //   path: "/profile",
+  //   element: <Profile />
+  // },
+  // {
+  //   path: "/create-hackathon",
+  //   element: <CreateHackathon />
+  // },
+  // {
+  //   path: "/change-hackathon/:hackathon_id/",
+  //   element: <ChangeHackathon />
+  // },
+  // {
+  //   path: "/hackathon/:hackathon_id/my-resume",
+  //   element: <MyResume />
+  // },
+  // {
+  //   path: "hackathon/:hackathon_id/teams/:team_id/change",
+  //   element: <ChangeTeam />
+  // },
+  // {
+  //   path:  "hackathon/:hackathon_id/teams/:team_id/vacancy/:vacancy_id/candidates",
+  //   element: <SuitableCandidates />
+  // },
+  // {
+  //   path: "hackathon/:hackathon_id/org/teams",
+  //   element: <TeamsOrg />
+  // },
+  // {
+  //   path: "hackathon/:hackathon_id/teams/:team_id",
+  //   element: <TeamDetailPage/>
+  // },
+  // {
+  //   path: 'hackathon/:hackathon_id/teams/create',
+  //   element: <CreateTeam/>,
+  // },
+  // {
+  //   path: '/join-team',
+  //   element: <JoinTeam />
+  // },
+  // {
+  //   path: 'admin-panel/:hackathon_id',
+  //   element: <AdminPanel />
+  // },
+  // {
+  //   path: 'admin-panel/:hackathon_id/without-team',
+  //   element: <UsersWithoutTeam />
+  // },
+  // {
+  //   path: 'admin-panel/:hackathon_id/not-accept-invite',
+  //   element: <NotAcceptedInvite />
+  // },
+  // {
+  //   path: 'admin-panel/:hackathon_id/invited-users',
+  //   element: <InvitedUsers />
+  // },
 ]);

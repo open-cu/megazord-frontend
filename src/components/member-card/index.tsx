@@ -22,11 +22,11 @@ export const MemberCard: FC<MemberCardProps> = memo(props => {
             <Avatar name={props.name} color="initials"/>
             <div className={ classes["member-info"] }>
                 <Text truncate={"end"} fw={"500"}>{ props.name }</Text>
-                <Text
-                    truncate={"end"}
-                    size={"sm"}
-                    style={{ color: "var(--link-color)" }}
-                >{ props.email }</Text>
+                {/*<Text*/}
+                {/*    truncate={"end"}*/}
+                {/*    size={"sm"}*/}
+                {/*    style={{ color: "var(--link-color)" }}*/}
+                {/*>{ props.email }</Text>*/}
             </div>
         </div>
         {user && (props.email !== user.email) && props.creator && props.team_id && props.creator === user.id && (
